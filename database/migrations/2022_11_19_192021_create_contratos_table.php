@@ -23,7 +23,6 @@ class CreateContratosTable extends Migration
             $table->timestamp('con_criado_em');
             $table->timestamp('con_atualizado_em');
             $table->bigInteger('con_fk_par_id');
-            $table->foreign('con_fk_par_id')->references('par_id')->on('paralizacoes');
             $table->integer('con_enum_tipo_contrato');
         });
     }

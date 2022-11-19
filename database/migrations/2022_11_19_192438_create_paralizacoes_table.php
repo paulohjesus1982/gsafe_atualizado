@@ -24,7 +24,6 @@ class CreateParalizacoesTable extends Migration
             $table->integer('par_pet');
             $table->text('par_caminho_anexo');
             $table->bigInteger('par_fk_per_id');
-            $table->foreign('par_fk_per_id')->references('per_id')->on('permissoes');
         });
     }
 
