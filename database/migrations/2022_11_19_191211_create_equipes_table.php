@@ -16,8 +16,8 @@ class CreateEquipesTable extends Migration
         Schema::create('equipes', function (Blueprint $table) {
             $table->id('equ_id');
             $table->string('equ_nome', 255);
-            $table->timestamps('equ_criado_em');
-            $table->timestamps('equ_atualizado_em');
+            $table->timestamp('equ_criado_em');
+            $table->timestamp('equ_atualizado_em');
             $table->foreign('equ_fk_usu_id_atualizou')->references('usu_id')->on('usuarios');
         });
     }

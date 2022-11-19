@@ -18,8 +18,8 @@ class CreateUsuariosTable extends Migration
             $table->string('usu_nome', 255);
             $table->string('usu_email', 255);
             $table->string('usu_senha', 255);
-            $table->timestamps('usu_criado_em');
-            $table->timestamps('usu_atualizado_em');
+            $table->timestamp('usu_criado_em');
+            $table->timestamp('usu_atualizado_em');
             $table->integer('usu_tipo_usuario');
         });
     }

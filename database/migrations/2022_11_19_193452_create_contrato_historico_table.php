@@ -19,7 +19,7 @@ class CreateContratoHistoricoTable extends Migration
             $table->string('chis_campo_trocado', 255);
             $table->text('chis_valor_anterior');
             $table->text('chis_valor_atualizado');
-            $table->timestamps('chis_cadastrado_em');
+            $table->timestamp('chis_cadastrado_em');
         });
     }
 

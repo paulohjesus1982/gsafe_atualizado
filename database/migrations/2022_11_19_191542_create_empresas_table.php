@@ -20,8 +20,8 @@ class CreateEmpresasTable extends Migration
             $table->string('emp_razao_social', 255);
             $table->string('emp_contato', 255);
             $table->string('emp_email', 255);
-            $table->timestamps('emp_criado_em');
-            $table->timestamps('emp_atualizado_em');
+            $table->timestamp('emp_criado_em');
+            $table->timestamp('emp_atualizado_em');
             $table->integer('emp_enum_tipo_empresa');
             $table->foreign('emp_fk_usu_id_atualizou')->references('usu_id')->on('usuarios');
         });

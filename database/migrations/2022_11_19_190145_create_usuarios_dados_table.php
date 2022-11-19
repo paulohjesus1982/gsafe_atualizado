@@ -25,8 +25,8 @@ class CreateUsuariosDadosTable extends Migration
             $table->text('udad_telefone_principal');
             $table->text('udad_telefone_contato');
             $table->text('udad_registro_profissao');
-            $table->timestamps('udad_criado_em');
-            $table->timestamps('udad_atualizado_em');
+            $table->timestamp('udad_criado_em');
+            $table->timestamp('udad_atualizado_em');
             $table->foreign('udad_fk_usu_id')->references('usu_id')->on('usuarios');
         });
     }
