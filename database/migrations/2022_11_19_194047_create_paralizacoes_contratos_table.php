@@ -14,6 +14,8 @@ class CreateParalizacoesContratosTable extends Migration
     public function up()
     {
         Schema::create('paralizacoes_contratos', function (Blueprint $table) {
+            $table->bigInteger('pcon_fk_par_id');
+            $table->bigInteger('pcon_fk_con_id');
             $table->foreign('pcon_fk_par_id')->references('par_id')->on('paralizacoes');
             $table->foreign('pcon_fk_con_id')->references('con_id')->on('contratos');
         });

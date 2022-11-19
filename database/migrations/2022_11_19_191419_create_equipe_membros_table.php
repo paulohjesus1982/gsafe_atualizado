@@ -15,6 +15,8 @@ class CreateEquipeMembrosTable extends Migration
     {
         Schema::create('equipe_membros', function (Blueprint $table) {
             $table->id('emem_id');
+            $table->bigInteger('emem_fk_usu_id');
+            $table->bigInteger('emem_fk_equ_id');
             $table->foreign('emem_fk_usu_id')->references('usu_id')->on('usuarios');
             $table->foreign('emem_fk_equ_id')->references('equ_id')->on('equipes');
         });

@@ -14,6 +14,8 @@ class CreatePermissoesParalizacoesTable extends Migration
     public function up()
     {
         Schema::create('permissoes_paralizacoes', function (Blueprint $table) {
+            $table->bigInteger('ppar_fk_par_id');
+            $table->bigInteger('ppar_fk_per_id');
             $table->foreign('ppar_fk_par_id')->references('par_id')->on('paralizacoes');
             $table->foreign('ppar_fk_per_id')->references('per_id')->on('permissoes');
         });

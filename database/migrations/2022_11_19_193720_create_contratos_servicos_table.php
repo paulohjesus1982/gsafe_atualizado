@@ -14,6 +14,8 @@ class CreateContratosServicosTable extends Migration
     public function up()
     {
         Schema::create('contratos_servicos', function (Blueprint $table) {
+            $table->bigInteger('cser_fk_con_id');
+            $table->bigInteger('cser_fk_ser_id');
             $table->foreign('cser_fk_con_id')->references('con_id')->on('contratos');
             $table->foreign('cser_fk_ser_id')->references('ser_id')->on('servicos');
         });

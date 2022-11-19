@@ -14,6 +14,8 @@ class CreateParalizacoesPremissasTable extends Migration
     public function up()
     {
         Schema::create('paralizacoes_premissas', function (Blueprint $table) {
+            $table->bigInteger('ppre_fk_par_id');
+            $table->bigInteger('ppre_fk_pre_id');
             $table->foreign('ppre_fk_par_id')->references('par_id')->on('paralizacoes');
             $table->foreign('ppre_fk_pre_id')->references('pre_id')->on('premissas');
         });

@@ -27,6 +27,7 @@ class CreateUsuariosDadosTable extends Migration
             $table->text('udad_registro_profissao');
             $table->timestamp('udad_criado_em');
             $table->timestamp('udad_atualizado_em');
+            $table->bigInteger('udad_fk_usu_id');
             $table->foreign('udad_fk_usu_id')->references('usu_id')->on('usuarios');
         });
     }

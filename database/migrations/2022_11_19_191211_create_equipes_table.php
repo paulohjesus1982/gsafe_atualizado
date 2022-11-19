@@ -18,6 +18,7 @@ class CreateEquipesTable extends Migration
             $table->string('equ_nome', 255);
             $table->timestamp('equ_criado_em');
             $table->timestamp('equ_atualizado_em');
+            $table->bigInteger('equ_fk_usu_id_atualizou');
             $table->foreign('equ_fk_usu_id_atualizou')->references('usu_id')->on('usuarios');
         });
     }

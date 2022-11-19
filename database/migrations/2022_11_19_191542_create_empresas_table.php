@@ -23,6 +23,7 @@ class CreateEmpresasTable extends Migration
             $table->timestamp('emp_criado_em');
             $table->timestamp('emp_atualizado_em');
             $table->integer('emp_enum_tipo_empresa');
+            $table->bigInteger('emp_fk_usu_id_atualizou');
             $table->foreign('emp_fk_usu_id_atualizou')->references('usu_id')->on('usuarios');
         });
     }

@@ -15,6 +15,7 @@ class CreatePermissasTable extends Migration
     {
         Schema::create('premissas', function (Blueprint $table) {
             $table->id('pre_id');
+            $table->bigInteger('pre_fk_per_id');
             $table->foreign('pre_fk_per_id')->references('per_id')->on('permissoes');
             $table->string('pre_nome', 255);
             $table->string('pre_descriacao', 255);

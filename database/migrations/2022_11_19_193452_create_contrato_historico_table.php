@@ -15,6 +15,7 @@ class CreateContratoHistoricoTable extends Migration
     {
         Schema::create('contrato_historico', function (Blueprint $table) {
             $table->id('chis_id');
+            $table->bigInteger('chis_fk_con_id');
             $table->foreign('chis_fk_con_id')->references('con_id')->on('contratos');
             $table->string('chis_campo_trocado', 255);
             $table->text('chis_valor_anterior');

@@ -14,6 +14,8 @@ class CreateUsuariosContratosTable extends Migration
     public function up()
     {
         Schema::create('usuarios_contratos', function (Blueprint $table) {
+            $table->bigInteger('ucon_fk_usu_id');
+            $table->bigInteger('ucon_fk_con_id');
             $table->foreign('ucon_fk_usu_id')->references('usu_id')->on('usuarios');
             $table->foreign('ucon_fk_con_id')->references('con_id')->on('contratos');
         });
