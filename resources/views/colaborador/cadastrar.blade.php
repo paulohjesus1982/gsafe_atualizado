@@ -13,7 +13,7 @@
 @endsection
 
 @section('content')
-    <form action="" method="post">
+    <form action="{{ route('Usuarios.create',$company->id) }}" method="post">
         {{ csrf_field()}}
 
         <div class="row">
