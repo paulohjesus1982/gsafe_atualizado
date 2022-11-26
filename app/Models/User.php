@@ -8,8 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
-{
+class User extends Authenticatable {
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -22,6 +21,15 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+
+    // protected $fillable = [
+    //     'usu_nome',
+    //     'usu_email',
+    //     'usu_senha',
+    //     'usu_criado_em',
+    //     'usu_atualizado_em',
+    //     'usu_tipo_usuario'
+    // ];
 
     /**
      * The attributes that should be hidden for serialization.
