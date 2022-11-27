@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use app\Models\User;
+use App\Models\User;
+use App\Models\Usuario;
 
 class UsuarioController extends Controller {
     //
@@ -19,8 +20,8 @@ class UsuarioController extends Controller {
             ->with('title', $usuarios);
     }
 
-    public function new() {
-        return view('usuario/registrar')
+    public function Cadastrar() {
+        return view('usuario/cadastrar')
             ->with('title', 'Cadastrar Usuário');
     }
 
@@ -72,5 +73,14 @@ class UsuarioController extends Controller {
         }
 
         return redirect('/usuario');
+    }
+
+    public function Listar(Request $r) {
+
+        $usuario = Usuario::all();
+
+        return view('usuario.listar', [
+            'usuarios' => $usuario
+        ]);
     }
 }

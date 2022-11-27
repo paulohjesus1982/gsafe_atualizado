@@ -1,14 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    @foreach ( $equipes as $equipe )
-        <li>{{$equipe->equ_nome}}</li>
-    @endforeach
-</body>
-</html>
+@extends('adminlte::page')
+
+@section('content-title', 'Nova Equipe')
+
+@section('content')
+{{ csrf_field()}}
+
+<div class="row">
+    <div class="col-12 card">
+        <div class="card-header">
+            <h3 class="card-title">Equipes</h3>
+            <div class="card-tools">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Procurar">
+                    <div class="input-group-append"> 
+                        <button type="submit" class="btn btn-default">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body table-responsive p-0">
+            <table class="table table-hover text-nowrap">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Data Criação</th>
+                        <th>Opções</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ( $equipes as $equipe )
+                        <tr>
+                            <td id='equipe_id'>{{$equipe->equ_id}}</td>
+                            <td>{{$equipe->equ_nome}}</td>
+                            <td>{{$equipe->equ_criado_em}}</td>
+                            <td><button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModal">
+                                  Editar
+                                </button>
+                            </td>                           
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@endsection
