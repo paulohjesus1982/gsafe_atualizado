@@ -25,7 +25,7 @@
                     <div class="card-body">
                         <div class="row">
                             
-                            <div class="form-group col-md-12">
+                            {{-- <div class="form-group col-md-12">
                                 <label for="nome">Membros</label>
                                 <select type="select" name="membros_equipe" id="select_membros" class="form-control">
                                     <option value="0">-- SELECIONE --</option>
@@ -33,20 +33,20 @@
                                     <option value="{{$equipe->equ_id}}">{{$equipe->equ_nome}}</option>
                                     @endforeach
                                 </select>
-                            </div>
+                            </div> --}}
 
                             <div class="form-group col-md-12" >
                                 <label for="cpf">Nome Equipe</label>
                                 <input type="text" name="nome_equipe" class="form-control" value="" />
                             </div>
-                            <div class="form-group col-md-12" >
+                            {{-- <div class="form-group col-md-12" >
                                 <label for="cpf">Membros Equipe</label>
                                 <select multiple type="select" name="nome_equipe" class="form-multi-select" value="">
                                     @foreach ( $membros as $membro )
                                     <option value="{{$membro->usu_id}}">{{$membro->usu_nome}}</option>
                                     @endforeach
                                 </select>
-                            </div>
+                            </div> --}}
 
                         </div>
                     </div>

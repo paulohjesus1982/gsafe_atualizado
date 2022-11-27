@@ -41,16 +41,17 @@ class EquipeController extends Controller {
         return redirect()->route('equipes.listar');
     }
 
-    public function Editar(Request $r) {
-        $r->emem_id = 1;
-        $equipes = Equipe::all();
-        $membros = Usuario::all();
-        $membros_equipes = EquipeMembro::find($r->emem_id);
+    public function Editar(Request $request) {
 
-        return view('equipes.editar', [
+        $id = $request->id;
+        $equipes = Equipe::find($id);
+
+        return view('equipes.editar')->with([
             'equipes' => $equipes,
-            'membros' => $membros,
-            'membros_equipes' => $membros_equipes,
+            'title' => 'Editar usario',
         ]);
+    }
+
+    public function Atualizar(Request $request) {
     }
 }
