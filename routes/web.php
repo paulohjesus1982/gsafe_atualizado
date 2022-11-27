@@ -22,4 +22,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/teste', [UsuariosController::class, 'index'])->name('teste');
+
+// Equipe
+Route::group(['prefix' => '/equipe'], function () {
+    Route::get('/listar', [App\Http\Controllers\EquipeController::class, 'Listar']);
+    Route::get('/cadastrar', [App\Http\Controllers\EquipeController::class, 'Cadastrar']);
+    Route::post('/salvar', [App\Http\Controllers\EquipeController::class, 'Salvar'])->name('equipes.salvar');
+});
+
