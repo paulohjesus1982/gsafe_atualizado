@@ -36,10 +36,15 @@
                             <td>{{$usuario->usu_id}}</td>
                             <td>{{$usuario->usu_nome}}</td>
                             <td>{{$usuario->usu_criado_em}}</td>
-                            <td><button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModal">
-                                  Editar
-                                </button>
-                            </td>                           
+                            <td>
+                                <a href="/usuario/editar/{{$usuario->usu_id}}" class="navi-link">
+                                    <span class="navi-text">
+                                        <span class="label label-xl label-inline label-light-primary">
+                                            Editar
+                                        </span>
+                                    </span>
+                                </a>
+                            </td>                          
                         </tr>
                     @endforeach
                 </tbody>

@@ -22,7 +22,7 @@ class UsuarioController extends Controller {
 
     public function Cadastrar() {
         return view('usuario/cadastrar')
-            ->with('title', 'Cadastrar Usu�rio');
+            ->with('title', 'Cadastrar Usuário');
     }
 
     public function save(Request $request) {
@@ -47,32 +47,38 @@ class UsuarioController extends Controller {
         return redirect('/Usuario');
     }
 
-    public function edit(User $usuario) {
-        return view('usuario/casdastrar')->with([
+    public function Editar(Request $request) {
+
+        $id = $request->id;
+        $usuario = Usuario::find($id);
+
+        return view('usuario.editar')->with([
             'usuario' => $usuario,
-            'title' => 'Editar usuario'
+            'title' => 'Editar usuario',
         ]);
     }
 
-    public function update(Request $request) {
-        $id = $request->input('id');
-        $usuario = User::find($id);
+    public function Atualizar(Request $request) {
 
-        $this->_validate($request);
+        $atualizar_usuario = $request->all();
+        $equipe = Usuario::find($atualizar_usuario['codigo_usuario']);
+        
+        $equipe['usu_nome'] = $atualizar_equipe['nome_usuario'];
+        $equipe['usu_email'] = $atualizar_equipe['email_usuario'];
+        $equipe['usu_senha'] = $atualizar_equipe['senha_usuario'];
+        $equipe['usu_tipo_usuario'] = $atualizar_equipe['tipo_usuario'];
+        $equipe['usu_atualizado_em'] = 'NOW()';
+        
+        $result = $equipe->save();
 
-        $usuario->update($request->all());
-
-        $result = $usuario->save();
         if ($result) {
-            session()->flash(
-                'mensagem_sucesso',
-                'usuario editada com sucesso!'
-            );
-        } else {
-            session()->flash('mensagem_erro', 'Erro ao editar usuario!');
+            //Tentando usar sweetalert
+            Alert::success('Usuário atualizado', 'Usuário atualizado com sucesso.');
+            
+            return redirect()->route('usuario.listar');
+        }else{
+            //Tratar Erro
         }
-
-        return redirect('/usuario');
     }
 
     public function Listar(Request $r) {

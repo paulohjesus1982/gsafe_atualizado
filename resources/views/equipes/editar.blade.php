@@ -14,7 +14,7 @@
 
 @section('content')
 
-    <form action="{{route('equipes.atualizar')}}" method="post">
+    <form action="{{route('usuario.atualizar')}}" method="post">
         {{ csrf_field()}}
         
         <div class="row">

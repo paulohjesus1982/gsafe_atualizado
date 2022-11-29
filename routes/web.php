@@ -17,7 +17,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::group(['prefix' => '/usuario'], function () {
     Route::get('/listar', [UsuarioController::class, 'Listar'])->name('usuario.listar');
     Route::get('/cadastrar', [UsuarioController::class, 'Cadastrar']);
-    Route::get('/editar', [UsuarioController::class, 'Editar'])->name('usuario.editar');
+    Route::get('/editar/{id}', [UsuarioController::class, 'Editar'])->name('usuario.editar');
+    Route::post('/atualizar', [UsuarioController::class, 'Atualizar'])->name('usuario.atualizar');
     Route::post('/salvar', [UsuarioController::class, 'Salvar'])->name('usuario.salvar');
 });
 

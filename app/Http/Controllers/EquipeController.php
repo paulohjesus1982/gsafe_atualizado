@@ -48,7 +48,7 @@ class EquipeController extends Controller {
 
         return view('equipes.editar')->with([
             'equipes' => $equipes,
-            'title' => 'Editar usuario',
+            'title' => 'Editar equipe',
         ]);
     }
 
