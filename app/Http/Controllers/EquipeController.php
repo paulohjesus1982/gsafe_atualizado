@@ -14,7 +14,7 @@ class EquipeController extends Controller {
 
     public function Listar(Request $r) {
 
-        $equipes = Equipe::all();
+        $equipes = Equipe::all()->sortBy("equ_id");;
         $membros = Usuario::all();
 
         return view('equipes.listar', [
