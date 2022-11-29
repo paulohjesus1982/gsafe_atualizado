@@ -26,5 +26,6 @@ Route::group(['prefix' => '/equipe'], function () {
     Route::get('/listar', [EquipeController::class, 'Listar'])->name('equipes.listar');
     Route::get('/cadastrar', [EquipeController::class, 'Cadastrar']);
     Route::post('/salvar', [EquipeController::class, 'Salvar'])->name('equipes.salvar');
+    Route::post('/atualizar', [EquipeController::class, 'Atualizar'])->name('equipes.atualizar');
     Route::get('/editar/{id}', [EquipeController::class, 'Editar'])->name('equipes.editar');
 });

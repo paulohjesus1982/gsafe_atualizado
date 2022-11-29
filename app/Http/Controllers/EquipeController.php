@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Equipe;
 use App\Models\EquipeMembro;
 use App\Models\Usuario;
-
+use RealRashid\SweetAlert\Facades\Alert;
 
 class EquipeController extends Controller {
     public function __construct() {
@@ -48,10 +48,28 @@ class EquipeController extends Controller {
 
         return view('equipes.editar')->with([
             'equipes' => $equipes,
-            'title' => 'Editar usario',
+            'title' => 'Editar usuario',
         ]);
     }
 
     public function Atualizar(Request $request) {
+
+        $atualizar_equipe = $request->all();
+        $equipe = Equipe::find($atualizar_equipe['codigo_equipe']);
+        
+        $equipe['equ_nome'] = $atualizar_equipe['nome_equipe'];
+        $equipe['equ_fk_usu_id_atualizou'] = 2;
+        $equipe['equ_atualizado_em'] = 'NOW()';
+        
+        $result = $equipe->save();
+
+        if ($result) {
+            //Tentando usar sweetalert
+            Alert::success('Equipe Atualizada', 'Equipe foi atualizada com sucesso.');
+            
+            return redirect()->route('equipes.listar');
+        }else{
+            //Tratar Erro
+        }
     }
 }
