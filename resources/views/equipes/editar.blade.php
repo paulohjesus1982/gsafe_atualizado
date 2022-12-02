@@ -37,6 +37,24 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="card card-outline-info">
+                    <h5 class="card-header text-grey">
+                        <b>Informações Pessoais</b>
+                    </h5>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="form-group col-md-8" >
+                                <label for="nome_equipe">Membros Equipe</label>
+                                <select class="js-example-basic-multiple" name="membros[]" multiple="multiple">
+                                    @foreach ( $membros as $membro )
+                                    <option value="{{$membro->usu_id}}">{{$membro->usu_nome}}</option>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="row">
             <div class="col-md-6 offset-md-3">

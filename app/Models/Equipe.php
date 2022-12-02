@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Usuario;
 
 class Equipe extends Model
 {
@@ -19,4 +20,8 @@ class Equipe extends Model
         'equ_atualizado_em',
         'equ_fk_usu_id_atualizou',
     ];
+
+    public function Membros(){
+        return $this->belongsToMany(Usuario::class, 'equipe_membros', 'emem_fk_equ_id', 'emem_fk_usu_id');
+    }
 }

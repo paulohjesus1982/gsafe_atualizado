@@ -45,9 +45,15 @@ class EquipeController extends Controller {
 
         $id = $request->id;
         $equipes = Equipe::find($id);
+        $membros_equipe = $equipes->Membros;
+        // dd($membros_equipe['usu_id']);
+
+        $usuario_restantes = Usuario::where();
 
         return view('equipes.editar')->with([
             'equipes' => $equipes,
+            'membros' => $membros_equipe,
+            'membros_restantes' => $usuarios_restantes,
             'title' => 'Editar equipe',
         ]);
     }

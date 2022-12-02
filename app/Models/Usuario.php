@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Equipe;
 
 class Usuario extends Model {
     use HasFactory;
@@ -19,4 +20,8 @@ class Usuario extends Model {
         'usu_atualizado_em',
         'usu_tipo_usuario'
     ];
+
+    public function Equipes(){
+        return $this->belongsToMany(Equipe::class, 'equipe_membros', 'emem_fk_usu_id', 'emem_fk_equ_id');
+    }
 }
