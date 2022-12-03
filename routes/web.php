@@ -7,6 +7,7 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\PermissaoController;
 use App\Http\Controllers\PremissaController;
 use App\Http\Controllers\ServicoController;
+use App\Http\Controllers\EmpresaController;
 
 Route::get('/', function () {
     return view('/auth/login');
@@ -59,4 +60,13 @@ Route::group(['prefix' => '/servicos'], function () {
     Route::post('/salvar',      [ServicoController::class, 'Salvar']     )->name('servicos.salvar');
     Route::post('/atualizar',   [ServicoController::class, 'Atualizar']  )->name('servicos.atualizar');
     Route::get('/editar/{id}',  [ServicoController::class, 'Editar']     )->name('servicos.editar');
+});
+
+// Empresas
+Route::group(['prefix' => '/empresa'], function () {
+    Route::get('/listar',       [EmpresaController::class, 'Listar']     )->name('empresa.listar');
+    Route::get('/cadastrar',    [EmpresaController::class, 'Cadastrar']  );
+    Route::post('/salvar',      [EmpresaController::class, 'Salvar']     )->name('empresa.salvar');
+    Route::post('/atualizar',   [EmpresaController::class, 'Atualizar']  )->name('empresa.atualizar');
+    Route::get('/editar/{id}',  [EmpresaController::class, 'Editar']     )->name('empresa.editar');
 });
