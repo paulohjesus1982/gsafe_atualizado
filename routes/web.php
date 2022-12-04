@@ -8,12 +8,13 @@ use App\Http\Controllers\PermissaoController;
 use App\Http\Controllers\PremissaController;
 use App\Http\Controllers\ServicoController;
 use App\Http\Controllers\EmpresaController;
+use App\Http\Controllers\Auth\LoginController;
 
-Route::get('/', function () {
-    return view('/auth/login');
-});
+//Login
+Route::get('/', [LoginController::class, 'index'])->name('login');
+Route::post('/autenticar', [LoginController::class, 'autenticar'])->name('login.autenticar');
 
-Auth::routes();
+// Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
