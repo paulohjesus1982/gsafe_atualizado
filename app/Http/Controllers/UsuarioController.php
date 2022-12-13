@@ -13,11 +13,11 @@ class UsuarioController extends Controller {
     }
 
     public function index() {
-        $usuarios = User::paginate('20');
+        $usuario = User::paginate('20');
 
         return view('usuario/listar')
-            ->with('usuarios', $usuarios)
-            ->with('title', $usuarios);
+            ->with('usuario', $usuario)
+            ->with('title', $usuario);
     }
 
     public function Cadastrar() {
@@ -61,20 +61,19 @@ class UsuarioController extends Controller {
     public function Atualizar(Request $request) {
 
         $atualizar_usuario = $request->all();
-        $equipe = Usuario::find($atualizar_usuario['codigo_usuario']);
-        
-        $equipe['usu_nome'] = $atualizar_equipe['nome_usuario'];
-        $equipe['usu_email'] = $atualizar_equipe['email_usuario'];
-        $equipe['usu_senha'] = $atualizar_equipe['senha_usuario'];
-        $equipe['usu_tipo_usuario'] = $atualizar_equipe['tipo_usuario'];
-        $equipe['usu_atualizado_em'] = 'NOW()';
-        
-        $result = $equipe->save();
+        $usuario = Usuario::find($atualizar_usuario['codigo_usuario']);
+        $usuario['usu_nome'] = $atualizar_usuario['nome_usuario'];
+        $usuario['usu_email'] = $atualizar_usuario['email_usuario'];
+        $usuario['usu_senha'] = $atualizar_usuario['senha_usuario'];
+        $usuario['usu_tipo_usuario'] = $atualizar_usuario['tipo_usuario'];
+        $usuario['usu_atualizado_em'] = 'NOW()';
+
+        $result = $usuario->save();
 
         if ($result) {
             //Tentando usar sweetalert
-            Alert::success('Usuário atualizado', 'Usuário atualizado com sucesso.');
-            
+            //Alert::success('Usuário atualizado', 'Usuário atualizado com sucesso.');
+
             return redirect()->route('usuario.listar');
         }else{
             //Tratar Erro

@@ -15,7 +15,7 @@
 @section('content')
     <form action="{{route('usuario.salvar')}}" method="post">
         {{ csrf_field()}}
-        
+
         <div class="row">
             <div class="col-md-6">
                 <div class="card card-outline-info">
@@ -109,11 +109,14 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <div class="col-12">
+
+                <div class="col-6">
                     <button type="submit" class="btn btn-info btn-block"><span class="fa fa-check"></span> Salvar</button>
                 </div>
-            </div>
+                <div class="col-6">
+                    <button type="submit" class="btn btn-danger btn-block"><span class="fa fa-check"></span> Cancelar</button>
+                </div>
+
         </div>
     </form>
 @endsection

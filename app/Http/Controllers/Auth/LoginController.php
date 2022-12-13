@@ -45,24 +45,24 @@ class LoginController extends Controller
         $msg_erro = '';
         $r->get('erro') ? $msg_erro = "Usuário não encontrado." : '';
 
-        return view('Auth/login', ['erro' => $msg_erro]);
+        return view('auth/login', ['erro' => $msg_erro]);
     }
 
     public function autenticar(Request $r){
 
-        
+
         $regras = [
             'usu_email' => 'email',
             'usu_senha' => 'required'
         ];
-        
+
         $feedback = [
             'usu_email.email' => 'O campo e-mail é obrigatório.',
             'usu_senha.required' => 'O campo senha é obrigatório.'
         ];
-        
+
         $r->validate($regras, $feedback);
-        
+
         $usu_email = $r->get('usu_email');
         $usu_senha = $r->get('usu_senha');
 

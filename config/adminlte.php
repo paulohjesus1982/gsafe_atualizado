@@ -30,8 +30,8 @@ return [
     |
     */
 
-    'use_ico_only' => false,
-    'use_full_favicon' => false,
+    'use_ico_only' => true,
+    'use_full_favicon' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -130,11 +130,11 @@ return [
     */
 
     'usermenu_enabled' => true,
-    'usermenu_header' => false,
+    'usermenu_header' => true,
     'usermenu_header_class' => 'bg-primary',
-    'usermenu_image' => false,
+    'usermenu_image' => true,
     'usermenu_desc' => false,
-    'usermenu_profile_url' => false,
+    'usermenu_profile_url' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -257,8 +257,8 @@ return [
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
-    'password_reset_url' => 'password/reset',
-    'password_email_url' => 'password/email',
+    'password_reset_url' => false,
+    'password_email_url' => false,
     'profile_url' => false,
 
     /*
@@ -308,80 +308,68 @@ return [
         ],
         ['header' => 'Configurações da conta'],
         [
-            'text' => 'Alterar Dados',
-            'url'  => 'admin/settings',
-            'icon' => 'fa-solid fa-pen-to-square',
+            'text' => 'CADASTRO',
+            'url'  => '',
+            'icon' => '',
             'submenu' => [
+                ['header' => '--------PESSOAS--------'],
                 [
-                    'text' => 'Dados Cadastrais',
+                    'text' => 'Usuario',
+                    'url'  => '/usuario/listar',
+                    'icon' => 'nav-icon fas fa-user',
+                ],
+
+                [
+                    'text' => 'Colaborador',
+                    'url'  => 'admin/settings',
+                    'icon' => 'fas fa-fw fa-user-circle',
+                ],
+                [
+                    'text' => 'Equipes',
+                    'url'  => 'admin/settings',
+                    'icon' => 'fas fa-fw fa-users',
+                ],
+                ['header' => '--------EMPRESAS--------'],
+                [
+                    'text' => 'Empresa',
+                    'url'  => 'admin/settings',
+                    'icon' => 'fas fa-fw fa-building',
+                ],
+                [
+                    'text' => 'Contrato',
+                    'url'  => 'admin/settings',
+                    'icon' => 'fas fa-fw fa-file',
+                ],
+                ['header' => '--------SERVIÇOS--------'],
+                [
+                    'text' => 'Serviços',
+                    'url'  => 'admin/settings',
+                    'icon' => 'fas fa-fw fa-gavel',
+                ],
+                [
+                    'text' => 'Permissões',
                     'url'  => 'admin/settings',
                     'icon' => 'fas fa-fw fa-lock',
                 ],
                 [
-                    'text' => 'Login',
+                    'text' => 'Premissas',
                     'url'  => 'admin/settings',
-                    'icon' => 'fas fa-fw fa-lock',
+                    'icon' => 'fas fa-fw fa-list',
                 ],
-                [
-                    'text' => 'Dados Empresa',
-                    'url'  => 'admin/settings',
-                    'icon' => 'fas fa-fw fa-lock',
-                ],
+
             ]
         ],
         [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
+            'text'    => 'PARALIZAÇÃO',
+            'icon'    => '',
             'submenu' => [
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text' => 'Paralizações',
+                    'url'  => 'admin/settings',
+                    'icon' => 'fas fa-fw fa-window-close',
                 ],
-                [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
+
             ],
-        ],
-        ['header' => 'labels'],
-        [
-            'text'       => 'important',
-            'icon_color' => 'red',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
         ],
     ],
 
