@@ -16,10 +16,26 @@
     <form action="{{route('usuario.salvar')}}" method="post">
         {{ csrf_field()}}
 
+
+        <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h2> Cadastro de Usuario</h2>
+              </div>
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                  <li class="breadcrumb-item"><a href="/usuario/listar">Listar</a></li>
+                  <li class="breadcrumb-item active">usuario</li>
+                </ol>
+              </div>
+            </div>
+        </div><!-- /.container-fluid -->
+
         <div class="row">
             <div class="col-md-6">
-                <div class="card card-outline-info">
-                    <h5 class="card-header text-white">
+                <div class="card card-primary">
+                    <h5 class="card-header text-black">
                         <b>Informações Pessoais</b>
                     </h5>
                     <div class="card-body">
@@ -36,11 +52,11 @@
                             </div>
 
                             <div class="form-group col-md-12">
-                                <label for="nome">Email</label>
-                                <input type="email" name="nome" id="nome" class="form-control {{$errors->has('nome') ? 'is-invalid' : ''}}" placeholder="Nome" value="{{old('nome')}}"/>
-                                @if($errors->has('nome'))
+                                <label for="email">Email</label>
+                                <input type="email" name="email" id="email" class="form-control {{$errors->has('email') ? 'is-invalid' : ''}}" placeholder="email" value="{{old('email')}}"/>
+                                @if($errors->has('email'))
                                     <div class="invalid-feedback">
-                                        {{$errors->first('nome')}}
+                                        {{$errors->first('email')}}
                                     </div>
                                 @endif
                             </div>
@@ -68,38 +84,99 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="card card-outline-info">
-                    <h5 class="card-header text-white">
+                <div class="card card-primary">
+                    <h5 class="card-header text-black">
                         <b>Informações de Contato</b>
                     </h5>
                     <div class="card-body">
                         <div class="row">
-
                             <div class="form-group col-md-12">
-                                <label for="email">Email</label>
-                                <input type="email" name="email" id="email" class="form-control {{$errors->has('email') ? 'is-invalid' : ''}}" value="{{old('email')}}" placeholder="Email" title="Email">
-                                @if($errors->has('email'))
+                                <label for="telefone">Nome Completo</label>
+                                <input type="text" name="nome_completo" id="nome_completo" class="form-control {{$errors->has('nome_completo') ? 'is-invalid' : ''}}" value="{{old('nome_completo')}}" placeholder="Nome Completo" title="Nome Completo">
+                                @if($errors->has('nome_completo'))
                                     <div class="invalid-feedback">
-                                        {{$errors->first('email')}}
+                                        {{$errors->first('nome_completo')}}
                                     </div>
                                 @endif
                             </div>
-
+                            <div class="form-group col-md-2">
+                                <label for="telefone">Número</label>
+                                <input type="text" name="numero_endereco" id="numero_endereco" class="form-control {{$errors->has('numero_endereco') ? 'is-invalid' : ''}}" value="{{old('numero_endereco')}}" placeholder="Número" title="Número">
+                                @if($errors->has('numero_endereco'))
+                                    <div class="invalid-feedback">
+                                        {{$errors->first('numero_endereco')}}
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="form-group col-md-5">
+                                <label for="telefone">Rua</label>
+                                <input type="text" name="endereco" id="endereco" class="form-control {{$errors->has('endereco') ? 'is-invalid' : ''}}" value="{{old('endereco')}}" placeholder="Endereço" title="Endereço">
+                                @if($errors->has('endereco'))
+                                    <div class="invalid-feedback">
+                                        {{$errors->first('endereco')}}
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="form-group col-md-5">
+                                <label for="telefone">Bairro</label>
+                                <input type="text" name="bairro" id="bairro" class="form-control {{$errors->has('bairro') ? 'is-invalid' : ''}}" value="{{old('bairro')}}" placeholder="Bairro" title="Bairro">
+                                @if($errors->has('bairro'))
+                                    <div class="invalid-feedback">
+                                        {{$errors->first('bairro')}}
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="telefone">CEP</label>
+                                <input type="text" name="cep" id="cep" class="form-control {{$errors->has('cep') ? 'is-invalid' : ''}}" value="{{old('cep')}}" placeholder="CEP" title="CEP">
+                                @if($errors->has('cep'))
+                                    <div class="invalid-feedback">
+                                        {{$errors->first('cep')}}
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="form-group col-md-5">
+                                <label for="telefone">Cidade</label>
+                                <input type="text" name="cidade" id="cidade" class="form-control {{$errors->has('cidade') ? 'is-invalid' : ''}}" value="{{old('cidade')}}" placeholder="Cidade" title="Cidade">
+                                @if($errors->has('cidade'))
+                                    <div class="invalid-feedback">
+                                        {{$errors->first('cidade')}}
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="form-group col-md-5">
+                                <label for="telefone">Estado (UF)</label>
+                                <input type="text" name="estado" id="estado" class="form-control {{$errors->has('estado') ? 'is-invalid' : ''}}" value="{{old('estado')}}" placeholder="estado" title="Estado">
+                                @if($errors->has('estado'))
+                                    <div class="invalid-feedback">
+                                        {{$errors->first('estado')}}
+                                    </div>
+                                @endif
+                            </div>
                             <div class="form-group col-md-6">
                                 <label for="telefone">Telefone Principal</label>
-                                <input type="text" name="numero" id="telefone" class="form-control {{$errors->has('numero') ? 'is-invalid' : ''}}" value="{{old('numero')}}" placeholder="Número do telefone" title="Número de telefone">
-                                @if($errors->has('numero'))
+                                <input type="text" name="numero_principal" id="numero_principal" class="form-control {{$errors->has('numero_principal') ? 'is-invalid' : ''}}" value="{{old('numero_principal')}}" placeholder="Número do telefone" title="Número de telefone">
+                                @if($errors->has('numero_principal'))
                                     <div class="invalid-feedback">
-                                        {{$errors->first('numero')}}
+                                        {{$errors->first('numero_principal')}}
                                     </div>
                                 @endif
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="telefone">Telefone Contato</label>
-                                <input type="text" name="numero" id="telefone" class="form-control {{$errors->has('numero') ? 'is-invalid' : ''}}" value="{{old('numero')}}" placeholder="Número do telefone" title="Número de telefone">
-                                @if($errors->has('numero'))
+                                <input type="text" name="numero_contato" id="numero_contato" class="form-control {{$errors->has('numero_contato') ? 'is-invalid' : ''}}" value="{{old('numero_contato')}}" placeholder="Número do telefone" title="Número de telefone">
+                                @if($errors->has('numero_contato'))
                                     <div class="invalid-feedback">
-                                        {{$errors->first('numero')}}
+                                        {{$errors->first('numero_contato')}}
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="telefone">Registro Profissão</label>
+                                <input type="text" name="registro_profissao" id="registro_profissao" class="form-control {{$errors->has('registro_profissao') ? 'is-invalid' : ''}}" value="{{old('registro_profissao')}}" placeholder="Registro Profissão" title="Registro Profissão">
+                                @if($errors->has('registro_profissao'))
+                                    <div class="invalid-feedback">
+                                        {{$errors->first('registro_profissao')}}
                                     </div>
                                 @endif
                             </div>
@@ -114,7 +191,7 @@
                     <button type="submit" class="btn btn-info btn-block"><span class="fa fa-check"></span> Salvar</button>
                 </div>
                 <div class="col-6">
-                    <button type="submit" class="btn btn-danger btn-block"><span class="fa fa-check"></span> Cancelar</button>
+                    <a href="usuario/listar"><button class="btn btn-danger btn-block"><span class="fa fa-check"></span>Cancelar</button></a>
                 </div>
 
         </div>

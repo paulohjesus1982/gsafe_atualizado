@@ -35,7 +35,7 @@ class EquipeController extends Controller {
             'equ_nome' => $request->input('nome_equipe'),
             'equ_criado_em' => 'NOW()',
             'equ_atualizado_em' => 'NOW()',
-            'equ_fk_usu_id_atualizou' => 1,
+            'equ_fk_usu_id_atualizou' => 2,
         ]);
 
         return redirect()->route('equipes.listar');
@@ -46,15 +46,11 @@ class EquipeController extends Controller {
         $id = $request->id;
         $equipes = Equipe::find($id);
         $membros_equipe = $equipes->Membros;
-        // dd($membros_equipe['usu_id']);
-
-        $usuario_restantes = Usuario::where();
 
         return view('equipes.editar')->with([
             'equipes' => $equipes,
             'membros' => $membros_equipe,
-            'membros_restantes' => $usuarios_restantes,
-            'title' => 'Editar equipe',
+            'title' => 'Editar equipe'
         ]);
     }
 

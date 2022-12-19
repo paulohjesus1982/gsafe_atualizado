@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Premissa;
 use App\Models\Permissao;
 
-class PremissaController extends Controller
-{
+class PremissaController extends Controller {
     public function __construct() {
     }
 
@@ -18,6 +17,14 @@ class PremissaController extends Controller
         return view('premissa.listar', [
             'premissas' => $premissas
         ]);
+    }
+
+    public function ListarUm(Request $request) {
+
+        $id = $request->id;
+        $premissas = Premissa::where("pre_fk_per_id", $id)->get();
+
+        return $premissas;
     }
 
     public function Cadastrar(Request $r) {
@@ -63,15 +70,15 @@ class PremissaController extends Controller
         $premissa['pre_nome'] = $atualizar_premissa['nome_premissa'];
         $premissa['pre_descricao'] = $atualizar_premissa['premissa_descricao'];
         $premissa['pre_fk_per_id'] = $atualizar_premissa['pre_fk_per_id'];
-        
+
         $result = $premissa->save();
 
         if ($result) {
             //Tentando usar sweetalert
             // Alert::success('Equipe Atualizada', 'Equipe foi atualizada com sucesso.');
-            
+
             return redirect()->route('premissa.listar');
-        }else{
+        } else {
             //Tratar Erro
         }
     }

@@ -10,7 +10,6 @@ class Usuario extends Model {
     use HasFactory;
 
     protected $primaryKey = 'usu_id';
-
     public $timestamps = false;
 
     protected $fillable = [
@@ -25,5 +24,9 @@ class Usuario extends Model {
 
     public function Equipes(){
         return $this->belongsToMany(Equipe::class, 'equipe_membros', 'emem_fk_usu_id', 'emem_fk_equ_id');
+    }
+
+    public function UsuarioDados(){
+        return $this->hasOne(UsuarioDados::class, 'udad_id');
     }
 }

@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'GSAFE',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>GSAFE</b>',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -321,39 +321,39 @@ return [
 
                 [
                     'text' => 'Colaborador',
-                    'url'  => 'admin/settings',
+                    'url'  => '/colaborador/listar',
                     'icon' => 'fas fa-fw fa-user-circle',
                 ],
                 [
                     'text' => 'Equipes',
-                    'url'  => 'admin/settings',
+                    'url'  => '/equipe/listar',
                     'icon' => 'fas fa-fw fa-users',
                 ],
                 ['header' => '--------EMPRESAS--------'],
                 [
                     'text' => 'Empresa',
-                    'url'  => 'admin/settings',
+                    'url'  => 'empresa/listar',
                     'icon' => 'fas fa-fw fa-building',
                 ],
                 [
                     'text' => 'Contrato',
-                    'url'  => 'admin/settings',
+                    'url'  => 'contrato/listar',
                     'icon' => 'fas fa-fw fa-file',
                 ],
                 ['header' => '--------SERVIÇOS--------'],
                 [
                     'text' => 'Serviços',
-                    'url'  => 'admin/settings',
+                    'url'  => 'servicos/listar',
                     'icon' => 'fas fa-fw fa-gavel',
                 ],
                 [
                     'text' => 'Permissões',
-                    'url'  => 'admin/settings',
+                    'url'  => 'permissao/listar',
                     'icon' => 'fas fa-fw fa-lock',
                 ],
                 [
                     'text' => 'Premissas',
-                    'url'  => 'admin/settings',
+                    'url'  => 'premissa/listar',
                     'icon' => 'fas fa-fw fa-list',
                 ],
 
@@ -365,7 +365,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Paralizações',
-                    'url'  => 'admin/settings',
+                    'url'  => '/paralizacao/listar',
                     'icon' => 'fas fa-fw fa-window-close',
                 ],
 
