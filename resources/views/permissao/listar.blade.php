@@ -4,7 +4,7 @@
 
 @section('content_header')
     <div class="row">
-        <div class="col-10">
+        <div class="col-11">
             <h1 class="m-0 text-dark">Permissão</h1>
         </div>
         <div class="col-1">
@@ -17,6 +17,20 @@
 
 @section('content')
 {{ csrf_field()}}
+
+<div class="container-fluid">
+    <div class="row mb-2">
+        <div class="col-sm-6">
+            <h2> Cadastro de Permissão</h2>
+        </div>
+        <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                <li class="breadcrumb-item active">Listar</li>
+            </ol>
+        </div>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-12">
@@ -50,9 +64,9 @@
                                 <td id='equipe_id'>{{$permissao->per_id}}</td>
                                 <td>{{$permissao->per_nome}}</td>
                                 <td>
-                                    <input type="color" name="rgb_permissao"
-                                               value="{{$permissao->per_rgb}}">
-                                        <label for="rgb_permissao">Cor</label></td>
+                                    <input type="color" name="rgb_permissao" value="{{$permissao->per_rgb}}" disabled>
+                                    <label for="rgb_permissao"></label>
+                                </td>
                                 <td>
                                     <a href="/permissao/editar/{{$permissao->per_id}}" class="navi-link">
                                         <span class="navi-text">

@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Permissao;
 
-class PermissaoController extends Controller
-{
+class PermissaoController extends Controller {
     public function __construct() {
     }
 
@@ -29,7 +28,8 @@ class PermissaoController extends Controller
 
         $result = Permissao::create([
             'per_nome' => $request->input('nome_permissao'),
-            'per_rgb'  => $request->input('rgb_permissao')
+            'per_rgb'  => $request->input('rgb_permissao'),
+            'per_criado_em'  => 'NOW()',
         ]);
 
         return redirect()->route('permissao.listar');
@@ -50,19 +50,17 @@ class PermissaoController extends Controller
 
         $atualizar_permissao = $request->all();
         $permissao = Permissao::find($atualizar_permissao['codigo_permissao']);
-        
+
         $permissao['per_nome'] = $atualizar_permissao['nome_permissao'];
         $permissao['per_rgb'] = $atualizar_permissao['rgb_permissao'];
-        
+        $permissao['per_atualizado_em'] = 'NOW()';
+
         $result = $permissao->save();
 
         if ($result) {
-            //Tentando usar sweetalert
-            // Alert::success('Equipe Atualizada', 'Equipe foi atualizada com sucesso.');
-            
             return redirect()->route('permissao.listar');
-        }else{
-            //Tratar Erro
+        } else {
+            return redirect()->route('permissao.listar');
         }
     }
 }
