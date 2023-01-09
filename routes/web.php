@@ -10,15 +10,25 @@ use App\Http\Controllers\PremissaController;
 use App\Http\Controllers\ServicoController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ContratoController;
+use App\Http\Controllers\HomeController;
 
 //Login
 Route::get('/', [LoginController::class, 'index'])->name('login');
-Route::post('/autenticar', [LoginController::class, 'autenticar'])->name('login.autenticar');
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::get('/autenticar', [LoginController::class, 'index'])->name('autenticar');
+Route::post('/login', [LoginController::class, 'autenticar'])->name('autenticar');
+Route::get('/deslogar', [LoginController::class, 'deslogar'])->name('deslogar');
+
+Route::get('/registrar', [RegisterController::class, 'index'])->name('registrar');
+Route::post('/registrar', [RegisterController::class, 'autenticar'])->name('registrar');
 
 // Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::group(['middleware' => 'auth'], function () {
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+// Route::post('/home', [HomeController::class, 'index'])->name('home');
 
 // Usuario
 Route::group(['prefix' => '/usuario'], function () {
@@ -92,5 +102,6 @@ Route::group(['prefix' => '/paralizacao'], function () {
     Route::post('/salvar',      [ParalizacaoController::class, 'Salvar'])->name('paralizacao.salvar');
     Route::post('/atualizar',   [ParalizacaoController::class, 'Atualizar'])->name('paralizacao.atualizar');
     Route::get('/mostrar',   [ParalizacaoController::class, 'Mostrar'])->name('paralizacao.mostrar');
-
 });
+
+// });

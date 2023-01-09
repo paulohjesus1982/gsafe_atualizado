@@ -7,7 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class EquipeMembro extends Model {
     use HasFactory;
+
     protected $primaryKey = 'emem_id';
+    protected $table = 'equipes_membros';
+    public $timestamps = false;
 
     protected $fillable = [
         'emem_id',

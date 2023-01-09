@@ -4,19 +4,18 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsuariosContratosTable extends Migration
-{
+class CreateUsuariosContratosTable extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('usuarios_contratos', function (Blueprint $table) {
+            $table->id('ucon_id');
             $table->bigInteger('ucon_fk_usu_id');
-            $table->bigInteger('ucon_fk_con_id');
             $table->foreign('ucon_fk_usu_id')->references('usu_id')->on('usuarios');
+            $table->bigInteger('ucon_fk_con_id');
             $table->foreign('ucon_fk_con_id')->references('con_id')->on('contratos');
         });
     }
@@ -26,8 +25,7 @@ class CreateUsuariosContratosTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::dropIfExists('usuarios_contratos');
     }
 }

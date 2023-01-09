@@ -254,9 +254,9 @@ return [
 
     'use_route_url' => false,
     'dashboard_url' => 'home',
-    'logout_url' => 'logout',
+    'logout_url' => 'deslogar',
     'login_url' => 'login',
-    'register_url' => 'register',
+    'register_url' => 'registrar',
     'password_reset_url' => false,
     'password_email_url' => false,
     'profile_url' => false,
@@ -300,6 +300,12 @@ return [
             'type'         => 'fullscreen-widget',
             'topnav_right' => true,
         ],
+        [
+            'icon' => 'navbar-search',
+            'text' => 'Sair',
+            'topnav_right' => true,
+            'route' => 'deslogar',
+        ],
 
         // Sidebar items:
         [
@@ -317,12 +323,6 @@ return [
                     'text' => 'Usuario',
                     'url'  => '/usuario/listar',
                     'icon' => 'nav-icon fas fa-user',
-                ],
-
-                [
-                    'text' => 'Colaborador',
-                    'url'  => '/colaborador/listar',
-                    'icon' => 'fas fa-fw fa-user-circle',
                 ],
                 [
                     'text' => 'Equipes',

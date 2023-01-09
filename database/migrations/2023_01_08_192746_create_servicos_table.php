@@ -4,15 +4,16 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateColum2ParalizacoesPremissas extends Migration {
+class CreateServicosTable extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
     public function up() {
-        Schema::table('paralizacoes_premissas', function (Blueprint $table) {
-            $table->id('ppre_id');
+        Schema::create('servicos', function (Blueprint $table) {
+            $table->id('ser_id');
+            $table->string('ser_nome', 255);
         });
     }
 
@@ -22,8 +23,6 @@ class CreateColum2ParalizacoesPremissas extends Migration {
      * @return void
      */
     public function down() {
-        Schema::table('paralizacoes_premissas', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('servicos');
     }
 }

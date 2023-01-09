@@ -52,11 +52,11 @@
 
                             <div class="form-group col-md-12">
                                 <label for="nome">Membros</label>
-                                <select multiple type="select" name="membros_equipe" id="select_membros" class="custom-select">
+                                <select multiple type="select" name="membros_equipe[]" id="select_membros" class="custom-select">
                                     @foreach ( $membros as $membro )
-                                    <option value="{{$membro->usu_id}}">{{$membro->usu_nome}}</option>
+                                        <option value="{{$membro->usu_id}}">{{$membro->usu_nome}}</option>
                                     @endforeach
-                                  </select>
+                                </select>
                             </div>
                         </div>
                     </div>

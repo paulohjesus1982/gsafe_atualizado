@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Equipe;
+use App\Models\UsuariosDado;
 
 class Usuario extends Model {
     use HasFactory;
@@ -22,11 +23,17 @@ class Usuario extends Model {
         'usu_tipo_usuario'
     ];
 
-    public function Equipes(){
+    protected $hidden = [
+        'remember_token',
+    ];
+
+    public function Equipes() {
         return $this->belongsToMany(Equipe::class, 'equipe_membros', 'emem_fk_usu_id', 'emem_fk_equ_id');
     }
 
-    public function UsuarioDados(){
-        return $this->hasOne(UsuarioDados::class, 'udad_id');
+    public function DadosDoUsuario() {
+        // return $this->hasManyThrough(UsuariosDado::class, Usuario::class, 'usu_id', 'udad_fk_usu_id');
+        // return $this->hasMany(UsuariosDado::class, 'udad_fk_usu_id', 'usu_id');
+        return $this->hasOne(UsuariosDado::class, 'udad_fk_usu_id', 'usu_id');
     }
 }

@@ -142,9 +142,9 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
-        ],
+        'password' => [
+            'confirmed' => 'As senhas digitas não são identicas',
+        ]
     ],
 
     /*

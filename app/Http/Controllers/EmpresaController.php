@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Empresa;
-class EmpresaController extends Controller
-{
+
+class EmpresaController extends Controller {
     public function __construct() {
     }
 
@@ -26,6 +26,12 @@ class EmpresaController extends Controller
 
     public function Salvar(Request $request) {
 
+        // $empresa = $request->all();
+        // echo '<pre>';
+        // print_r($empresa);
+        // echo '</pre>';
+        // die();
+
         $emp = new Empresa();
 
         $empresa = array();
@@ -36,8 +42,8 @@ class EmpresaController extends Controller
         $empresa['emp_email'] = $request->input('email_empresa');
         $empresa['emp_enum_tipo_empresa'] = $request->input('tipo_empresa');
         $empresa['emp_criado_em'] = 'NOW()';
-        $empresa['emp_atualizado_em'] = 'NOW()';
-        $empresa['emp_fk_usu_id_atualizou'] = 2; // Buscar ID da Sessão
+        // $empresa['emp_atualizado_em'] = 'NOW()';
+        // $empresa['emp_fk_usu_id_atualizou'] = 2; // Buscar ID da Sessão
 
         $result = Empresa::create($empresa);
 
@@ -52,6 +58,7 @@ class EmpresaController extends Controller
         return view('empresa.editar')->with([
             'empresa' => $empresa,
             'empresaFuncao' => $empresaFuncao,
+            'tipo_empresa' => $empresa->emp_enum_tipo_empresa,
             'title' => 'Editar Empresa'
         ]);
     }
@@ -67,16 +74,16 @@ class EmpresaController extends Controller
         $empresa['emp_razao_social'] = $request->input('razao_social_empresa');
         $empresa['emp_contato'] = $request->input('contato_empresa');
         $empresa['emp_email'] = $request->input('email_empresa');
-        $empresa['emp_enum_tipo_empresa'] = $request->input('tipo_empresa');   
-        $empresa['emp_fk_usu_id_atualizou'] = 2; 
+        $empresa['emp_enum_tipo_empresa'] = $request->input('tipo_empresa');
+
         $result = $empresa->save();
 
         if ($result) {
             //Tentando usar sweetalert
             // Alert::success('Equipe Atualizada', 'Equipe foi atualizada com sucesso.');
-            
+
             return redirect()->route('empresa.listar');
-        }else{
+        } else {
             //Tratar Erro
         }
     }

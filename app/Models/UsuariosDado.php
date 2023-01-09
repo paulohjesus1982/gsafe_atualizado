@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UsuarioDados extends Model
-{
+class UsuariosDado extends Model {
     use HasFactory;
 
     protected $primaryKey = 'udad_id';
@@ -25,6 +24,7 @@ class UsuarioDados extends Model
         'udad_telefone_contato',
         'udad_registro_profissao',
         'udad_criado_em',
-        'udad_atualizado_em'
+        'udad_atualizado_em',
+        'udad_fk_usu_id',
     ];
 }

@@ -31,12 +31,23 @@ class EquipeController extends Controller {
 
     public function Salvar(Request $request) {
 
+        $dados_equipe = $request->all();
+
         $result = Equipe::create([
-            'equ_nome' => $request->input('nome_equipe'),
+            'equ_nome' => $dados_equipe['nome_equipe'],
             'equ_criado_em' => 'NOW()',
-            'equ_atualizado_em' => 'NOW()',
-            'equ_fk_usu_id_atualizou' => 2,
         ]);
+
+        $equ_id = $result->equ_id;
+
+        foreach ($dados_equipe['membros_equipe'] as $key => $membro) {
+            $equipe_membro = array();
+
+            $equipe_membro['emem_fk_usu_id'] = $membro;
+            $equipe_membro['emem_fk_equ_id'] = $equ_id;
+
+            $result = EquipeMembro::create($equipe_membro);
+        }
 
         return redirect()->route('equipes.listar');
     }
@@ -46,32 +57,61 @@ class EquipeController extends Controller {
         $id = $request->id;
         $equipes = Equipe::find($id);
         $membros_equipe = $equipes->Membros;
+        $todos_usuarios = Usuario::all();
 
         return view('equipes.editar')->with([
             'equipes' => $equipes,
             'membros' => $membros_equipe,
+            'todos_usuarios' => $todos_usuarios,
             'title' => 'Editar equipe'
         ]);
     }
 
     public function Atualizar(Request $request) {
-
         $atualizar_equipe = $request->all();
+
         $equipe = Equipe::find($atualizar_equipe['codigo_equipe']);
-        
+
         $equipe['equ_nome'] = $atualizar_equipe['nome_equipe'];
-        $equipe['equ_fk_usu_id_atualizou'] = 2;
         $equipe['equ_atualizado_em'] = 'NOW()';
-        
+
         $result = $equipe->save();
 
         if ($result) {
-            //Tentando usar sweetalert
-            Alert::success('Equipe Atualizada', 'Equipe foi atualizada com sucesso.');
-            
-            return redirect()->route('equipes.listar');
-        }else{
-            //Tratar Erro
+            if (isset($atualizar_equipe['membros'])) {
+                $array_coringa = array();
+                $array_coringa = $atualizar_equipe['membros'];
+
+                //remover o que não veio na equipe
+                $membros_equipe_atual = EquipeMembro::where('emem_fk_equ_id', $atualizar_equipe['codigo_equipe'])->get();
+                foreach ($membros_equipe_atual as $key => $membro_atual) {
+                    $emem_id = $membro_atual->emem_id;
+                    if (!in_array($emem_id, $array_coringa)) {
+                        $deleted = EquipeMembro::where('emem_id', $emem_id)->delete();
+                    }
+                }
+
+                //inserir o que veio na equipe e não existia antes
+                foreach ($atualizar_equipe['membros'] as $key => $membro) {
+                    $equipe_membro_atual = EquipeMembro::where([
+                        ['emem_fk_equ_id', '=', $atualizar_equipe['codigo_equipe']],
+                        ['emem_fk_usu_id', '=', $membro],
+                    ])->get();
+                    if (!isset($equipe_membro_atual[0])) {
+                        echo '<pre>';
+                        print_r($membro);
+                        echo '</pre>';
+
+                        $equipe_membro = array();
+
+                        $equipe_membro['emem_fk_usu_id'] = $membro;
+                        $equipe_membro['emem_fk_equ_id'] = $atualizar_equipe['codigo_equipe'];
+
+                        $result = EquipeMembro::create($equipe_membro);
+                    }
+                }
+            }
         }
+        return redirect()->route('equipes.listar');
     }
 }

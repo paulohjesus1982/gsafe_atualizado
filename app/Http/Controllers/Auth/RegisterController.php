@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\Models\User;
+use App\Models\Usuario;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
-class RegisterController extends Controller
-{
+class RegisterController extends Controller {
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -36,9 +36,8 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('guest');
+    public function __construct() {
+        // $this->middleware('guest');
     }
 
     /**
@@ -47,11 +46,12 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
-    {
+    //acabei nao usando
+    protected function validator(array $data) {
+
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:usuarios'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -62,12 +62,50 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
-    {
-        return User::create([
+    //acabei nao usando
+    protected function create(array $data) {
+        return Usuario::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    public function index(Request $r) {
+
+        // $msg_erro = '';
+        // $r->get('erro') ? $msg_erro = "Usuário não encontrado." : '';
+
+        return view('auth/register', []);
+    }
+
+    public function autenticar(Request $r) {
+
+        $regras = [
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required|confirmed',
+        ];
+
+        $feedback = [
+            'name.required' => 'Preencha o nome',
+            'email.required' => 'Preencha o email',
+            'password.required' => 'Preencha a senha',
+            'password.confirmed' => 'Senhas digitadas diferentes',
+        ];
+
+        $r->validate($regras, $feedback);
+
+        $inserir_usuario = array();
+        $inserir_usuario['usu_nome'] = $_POST['name'];
+        $inserir_usuario['usu_email'] = $_POST['email'];
+        $inserir_usuario['usu_senha'] = $_POST['password'];
+        $inserir_usuario['usu_criado_em'] = 'NOW()';
+        $inserir_usuario['usu_atualizado_em'] = NULL;
+        $inserir_usuario['usu_tipo_usuario'] = 2;
+
+        $result = Usuario::create($inserir_usuario);
+
+        return redirect('/');
     }
 }

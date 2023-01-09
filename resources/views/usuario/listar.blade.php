@@ -40,6 +40,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Nome</th>
+                            <th>Tipo</th>
                             <th>Data Criação</th>
                             <th>Opções</th>
                         </tr>
@@ -49,6 +50,7 @@
                             <tr>
                                 <td>{{$usuario->usu_id}}</td>
                                 <td>{{$usuario->usu_nome}}</td>
+                                <td>{{$usuario->usu_tipo_usuario == 1 ? "Administrador" : "Colaborador"}}</td>
                                 <td>{{$usuario->usu_criado_em}}</td>
                                 <td>
                                     <a href="/usuario/editar/{{$usuario->usu_id}}" class="navi-link">
