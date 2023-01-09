@@ -29,12 +29,12 @@
                     </h5>
                     <div class="card-body">
                         <div class="row">
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-6">
                                 <label for="nome_premissa">Nome Premissa</label>
                                 <input type="text" name="nome_premissa" class="form-control" autofocus/>
                             </div>
 
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-6">
                                 <label for="premissa_descricao">Descrição Premissa</label>
                                 <input type="text" name="premissa_descricao" class="form-control" autofocus/>
                             </div>
