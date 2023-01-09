@@ -1,21 +1,10 @@
 @extends('adminlte::page')
 
-@section('content-title', 'Novo Associado')
-
-@section('content-path')
-    <div class="col-md-7 align-self-center">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">Início</li>
-            <li class="breadcrumb-item">Associado</li>
-            <li class="breadcrumb-item active">Novo</li>
-        </ol>
-    </div>
-@endsection
+@section('content-title', 'Novo Usuário')
 
 @section('content')
     <form action="{{route('usuario.salvar')}}" method="post">
         {{ csrf_field()}}
-
 
         <div class="container-fluid">
             <div class="row mb-2">
@@ -26,11 +15,11 @@
                 <ol class="breadcrumb float-sm-right">
                   <li class="breadcrumb-item"><a href="/home">Home</a></li>
                   <li class="breadcrumb-item"><a href="/usuario/listar">Listar</a></li>
-                  <li class="breadcrumb-item active">usuario</li>
+                  <li class="breadcrumb-item active">Editar</li>
                 </ol>
               </div>
             </div>
-        </div><!-- /.container-fluid -->
+        </div>
 
         <div class="row">
             <div class="col-md-6">
@@ -186,14 +175,14 @@
             </div>
         </div>
         <div class="row">
-
-                <div class="col-6">
-                    <button type="submit" class="btn btn-info btn-block"><span class="fa fa-check"></span> Salvar</button>
-                </div>
-                <div class="col-6">
-                    <a href="usuario/listar"><button class="btn btn-danger btn-block"><span class="fa fa-check"></span>Cancelar</button></a>
-                </div>
-
+            <div class="col-6">
+                <button type="submit" class="btn btn-info btn-block"><span class="fa fa-check"></span> Salvar</button>
+            </div>
+            <div class="col-6">
+                <a style="text-decoration: none;color:white;" href="/usuario/listar">
+                    <button type="button" class="btn btn-danger btn-block"><span class="fa fa-check"></span> Cancelar</button>
+                </a>
+            </div>
         </div>
     </form>
 @endsection

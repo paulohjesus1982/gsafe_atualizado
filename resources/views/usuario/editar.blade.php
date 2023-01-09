@@ -2,20 +2,25 @@
 
 @section('content-title', 'Editar Usuário')
 
-@section('content-path')
-    <div class="col-md-7 align-self-center">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">Início</li>
-            <li class="breadcrumb-item">Equipe</li>
-            <li class="breadcrumb-item active">Novo</li>
-        </ol>
-    </div>
-@endsection
-
 @section('content')
 
     <form action="{{route('usuario.atualizar')}}" method="post">
         {{ csrf_field()}}
+
+        <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h2> Editar Usuário</h2>
+              </div>
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                  <li class="breadcrumb-item"><a href="/usuario/listar">Listar</a></li>
+                  <li class="breadcrumb-item active">Cadastrar</li>
+                </ol>
+              </div>
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-12">
@@ -108,10 +113,13 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <div class="col-12">
-                    <button type="submit" class="btn btn-info btn-block"><span class="fa fa-check"></span> Salvar</button>
-                </div>
+            <div class="col-6">
+                <button type="submit" class="btn btn-info btn-block"><span class="fa fa-check"></span> Salvar</button>
+            </div>
+            <div class="col-6">
+                <a style="text-decoration: none;color:white;" href="/usuario/listar">
+                    <button type="button" class="btn btn-danger btn-block"><span class="fa fa-check"></span> Cancelar</button>
+                </a>
             </div>
         </div>
     </form>
