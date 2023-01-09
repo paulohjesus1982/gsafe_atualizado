@@ -17,6 +17,8 @@ class CreatePremissasTable extends Migration {
             $table->foreign('pre_fk_per_id')->references('per_id')->on('permissoes');
             $table->string('pre_nome', 255);
             $table->string('pre_descricao', 255);
+            $table->timestamp('pre_criado_em');
+            $table->timestamp('pre_atualizado_em')->nullable();
         });
     }
 

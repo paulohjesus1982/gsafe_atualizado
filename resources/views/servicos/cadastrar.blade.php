@@ -2,34 +2,24 @@
 
 @section('content-title', 'Novo Serviço')
 
-@section('content-path')
-    <div class="col-md-7 align-self-center">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">Início</li>
-            <li class="breadcrumb-item">Premissa</li>
-            <li class="breadcrumb-item active">Novo</li>
-        </ol>
-    </div>
-@endsection
-
 @section('content')
     <form action="{{route('servicos.salvar')}}" method="post">
         {{ csrf_field()}}
 
         <div class="container-fluid">
             <div class="row mb-2">
-              <div class="col-sm-6">
-                <h2> Cadastro Serviços</h2>
-              </div>
-              <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                  <li class="breadcrumb-item"><a href="/home">Home</a></li>
-                  <li class="breadcrumb-item"><a href="/servico/listar">Listar</a></li>
-                  <li class="breadcrumb-item active">Serviços</li>
-                </ol>
-              </div>
+                <div class="col-sm-6">
+                    <h2>Cadastrar Serviço</h2>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/servicos/listar">Listar</a></li>
+                    <li class="breadcrumb-item active">Cadastrar</li>
+                    </ol>
+                </div>
             </div>
-        </div><!-- /.container-fluid -->
+        </div>
 
         <div class="row">
             <div class="col-md-12">
@@ -39,7 +29,7 @@
                     </h5>
                     <div class="card-body">
                         <div class="row">
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-6">
                                 <label for="cpf">Nome Serviço</label>
                                 <input type="text" name="nome_servico" class="form-control" autofocus/>
                             </div>
@@ -50,14 +40,14 @@
             </div>
         </div>
         <div class="row">
-
-                <div class="col-6">
-                    <button type="submit" class="btn btn-info btn-block"><span class="fa fa-check"></span> Salvar</button>
-                </div>
-                <div class="col-6">
-                    <button type="submit" class="btn btn-danger btn-block"><span class="fa fa-check"></span> Cancelar</button>
-                </div>
-
+            <div class="col-6">
+                <button type="submit" class="btn btn-info btn-block"><span class="fa fa-check"></span> Salvar</button>
+            </div>
+            <div class="col-6">
+                <a style="text-decoration: none;color:white;" href="/servicos/listar">
+                    <button type="button" class="btn btn-danger btn-block"><span class="fa fa-check"></span> Cancelar</button>
+                </a>
+            </div>
         </div>
     </form>
 @endsection

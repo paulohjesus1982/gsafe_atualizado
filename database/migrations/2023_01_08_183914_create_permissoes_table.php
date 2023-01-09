@@ -15,6 +15,8 @@ class CreatePermissoesTable extends Migration {
             $table->id('per_id');
             $table->string('per_nome', 255);
             $table->string('per_rgb', 255);
+            $table->timestamp('per_criado_em');
+            $table->timestamp('per_atualizado_em')->nullable();
         });
     }
 

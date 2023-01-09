@@ -25,6 +25,9 @@ class CreateParalizacoesTable extends Migration {
 
             $table->integer('par_art')->nullable();
             $table->integer('par_pet')->nullable();
+
+            $table->timestamp('par_criado_em');
+            $table->timestamp('par_atualizado_em')->nullable();
             // $table->text('par_caminho_anexo')->nullable();
 
             // $table->bigInteger('par_fk_per_id')->nullable();

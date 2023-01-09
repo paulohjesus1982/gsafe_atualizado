@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Servico;
 
-class ServicoController extends Controller
-{
+class ServicoController extends Controller {
     public function __construct() {
     }
 
@@ -30,7 +29,8 @@ class ServicoController extends Controller
     public function Salvar(Request $request) {
 
         $result = Servico::create([
-            'ser_nome' => $request->input('nome_servico')
+            'ser_nome' => $request->input('nome_servico'),
+            'ser_criado_em' => 'NOW()',
         ]);
 
         return redirect()->route('servicos.listar');
@@ -49,19 +49,17 @@ class ServicoController extends Controller
 
     public function Atualizar(Request $request) {
 
-        $atualizar_premissa = $request->all();
-        $premissa = Servico::find($atualizar_premissa['codigo_servico']);
+        $atualizar_servico = $request->all();
+        $servico = Servico::find($atualizar_servico['codigo_servico']);
 
-        $premissa['ser_nome'] = $atualizar_premissa['nome_servico'];        
-        $result = $premissa->save();
+        $servico['ser_nome'] = $atualizar_servico['nome_servico'];
+        $servico['ser_atualizado_em'] = 'NOW()';
+        $result = $servico->save();
 
         if ($result) {
-            //Tentando usar sweetalert
-            // Alert::success('Equipe Atualizada', 'Equipe foi atualizada com sucesso.');
-            
             return redirect()->route('servicos.listar');
-        }else{
-            //Tratar Erro
+        } else {
+            return redirect()->route('servicos.listar');
         }
     }
 }
