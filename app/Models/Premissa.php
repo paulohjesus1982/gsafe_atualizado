@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Premissa extends Model
-{
+class Premissa extends Model {
     use HasFactory;
 
     protected $table = 'premissas';
@@ -15,8 +14,9 @@ class Premissa extends Model
 
     protected $fillable = [
         'pre_id',
-        'pre_fk_per_id',
         'pre_nome',
-        'pre_descricao'
+        'pre_descricao',
+        'pre_criado_em',
+        'pre_atualizado_em',
     ];
 }

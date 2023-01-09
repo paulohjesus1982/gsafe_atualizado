@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Premissa;
-use App\Models\Permissao;
 
 class PremissaController extends Controller {
     public function __construct() {
@@ -30,11 +29,9 @@ class PremissaController extends Controller {
     public function Cadastrar(Request $r) {
 
         $premissas = Premissa::all();
-        $permissoes = Permissao::all()->sortBy("per_id");
 
         return view('premissa.cadastrar', [
             'premissa' => $premissas,
-            'permissoes' => $permissoes
         ]);
     }
 
@@ -43,7 +40,7 @@ class PremissaController extends Controller {
         $result = Premissa::create([
             'pre_nome' => $request->input('nome_premissa'),
             'pre_descricao'  => $request->input('premissa_descricao'),
-            'pre_fk_per_id' => $request->input('pre_fk_per_id')
+            'pre_criado_em'  => 'NOW()',
         ]);
 
         return redirect()->route('premissa.listar');
@@ -53,11 +50,9 @@ class PremissaController extends Controller {
 
         $id = $request->id;
         $premissas = Premissa::find($id);
-        $permissoes = Permissao::all()->sortBy("per_id");
 
         return view('premissa.editar')->with([
             'premissas' => $premissas,
-            'permissoes' => $permissoes,
             'title' => 'Editar Premissa'
         ]);
     }
@@ -69,17 +64,14 @@ class PremissaController extends Controller {
 
         $premissa['pre_nome'] = $atualizar_premissa['nome_premissa'];
         $premissa['pre_descricao'] = $atualizar_premissa['premissa_descricao'];
-        $premissa['pre_fk_per_id'] = $atualizar_premissa['pre_fk_per_id'];
+        $premissa['pre_atualizado_em'] = 'NOW()';
 
         $result = $premissa->save();
 
         if ($result) {
-            //Tentando usar sweetalert
-            // Alert::success('Equipe Atualizada', 'Equipe foi atualizada com sucesso.');
-
             return redirect()->route('premissa.listar');
         } else {
-            //Tratar Erro
+            return redirect()->route('premissa.listar');
         }
     }
 }
