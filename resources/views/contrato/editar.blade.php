@@ -4,7 +4,7 @@
 
 @section('content')
     <form action="{{route('contrato.atualizar')}}" method="post">
-        {{ csrf_field()}}
+        {{csrf_field()}}
 
         <div class="container-fluid">
             <div class="row mb-2">
