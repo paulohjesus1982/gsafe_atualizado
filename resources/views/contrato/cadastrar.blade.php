@@ -29,7 +29,7 @@
                 </ol>
               </div>
             </div>
-        </div><!-- /.container-fluid -->
+        </div>
 
         <div class="row">
             <div class="col-md-12">

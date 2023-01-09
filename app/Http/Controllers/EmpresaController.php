@@ -26,11 +26,15 @@ class EmpresaController extends Controller {
 
     public function Salvar(Request $request) {
 
-        // $empresa = $request->all();
+        $empresa = $request->all();
+        $teste = $request->session();
         // echo '<pre>';
-        // print_r($empresa);
+        // print_r($teste);
         // echo '</pre>';
         // die();
+        if (is_null($empresa['nome_empresa'])) {
+            return $this->Listar($request);
+        }
 
         $emp = new Empresa();
 
