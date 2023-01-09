@@ -19,22 +19,11 @@ class EmpresaController extends Controller {
             'emp' => $emp
         ]);
     }
-
     public function Cadastrar(Request $r) {
         return view('empresa.cadastrar');
     }
 
     public function Salvar(Request $request) {
-
-        $empresa = $request->all();
-        $teste = $request->session();
-        // echo '<pre>';
-        // print_r($teste);
-        // echo '</pre>';
-        // die();
-        if (is_null($empresa['nome_empresa'])) {
-            return $this->Listar($request);
-        }
 
         $emp = new Empresa();
 
@@ -46,8 +35,6 @@ class EmpresaController extends Controller {
         $empresa['emp_email'] = $request->input('email_empresa');
         $empresa['emp_enum_tipo_empresa'] = $request->input('tipo_empresa');
         $empresa['emp_criado_em'] = 'NOW()';
-        // $empresa['emp_atualizado_em'] = 'NOW()';
-        // $empresa['emp_fk_usu_id_atualizou'] = 2; // Buscar ID da Sessão
 
         $result = Empresa::create($empresa);
 
@@ -59,10 +46,18 @@ class EmpresaController extends Controller {
         $id = $request->id;
         $empresa = Empresa::find($id);
         $empresaFuncao = new Empresa();
+        $tipos_de_empresas = [
+            '1' => 'Matriz',
+            '2' => 'Parceira',
+        ];
+        $selected = '';
+
         return view('empresa.editar')->with([
             'empresa' => $empresa,
             'empresaFuncao' => $empresaFuncao,
             'tipo_empresa' => $empresa->emp_enum_tipo_empresa,
+            'tipos_de_empresas' => $tipos_de_empresas,
+            'selected' => $selected,
             'title' => 'Editar Empresa'
         ]);
     }
@@ -83,12 +78,9 @@ class EmpresaController extends Controller {
         $result = $empresa->save();
 
         if ($result) {
-            //Tentando usar sweetalert
-            // Alert::success('Equipe Atualizada', 'Equipe foi atualizada com sucesso.');
-
             return redirect()->route('empresa.listar');
         } else {
-            //Tratar Erro
+            return redirect()->route('empresa.listar');
         }
     }
 }
