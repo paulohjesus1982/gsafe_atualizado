@@ -20,7 +20,7 @@ class CreateContratosTable extends Migration {
             $table->timestamp('con_data_fim_servico');
 
             $table->timestamp('con_criado_em');
-            $table->bigInteger('con_criado_por');
+            $table->bigInteger('con_criado_por')->nullable();
             $table->foreign('con_criado_por')->references('usu_id')->on('usuarios');
 
             $table->timestamp('con_atualizado_em')->nullable();

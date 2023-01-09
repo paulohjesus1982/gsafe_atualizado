@@ -58,11 +58,13 @@ class EquipeController extends Controller {
         $equipes = Equipe::find($id);
         $membros_equipe = $equipes->Membros;
         $todos_usuarios = Usuario::all();
+        $selected = '';
 
         return view('equipes.editar')->with([
             'equipes' => $equipes,
             'membros' => $membros_equipe,
             'todos_usuarios' => $todos_usuarios,
+            'selected' => $selected,
             'title' => 'Editar equipe'
         ]);
     }

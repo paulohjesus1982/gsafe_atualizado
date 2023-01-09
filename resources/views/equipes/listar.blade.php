@@ -4,7 +4,7 @@
 
 @section('content_header')
     <div class="row">
-        <div class="col-10">
+        <div class="col-11">
             <h1 class="m-0 text-dark">Equipes</h1>
         </div>
         <div class="col-1">
