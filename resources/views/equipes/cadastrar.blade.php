@@ -1,16 +1,6 @@
 @extends('adminlte::page')
 
-@section('content-title', 'Novo Associado')
-
-@section('content-path')
-    <div class="col-md-7 align-self-center">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">Início</li>
-            <li class="breadcrumb-item">Associado</li>
-            <li class="breadcrumb-item active">Novo</li>
-        </ol>
-    </div>
-@endsection
+@section('content-title', 'Cadastrar Equipe')
 
 @section('content')
     <form action="{{route('equipes.salvar')}}" method="post">
@@ -19,17 +9,17 @@
         <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
-                <h2> Cadastro Equipes</h2>
+                <h2>Cadastrar Equipes</h2>
               </div>
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                   <li class="breadcrumb-item"><a href="/home">Home</a></li>
                   <li class="breadcrumb-item"><a href="/equipe/listar">Listar</a></li>
-                  <li class="breadcrumb-item active">Equipe</li>
+                  <li class="breadcrumb-item active">Casdastrar</li>
                 </ol>
               </div>
             </div>
-        </div><!-- /.container-fluid -->
+        </div>
 
         <div class="row">
             <div class="col-md-12">
@@ -64,14 +54,14 @@
             </div>
         </div>
         <div class="row">
-
-                <div class="col-6">
-                    <button type="submit" class="btn btn-info btn-block"><span class="fa fa-check"></span> Salvar</button>
-                </div>
-                <div class="col-6">
-                    <button type="submit" class="btn btn-danger btn-block"><span class="fa fa-check"></span> Cancelar</button>
-                </div>
-
+            <div class="col-6">
+                <button type="submit" class="btn btn-info btn-block"><span class="fa fa-check"></span> Salvar</button>
+            </div>
+            <div class="col-6">
+                <a style="text-decoration: none;color:white;" href="/equipe/listar">
+                    <button type="button" class="btn btn-danger btn-block"><span class="fa fa-check"></span> Cancelar</button>
+                </a>
+            </div>
         </div>
     </form>
 @endsection
