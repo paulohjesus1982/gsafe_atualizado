@@ -4,7 +4,7 @@
 
 @section('content_header')
     <div class="row">
-        <div class="col-10">
+        <div class="col-11">
             <h1 class="m-0 text-dark">Paralizações</h1>
         </div>
         <div class="col-1">
@@ -17,12 +17,25 @@
 
 @section('content')
 {{ csrf_field()}}
+<div class="container-fluid">
+    <div class="row mb-2">
+        <div class="col-sm-6">
+            <h2> Listar Empresas</h2>
+        </div>
+        <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                <li class="breadcrumb-item active">Listar</li>
+            </ol>
+        </div>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-12">
         <div class= "card card-info">
             <div class="card-header">
-                <h3 class="card-title">Paralizações</h3>
+                <h3 class="card-title">Empresas</h3>
                 <div class="card-tools">
                     <div class="input-group input-group-sm" style="width: 150px;">
                         <input type="text" name="table_search" class="form-control float-right" placeholder="Procurar">
@@ -43,105 +56,30 @@
                             <th>ART</th>
                             <th>Empresa</th>
                             <th>Status</th>
-                            <th>Profissional</th>
+                            <th>Equipe</th>
                             <th>Opções</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                000125
-                            </td>
-                            <td>
-                                <a>
-                                    pet- 125639
-                                </a>
-                            </td>
-                            <td>
-                                <a>
-                                    art-186479
-                                </a>
-                            </td>
-                            <td>
-                                <a>
-                                  VOGETTA MONTAGENS
-                                </a>
-                                </ul>
-                            </td>
-                            <td class="project-state">
-                                <span class="badge badge-success">EM ABERTO</span>
-                            </td>
-                            <td class="project-state">
-                                <a>
-                                    BARBARA
-                                </a>
-                            </td>
-                            <td class="project-actions text-right">
-                                <a class="btn btn-primary btn-sm" href="/paralizacao/mostrar">
-                                    <i class="fas fa-folder">
-                                    </i>
-                                    View
-                                </a>
-                                <a class="btn btn-info btn-sm" href="/paralizacao/cadastrar">
-                                    <i class="fas fa-pencil-alt">
-                                    </i>
-                                    Edit
-                                </a>
-                                <a class="btn btn-alert btn-sm" href="/paralizacao/cadastrar">
-                                    <i class="fas fa-check">
-                                    </i>
-                                    Fechar
-                                </a>
-
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                000133
-                            </td>
-                            <td>
-                                <a>
-                                    pet- 125639
-                                </a>
-                            </td>
-                            <td>
-                                <a>
-                                    art-186479
-                                </a>
-                            </td>
-                            <td>
-                                <a>
-                                  VOGETTA MONTAGENS
-                                </a>
-                                </ul>
-                            </td>
-                            <td class="project-state">
-                                <span class="badge badge-primary">FECHADO</span>
-                            </td>
-                            <td class="project-state">
-                                <a>
-                                    BARBARA
-                                </a>
-                            </td>
-                            <td class="project-actions text-right">
-                                <a class="btn btn-primary btn-sm" href="/paralizacao/mostrar">
-                                    <i class="fas fa-folder">
-                                    </i>
-                                    View
-                                </a>
-                                <a class="btn btn-info btn-sm" href="/paralizacao/cadastrar">
-                                    <i class="fas fa-pencil-alt">
-                                    </i>
-                                    Edit
-                                </a>
-                                <a class="btn btn-alert btn-sm" href="/paralizacao/cadastrar">
-                                    <i class="fas fa-check">
-                                    </i>
-                                    Fechar
-                                </a>
-
-                            </td>
-                        </tr>
+                        @foreach ( $paralizacoes as $paralizacao )
+                            <tr>
+                                <td>{{$paralizacao->par_id}}</td>
+                                <td>{{$paralizacao->par_pet}}</td>
+                                <td>{{$paralizacao->par_art}}</td>
+                                <td>{{$paralizacao->par_fk_emp_id}}</td>
+                                <td>{{$paralizacao->par_enum_estado_paralizacao}}</td>
+                                <td>{{$paralizacao->par_fk_equ_id}}</td>
+                                <td>
+                                    <a href="/paralizacao/editar/{{$paralizacao->par_id}}" class="navi-link">
+                                        <span class="navi-text">
+                                            <span class="label label-xl label-inline label-light-primary">
+                                                Editar
+                                            </span>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
