@@ -97,7 +97,7 @@ Route::group(['prefix' => '/contrato'], function () {
 // Paralizacao
 Route::group(['prefix' => '/paralizacao'], function () {
     Route::get('/listar',       [ParalizacaoController::class, 'Listar'])->name('paralizacao.listar');
-    Route::get('/cadastrar',    [ParalizacaoController::class, 'Cadastrar'])->name('paralizacao.cadastrar');
+    Route::get('/cadastrar',    [ParalizacaoController::class, 'Cadastrar']);
     Route::get('/editar/{id}',  [ParalizacaoController::class, 'Editar'])->name('paralizacao.editar');
     Route::post('/salvar',      [ParalizacaoController::class, 'Salvar'])->name('paralizacao.salvar');
     Route::post('/atualizar',   [ParalizacaoController::class, 'Atualizar'])->name('paralizacao.atualizar');
