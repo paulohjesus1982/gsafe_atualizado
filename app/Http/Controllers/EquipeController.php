@@ -100,9 +100,9 @@ class EquipeController extends Controller {
                         ['emem_fk_usu_id', '=', $membro],
                     ])->get();
                     if (!isset($equipe_membro_atual[0])) {
-                        echo '<pre>';
-                        print_r($membro);
-                        echo '</pre>';
+                        // echo '<pre>';
+                        // print_r($membro);
+                        // echo '</pre>';
 
                         $equipe_membro = array();
 

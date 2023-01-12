@@ -41,6 +41,22 @@
                                     <label for="rgb_permissao">Selecionar Cor</label>
                                     <input type="color" class="form-control" name="rgb_permissao" value="{{$permissao->per_rgb}}">
                                 </div>
+                                <div class="form-group col-md-6" >
+                                    <label for="premissas">Premissas</label>
+                                    <select class="custom-select" name="premissas[]" multiple="multiple">
+                                        @foreach ( $todas_premissas as $premissas_ )
+                                            @foreach ( $premissas as $premissa_ )
+                                                @foreach ( $premissa_ as $premissa )
+                                                    @if($premissas_->pre_id == $premissa->pre_id )
+                                                        <?php $selected = "selected" ?>
+                                                    @endif
+                                                @endforeach
+                                            @endforeach
+                                            <option <?php echo $selected; ?> value="{{$premissas_->pre_id}}">{{$premissas_->pre_nome}}</option>
+                                            <?php $selected = "" ?>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                     </div>
                 </div>

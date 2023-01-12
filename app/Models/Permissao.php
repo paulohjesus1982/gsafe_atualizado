@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\PermissoesPremissa;
 
 class Permissao extends Model {
     use HasFactory;
@@ -19,4 +20,8 @@ class Permissao extends Model {
         'per_criado_em',
         'per_atualizado_em',
     ];
+
+    public function Premissas() {
+        return $this->hasMany(PermissoesPremissa::class, 'ppre_fk_per_id', 'per_id');
+    }
 }

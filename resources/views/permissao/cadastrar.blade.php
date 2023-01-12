@@ -38,6 +38,15 @@
                                 <label for="rgb_permissao">Selecionar Cor</label>
                                 <input type="color" class="form-control" name="rgb_permissao" value="#000000">
                             </div>
+
+                            <div class="form-group col-md-12">
+                                <label for="nome">Membros</label>
+                                <select multiple type="select" name="premissas[]" id="premissas" class="custom-select">
+                                    @foreach ( $premissas as $premissa )
+                                        <option value="{{$premissa->pre_id}}">{{$premissa->pre_nome}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
