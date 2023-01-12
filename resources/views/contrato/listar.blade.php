@@ -73,6 +73,22 @@
                                         </span>
                                     </a>
                                     | 
+                                    <a href="/contrato/cadastrar_servico/{{$contrato->con_id}}" class="navi-link">
+                                        <span class="navi-text">
+                                            <span class="label label-xl label-inline label-light-primary">
+                                                Adicionar Serviços
+                                            </span>
+                                        </span>
+                                    </a>
+                                    | 
+                                    <a href="/contrato/listar_servico/{{$contrato->con_id}}" class="navi-link">
+                                        <span class="navi-text">
+                                            <span class="label label-xl label-inline label-light-primary">
+                                                Listar Serviços
+                                            </span>
+                                        </span>
+                                    </a>
+                                    | 
                                     <a href="/contrato/cadastrar_adicional/{{$contrato->con_id}}" class="navi-link">
                                         <span class="navi-text">
                                             <span class="label label-xl label-inline label-light-primary">

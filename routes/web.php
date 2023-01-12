@@ -87,14 +87,17 @@ Route::group(['prefix' => '/empresa'], function () {
 
 // Contrato
 Route::group(['prefix' => '/contrato'], function () {
-    Route::get('/listar',                   [ContratoController::class, 'Listar'])->name('contrato.listar');
-    Route::get('/listar_adicional/{id}',    [ContratoController::class, 'ListarAdicional'])->name('contrato.listar_adicional');
-    Route::get('/cadastrar',                [ContratoController::class, 'Cadastrar']);
-    Route::get('/cadastrar_adicional/{id}', [ContratoController::class, 'CadastrarAdicional']);
-    Route::get('/editar/{id}',              [ContratoController::class, 'Editar'])->name('contrato.editar');
-    Route::post('/salvar',                  [ContratoController::class, 'Salvar'])->name('contrato.salvar');
-    Route::post('/atualizar',               [ContratoController::class, 'Atualizar'])->name('contrato.atualizar');
-    Route::post('/mudarstatus',             [ContratoController::class, 'MudarStatus'])->name('contrato.mudarstatus');
+    Route::get('/listar',                    [ContratoController::class, 'Listar'])->name('contrato.listar');
+    Route::get('/listar_adicional/{id}',     [ContratoController::class, 'ListarAdicional'])->name('contrato.listar_adicional');
+    Route::get('/cadastrar',                 [ContratoController::class, 'Cadastrar']);
+    Route::get('/cadastrar_adicional/{id}',  [ContratoController::class, 'CadastrarAdicional']);
+    Route::get('/cadastrar_servico/{id}',    [ContratoController::class, 'CadastrarContratoServico']);
+    Route::get('/listar_servico/{id}',       [ContratoController::class, 'ListarContratoServico']);
+    Route::get('/editar/{id}',               [ContratoController::class, 'Editar'])->name('contrato.editar');
+    Route::post('/salvar',                   [ContratoController::class, 'Salvar'])->name('contrato.salvar');
+    Route::post('/atualizar',                [ContratoController::class, 'Atualizar'])->name('contrato.atualizar');
+    Route::post('/mudarstatus',              [ContratoController::class, 'MudarStatus'])->name('contrato.mudarstatus');
+    Route::post('/salvar_contrato_servicos', [ContratoController::class, 'SalvarContratoServicos'])->name('contrato.salvar_contrato_servicos');
 });
 
 // Paralizacao
@@ -104,7 +107,7 @@ Route::group(['prefix' => '/paralizacao'], function () {
     Route::get('/editar/{id}',  [ParalizacaoController::class, 'Editar'])->name('paralizacao.editar');
     Route::post('/salvar',      [ParalizacaoController::class, 'Salvar'])->name('paralizacao.salvar');
     Route::post('/atualizar',   [ParalizacaoController::class, 'Atualizar'])->name('paralizacao.atualizar');
-    Route::get('/mostrar',   [ParalizacaoController::class, 'Mostrar'])->name('paralizacao.mostrar');
+    Route::get('/mostrar',      [ParalizacaoController::class, 'Mostrar'])->name('paralizacao.mostrar');
 });
 
 // });

@@ -124,6 +124,20 @@
                                 </div>
                             </div>
                         </div>
+                    
+                        <div class="row">
+                            <div class="col-6">
+                                <a style="text-decoration: none;color:white;" href="/contrato/cadastrar_servico/{{$contrato_adicional['contrato']->con_id}}">
+                                    <button type="button" class="btn btn-success btn-block"><span class="fa fa-check"></span> Adicionar Serviços</button>
+                                </a>
+                            </div>
+                            <div class="col-6">
+                                <a style="text-decoration: none;color:white;" href="/contrato/listar_servico/{{$contrato_adicional['contrato']->con_id}}">
+                                    <button type="button" class="btn btn-success btn-block"><span class="fa fa-check"></span> Listar Serviços</button>
+                                </a>
+                            </div>
+                        </div>
+
                     </div>
                 @endforeach
             </div>

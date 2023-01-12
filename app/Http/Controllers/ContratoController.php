@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Contrato;
 use App\Models\AdicionalContrato;
 use App\Models\Empresa;
+use App\Models\Servico;
+use App\Models\ContratosServico;
 
 class ContratoController extends Controller {
     public function __construct() {
@@ -64,6 +66,34 @@ class ContratoController extends Controller {
         ]);
     }
 
+    public function CadastrarContratoServico(Request $r) {
+
+        $contrato = Contrato::find($r->id);
+        $servicos = Servico::all();
+
+        return view("contrato.cadastrar_servico", [
+            'contrato' => $contrato,
+            'servicos' => $servicos,
+        ]);
+    }
+
+    public function ListarContratoServico(Request $r) {
+
+        $contrato = Contrato::find($r->id);
+        $contrato_servicos = $contrato->ServicosContrato;
+        $servicos = array();
+
+        foreach ($contrato_servicos as $key => $contrato_servico) {
+            $servico = Servico::where('ser_id', $contrato_servico->cser_fk_ser_id)->get();
+            $servicos[$key] = $servico;
+        }
+
+        return view("contrato.listar_servico", [
+            'contrato' => $contrato,
+            'servicos' => $servicos,
+        ]);
+    }
+
     public function Salvar(Request $request) {
 
         $contrato_novo = $request->all();
@@ -85,6 +115,22 @@ class ContratoController extends Controller {
             $adicional_contrato['acon_fk_con_codigo_contrato_adicional'] = $id_adicional_contrato;
 
             $result = AdicionalContrato::create($adicional_contrato);
+        }
+
+        return redirect()->route('contrato.listar');
+    }
+
+    public function SalvarContratoServicos(Request $request) {
+
+        $contrato_novo = $request->all();
+
+        $con_id = $contrato_novo['contrato_id'];
+
+        foreach ($contrato_novo['contrato_servicos'] as $key => $servico) {
+            $contratos_servico['cser_fk_con_id'] = $con_id;
+            $contratos_servico['cser_fk_ser_id'] = $servico;
+
+            $result = ContratosServico::create($contratos_servico);
         }
 
         return redirect()->route('contrato.listar');

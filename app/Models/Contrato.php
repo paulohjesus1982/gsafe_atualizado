@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Empresa;
 use App\Models\AdicionalContrato;
+use App\Models\ContratosServico;
 
 class Contrato extends Model {
     use HasFactory;
@@ -31,5 +32,9 @@ class Contrato extends Model {
 
     public function AdicionalContratos() {
         return $this->hasMany(AdicionalContrato::class, 'acon_fk_con_codigo_contrato_principal', 'con_id');
+    }
+
+    public function ServicosContrato() {
+        return $this->hasMany(ContratosServico::class, 'cser_fk_con_id', 'con_id');
     }
 }
