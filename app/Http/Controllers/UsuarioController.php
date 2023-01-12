@@ -73,9 +73,7 @@ class UsuarioController extends Controller {
 
         $id = $request->id;
         $usuario = Usuario::find($id);
-        $usuario_dados = new UsuariosDado;
-        $usuario_dados = $usuario->DadosDoUsuario;
-        $usuario['usuario_dados'] = $usuario_dados;
+        $usuario['usuario_dados'] = $usuario->DadosDoUsuario;
 
         return view('usuario.editar')->with([
             'usuario' => $usuario,
@@ -98,6 +96,7 @@ class UsuarioController extends Controller {
 
         if ($result) {
             $usuario_dados = UsuariosDado::find($atualizar_usuario['codigo_dados_usuario']);
+            $usu_dados_vazio = is_null($usuario_dados);
 
             $usuario_dados['udad_nome_completo'] = $atualizar_usuario['nome_completo'];
             $usuario_dados['udad_endereco'] = $atualizar_usuario['endereco'];
@@ -111,7 +110,15 @@ class UsuarioController extends Controller {
             $usuario_dados['udad_registro_profissao'] = $atualizar_usuario['registro_profissao'];
             $usuario_dados['udad_atualizado_em'] = 'NOW()';
 
-            $result2 = $usuario_dados->save();
+            if ($usu_dados_vazio) {
+                $usuario_dados['udad_atualizado_em'] = NULL;
+                $usuario_dados['udad_criado_em'] = 'NOW()';
+                $usuario_dados['udad_fk_usu_id'] = $atualizar_usuario['codigo_usuario'];
+
+                $result2 = UsuariosDado::create($usuario_dados);
+            } else {
+                $result2 = $usuario_dados->save();
+            }
 
             if ($result2) {
                 return redirect()->route('usuario.listar');

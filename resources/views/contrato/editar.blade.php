@@ -3,7 +3,7 @@
 @section('content-title', 'Editar Contrato')
 
 @section('content')
-    <form action="{{route('contrato.atualizar')}}" method="post">
+    <form action="{{route('contrato.mudarstatus')}}" method="post">
         {{csrf_field()}}
 
         <div class="container-fluid">
@@ -35,7 +35,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="nome_contrato">Titulo Contrato</label>
-                                <input type="text" name="nome_contrato" class="form-control" value="{{$contrato->con_nome}}" autofocus/>
+                                <input type="text" name="nome_contrato" class="form-control" value="{{$contrato->con_nome}}" readonly/>
                             </div>
     
                             @php 
@@ -45,15 +45,15 @@
     
                             <div class="form-group col-md-6">
                                 <label for="data_inicio">Data Inicio</label>
-                                <input type="date" name="data_inicio" class="form-control" readonly value="@php echo $data_inicio[0]; @endphp" autofocus/>
+                                <input type="date" name="data_inicio" class="form-control" readonly value="@php echo $data_inicio[0]; @endphp" readonly/>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="data_fim">Data Fim</label>
-                                <input type="date" name="data_fim" class="form-control" value="@php echo $data_fim[0]; @endphp" autofocus/>
+                                <input type="date" name="data_fim" class="form-control" value="@php echo $data_fim[0]; @endphp" readonly/>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="tipo_contrato">Tipo Contrato</label>
-                                <select class="custom-select" name="tipo_contrato">
+                                <select class="custom-select" name="tipo_contrato" disabled>
                                     @foreach ($tipoContrato as $chave => $tipo)
                                         @if ($chave == $contrato->con_enum_tipo_contrato && $chave != '')
                                             <?php $var = "selected"?>
@@ -62,6 +62,28 @@
                                         @endif
                                             <option <?php echo $var; ?> value="{{$chave}}">{{$tipo}}</option>
                                         @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="par_fk_emp_id">Empresa</label>
+                                <select class="custom-select" name="par_fk_emp_id" disabled>
+                                    @foreach ( $empresas as $empresa )
+                                        @if($empresa->emp_id == $contrato['empresas']->emp_id)
+                                            <?php $selected_empresa = "selected"; ?>
+                                        @endif
+                                        <option <?php echo $selected_empresa; ?> value="{{$empresa->emp_id}}">{{$empresa->emp_nome}}</option>
+                                        <?php $selected_empresa = "" ?>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="status_contrato">Tipo Contrato</label>
+                                {{-- ver se faz sentido sempre cadastrar como principal e só fazer como subcontrato se ele cadastrar um contrato no contrato --}}
+                                {{-- <input type="text" name="tipo_contrato" class="form-control" value="1" readonly/>Principal --}}
+                                <select class="custom-select" name="status_contrato">
+                                    <option value='1' selected>Ativo</option>
+                                    <option value='2'>Inativo</option>
                                 </select>
                             </div>
                         </div>

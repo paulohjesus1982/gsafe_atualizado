@@ -54,27 +54,43 @@
                         <tr>
                             <th>ID</th>
                             <th>Contrato</th>
-                            {{-- <th>Vinculado à</th> --}}
+                            <th>Status</th>
                             <th>Opções</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ( $contratos as $contrato )
-                        <tr>
-                            <td id='equipe_{{$contrato->con_id}}'>{{$contrato->con_id}}</td>
-                            <td>{{$contrato->con_nome}}</td>
-                            {{-- <td>{{$empresa->emp_nome}}</td> --}}
-                            <td>
-                                <a href="/contrato/editar/{{$contrato->con_id}}" class="navi-link">
-                                    <span class="navi-text">
-                                        <span class="label label-xl label-inline label-light-primary">
-                                            Editar
+                            <tr>
+                                <td id='equipe_{{$contrato->con_id}}'>{{$contrato->con_id}}</td>
+                                <td>{{$contrato->con_nome}}</td>
+                                <td>{{$contrato->con_status}}</td>
+                                <td>
+                                    <a href="/contrato/editar/{{$contrato->con_id}}" class="navi-link">
+                                        <span class="navi-text">
+                                            <span class="label label-xl label-inline label-light-primary">
+                                                Editar
+                                            </span>
                                         </span>
-                                    </span>
-                                </a>
-                            </td>
-                        </tr>
-                    @endforeach
+                                    </a>
+                                    | 
+                                    <a href="/contrato/cadastrar_adicional/{{$contrato->con_id}}" class="navi-link">
+                                        <span class="navi-text">
+                                            <span class="label label-xl label-inline label-light-primary">
+                                                Adicionar Contrato
+                                            </span>
+                                        </span>
+                                    </a>
+                                    | 
+                                    <a href="/contrato/listar_adicional/{{$contrato->con_id}}" class="navi-link">
+                                        <span class="navi-text">
+                                            <span class="label label-xl label-inline label-light-primary">
+                                                Listar Adicional de contrato
+                                            </span>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

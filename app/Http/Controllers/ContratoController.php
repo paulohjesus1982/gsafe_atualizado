@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Contrato;
+use App\Models\AdicionalContrato;
 use App\Models\Empresa;
 
 class ContratoController extends Controller {
@@ -12,10 +13,32 @@ class ContratoController extends Controller {
 
     public function Listar(Request $r) {
 
-        $contrato = Contrato::all()->sortBy("con_id");
+        $contrato = Contrato::all()->where('con_enum_tipo_contrato', 1)->sortBy("con_id");
 
         return view('contrato.listar', [
             'contratos' => $contrato
+        ]);
+    }
+
+    public function ListarAdicional(Request $r) {
+
+        $dados_contrato_principal = $r->id;
+        $contrato_principal = Contrato::find($dados_contrato_principal);
+        $contrato_principal['empresa'] = $contrato_principal->Empresa;
+        $adicionais = $contrato_principal->AdicionalContratos;
+        $todos_contrato_adicionais = array();
+
+        foreach ($adicionais as $key => $adicional) {
+            $contrato_adicional = Contrato::where('con_id', $adicional->acon_fk_con_codigo_contrato_adicional)->get();
+            $todos_contrato_adicionais[$key] = [
+                'contrato' => $contrato_adicional[0],
+                'empresa' => $contrato_adicional[0]->Empresa
+            ];
+        }
+
+        return view('contrato.listar_adicional', [
+            'contratos_adicionais' => $todos_contrato_adicionais,
+            'contrato' => $contrato_principal
         ]);
     }
 
@@ -24,6 +47,19 @@ class ContratoController extends Controller {
         $empresa = Empresa::all()->sortBy("emp_id");
 
         return view('contrato.cadastrar', [
+            'empresas' => $empresa,
+        ]);
+    }
+
+    public function CadastrarAdicional(Request $r) {
+
+        $dados_contrato_principal = $r->id;
+        $contrato_principal = Contrato::find($dados_contrato_principal);
+
+        $empresa = Empresa::all()->sortBy("emp_id");
+
+        return view("contrato.cadastrar_adicional", [
+            'contrato_principal' => $contrato_principal,
             'empresas' => $empresa,
         ]);
     }
@@ -41,6 +77,16 @@ class ContratoController extends Controller {
 
         $result = Contrato::create($contrato);
 
+        if ($result && $contrato_novo['id_contrato_original'] && $contrato_novo['nome_contrato_original']) {
+            $id_adicional_contrato = $result->con_id;
+            $adicional_contrato = array();
+
+            $adicional_contrato['acon_fk_con_codigo_contrato_principal'] = $contrato_novo['id_contrato_original'];
+            $adicional_contrato['acon_fk_con_codigo_contrato_adicional'] = $id_adicional_contrato;
+
+            $result = AdicionalContrato::create($adicional_contrato);
+        }
+
         return redirect()->route('contrato.listar');
     }
 
@@ -48,6 +94,9 @@ class ContratoController extends Controller {
 
         $id = $request->id;
         $contrato = Contrato::find($id);
+        $contrato['empresas'] = $contrato->Empresa;
+        $empresa = Empresa::all()->sortBy("emp_id");
+        $selected_empresa = '';
 
         $tipoContrato = [
             1 => 'Principal',
@@ -57,6 +106,8 @@ class ContratoController extends Controller {
         return view('contrato.editar')->with([
             'contrato' => $contrato,
             'tipoContrato' => $tipoContrato,
+            'empresas' => $empresa,
+            'selected_empresa' => $selected_empresa,
             'title' => 'Editar Contrato'
         ]);
     }
@@ -71,6 +122,24 @@ class ContratoController extends Controller {
         $contrato['con_data_fim_servico'] = $atualizar_contrato['data_fim'];
         $contrato['con_enum_tipo_contrato'] = $atualizar_contrato['tipo_contrato'];
         $contrato['con_atualizado_em'] = 'NOW()';
+
+        $result = $contrato->save();
+
+        if ($result) {
+            return redirect()->route('contrato.listar');
+        } else {
+            return redirect()->route('contrato.listar');
+        }
+    }
+
+    public function MudarStatus(Request $request) {
+        $dados_contrato = $request->all();
+
+
+        $contrato = Contrato::find($dados_contrato['codigo_contrato']);
+
+        $contrato['con_atualizado_em'] = 'NOW()';
+        $contrato['con_status'] = $dados_contrato['status_contrato'] == 1 ? 'Ativo' : 'Inativo';
 
         $result = $contrato->save();
 

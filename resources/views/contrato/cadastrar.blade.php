@@ -54,12 +54,11 @@
 
                             <div class="form-group col-md-6">
                                 <label for="tipo_contrato">Tipo Contrato</label>
-                                {{-- ver se faz sentido sempre cadastrar como principal e só fazer como subcontrato se ele cadastrar um contrato no contrato --}}
-                                {{-- <input type="text" name="tipo_contrato" class="form-control" value="1" readonly/>Principal --}}
-                                <select class="custom-select" name="tipo_contrato">
-                                    <option value='1'>Principal</option>
+                                <select class="custom-select" name="tipo_contrato" id="tipo_contrato" disabled>
+                                    <option value='1' selected>Principal</option>
                                     <option value='2'>Sub-Contrato</option>
                                 </select>
+                                <input type="hidden" name="tipo_contrato" class="form-control" value="1" />
                             </div>
                         </div>
                     </div>

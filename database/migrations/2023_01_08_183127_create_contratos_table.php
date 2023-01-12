@@ -28,6 +28,7 @@ class CreateContratosTable extends Migration {
             $table->foreign('con_atualizado_por')->references('usu_id')->on('usuarios');
 
             $table->integer('con_enum_tipo_contrato')->default(1);
+            $table->text('con_status')->default('Ativo');
         });
     }
 
