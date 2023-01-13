@@ -81,12 +81,12 @@
                                             <input type="text" name="pre_descricao" id="pre_descricao" class="form-control" value="{{$premissa->pre_descricao}}" disabled/>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <a style="text-decoration: none;color:white;" href="/paralizacao/fechar_premissa/{{$premissa->pre_id}}">
+                                            <a style="text-decoration: none;color:white;" href="/paralizacao/fechar_premissa/{{$paralizacao->par_id}}/{{$permissao->per_id}}/{{$premissa->pre_id}}">
                                                 <button type="button" class="btn btn-danger btn-block"><span class="fa fa-check"></span> Fechar Premissa</button>
                                             </a>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <a style="text-decoration: none;color:white;" href="/paralizacao/ver_imagem_premissa/{{$premissa->pre_id}}">
+                                            <a style="text-decoration: none;color:white;" href="/paralizacao/ver_imagem_premissa/{{$paralizacao->par_id}}/{{$permissao->per_id}}/{{$premissa->pre_id}}">
                                                 <button type="button" class="btn btn-danger btn-block" ><span class="fa fa-check"></span> Ver Foto Premissa</button>
                                             </a>
                                         </div>

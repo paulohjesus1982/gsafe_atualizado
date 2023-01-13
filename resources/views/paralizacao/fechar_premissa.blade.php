@@ -28,6 +28,9 @@
                     <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
                     <input type="file" class="custom-file-input" name="img_premissa" id="input_img">
                     <label class="custom-file-label" for="input_img_itens">Escolha o arquivo</label>
+                    <input type="hidden" name="id_par" id="id_par" value="{{$par_id}}">
+                    <input type="hidden" name="id_per" id="id_per" value="{{$per_id}}">
+                    <input type="hidden" name="id_pre" id="id_pre" value="{{$pre_id}}">
                 </div>
                 <div class="col-md-3"></div>
                 <div class="col-md-3"></div>

@@ -8,6 +8,7 @@ use App\Models\Permissao;
 use App\Models\PermissoesPremissa;
 use App\Models\Premissa;
 use App\Models\PermissoesParalizacao;
+use App\Models\ParalizacoesPremissa;
 use App\Models\Empresa;
 use App\Models\Equipe;
 use Illuminate\Support\File;
@@ -27,19 +28,25 @@ class ParalizacaoController extends Controller {
 
     public function VerImagemPremissa(Request $r) {
 
-        $premissa = Premissa::find($r->id);
+        $premissa = Premissa::find($r->id_pre);
+        $paralizacoes_premissa = array();
+        $paralizacoes_premissa = ParalizacoesPremissa::where('ppre_fk_pre_id', $r->id_pre)->where('ppre_fk_par_id', $r->id_par)->get();
 
         return view('paralizacao.ver_imagem_premissa', [
-            'premissa' => $premissa
+            'premissa' => $premissa,
+            'paralizacoes_premissa' => $paralizacoes_premissa,
         ]);
     }
 
     public function FecharPremissa(Request $r) {
 
-        $premissa = Premissa::find($r->id);
+        $premissa = Premissa::find($r->id_pre);
 
         return view('paralizacao.fechar_premissa', [
-            'premissa' => $premissa
+            'premissa' => $premissa,
+            'par_id' => $r->id_par,
+            'per_id' => $r->id_per,
+            'pre_id' => $r->id_pre,
         ]);
     }
 
@@ -117,7 +124,9 @@ class ParalizacaoController extends Controller {
 
     public function CadastrarFechamentoPremissa(Request $request) {
 
-        $nova_paralizacao = $request->all();
+        $dados = $request->all();
+        // $premissa = Premissa::find($dados['id_pre']);
+        //url_arquivo = storage/img_premissa/nomearquivo.extensao
 
         // Handle File Upload
         if ($request->hasFile('img_premissa')) {
@@ -131,6 +140,16 @@ class ParalizacaoController extends Controller {
             $fileNameToStore = $filename . '_' . time() . '.' . $extension;
             // Upload Image
             $path = $request->file('img_premissa')->storeAs('public/img_premissa', $fileNameToStore);
+
+            if ($path) {
+                $paralizacoes_premissas = array();
+
+                $paralizacoes_premissas['ppre_fk_par_id'] = $dados['id_par'];
+                $paralizacoes_premissas['ppre_fk_pre_id'] = $dados['id_pre'];
+                $paralizacoes_premissas['ppre_caminho_anexo'] = "storage/img_premissa/" . $fileNameToStore;
+
+                $result = ParalizacoesPremissa::create($paralizacoes_premissas);
+            }
         } else {
             $fileNameToStore = 'noimage.png';
         }

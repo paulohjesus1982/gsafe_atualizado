@@ -28,7 +28,15 @@
                 <div class="form-group col-md-4">
                     <label for="pre_descricao">Imagem</label>
                     <div>
-                        <img src="{{ asset('storage/img_premissa/capacete_1673596141.jpeg') }}" class="img-responsive" style="height: 400px; width: 400px;">
+                        @if (count($paralizacoes_premissa) > 0)
+                            <?php
+                                $anexo = $paralizacoes_premissa[0]->ppre_caminho_anexo; 
+                            ?>
+                            <img src="{{ asset("$anexo") }}" class="img-responsive" style="height: 400px; width: 400px;">
+                        @else
+                            Sem imagem
+                        @endif
+                        {{-- <img src="{{ asset('storage/img_premissa/capacete_1673638789.jpeg') }}" class="img-responsive" style="height: 400px; width: 400px;"> --}}
                     </div>
                 </div>
             </div>
