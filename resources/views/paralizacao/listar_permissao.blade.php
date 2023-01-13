@@ -68,31 +68,27 @@
                                         </h4>
                                     </div>
                                     @foreach ($premissas[$permissao->per_id] as $premissa)
-                                        <div class="form-group col-md-3">
+                                        <div class="form-group col-md-4">
                                             <label for="par_justificativa">Id Premissa</label>
                                             <input type="text" name="pre_id" id="pre_id" class="form-control" value="{{$premissa->pre_id}}" disabled/>
                                         </div>
-                                        <div class="form-group col-md-3">
+                                        <div class="form-group col-md-4">
                                             <label for="par_justificativa">Nome</label>
                                             <input type="text" name="pre_nome" id="pre_nome" class="form-control" value="{{$premissa->pre_nome}}" disabled/>
                                         </div>
-                                        <div class="form-group col-md-3">
+                                        <div class="form-group col-md-4">
                                             <label for="par_justificativa">Descrição</label>
                                             <input type="text" name="pre_descricao" id="pre_descricao" class="form-control" value="{{$premissa->pre_descricao}}" disabled/>
                                         </div>
-                                        <div class="form-group col-md-3">
-                                            <div class="col-md-3">
-                                                <label for="par_justificativa">Fechar</label>
-                                                <a style="text-decoration: none;color:white;" href="/paralizacao/fechar_premissa">
-                                                    <button type="button" class="btn btn-danger btn-block"><span class="fa fa-check"></span> Fechar</button>
-                                                </a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="par_justificativa">Ver Imagem</label>
-                                                <a style="text-decoration: none;color:white;" href="/paralizacao/ver_imagem_premissa">
-                                                    <button type="button" class="btn btn-danger btn-block"><span class="fa fa-check"></span> Ver </button>
-                                                </a>
-                                            </div>
+                                        <div class="form-group col-md-6">
+                                            <a style="text-decoration: none;color:white;" href="/paralizacao/fechar_premissa/{{$premissa->pre_id}}">
+                                                <button type="button" class="btn btn-danger btn-block"><span class="fa fa-check"></span> Fechar Premissa</button>
+                                            </a>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <a style="text-decoration: none;color:white;" href="/paralizacao/ver_imagem_premissa/{{$premissa->pre_id}}">
+                                                <button type="button" class="btn btn-danger btn-block" disabled><span class="fa fa-check"></span> Ver Foto Premissa</button>
+                                            </a>
                                         </div>
                                     @endforeach
                                 </div>

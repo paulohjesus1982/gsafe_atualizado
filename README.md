@@ -1,64 +1,75 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+1° clone o repositório (git clone git@github.com:paulohjesus1982/gsafe_atualizado.git)
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+2° abra o terminal e instale as seguintes dependencias 
 
-## About Laravel
+OBS IMPORTANTISSIMO: TODAS AS OPÇÕES DE REPLACE QUE APARECEREM VC COLOCA "NO", mas pq? pq se não vai dar replace em todas as pastas com fontes que mexemos e da bosta
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+composer require jeroennoten/laravel-adminlte:*
+php artisan adminlte:install
+composer require laravel/ui
+php artisan storage:link -> tem que rodar isso para o upload de img funcionar
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+3° crie uma base de dados com o nome gsafe (estou estabelecendo um padrão, mas como vai ser local e a gente que configura o banco no .env, pode fazer como quiser, mas por precaução, vamos fazer tudo igual)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+4° configure o .env
+	alguns detalhes:
+	não sei porque, mas se não colocar um APP_KEY na config da linha 3 (APP_KEY) do .env da alguns erros, eu to usando esse se quiserem : base64:pd70ls68jpWbfgeSbfu4icqGiLVHtoEzDmqG4wPTPhs= , mas pelo que entendi até agora pode ser um qualquer, mas fica a dica e o aviso
+	configure o banco para os padrões que estão na sua máquina:
+	DB_CONNECTION=pgsql
+	DB_HOST=127.0.0.1
+	DB_PORT=5432
+	DB_DATABASE=
+	DB_USERNAME=
+	DB_PASSWORD=
+	
+5° faça o php artisan migrate para criar todas as tabelas certinho, por garantia vai la no banco da um refresh na base que vc criou e ve se ta tudo lá 
 
-## Learning Laravel
+*Detalhe:
+como começamos o banco do 0, existe uma ordem de cadastro das coisas no sistema para começar a funcionar, vou deixar o passo a passo:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+6° crie seu login:
+vá em "Registrar um novo membro" na tela de login mesmo que já vai ser possivel estar criando um
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+obs.: como eu ainda não consegui fazer a autenticação ele acessa as pags sem logar, mas só passa da parte de login se vc criar um 
 
-## Laravel Sponsors
+agora explicando com base no menu:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+incialmente: basicamente/quase todas as telas seguem o mesmo padrão, até mesmo as que se relacionam por tabela associativa, então:
+- toda tela de listar tem a visualização dos cadastrados
+- no canto superior direito da tela de listar existe um botão cadastrar
+- na coluna opção da tela de listagem tem um botão editar
+- toda tela que vc entrar tem que cadastrar (pra nao repetir isso em todo passo)
+- se um passo não tiver nada a comentar, é só criar e brincar com o que quiser na tela
 
-### Premium Partners
+7° Usuario
+- a principio ja criamos o primeiro para o login, mas vc pode criar mais, editar e etc
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+8° Equipe
+- na equipe só cuidado na edição, pois se voce tentar fazer com que a equipe fique sem nenhum usuario vinculado, não ira existir alteração (preciso melhorar isso hehe, mas faz sentido vai)
+- lembra que para selecionar mais de um usuario para a equipe tem que segurar o ctrl e ir clicando
 
-## Contributing
+9° empresa
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+10° contrato
+- depois do contrato criado, ao olhar o listar perceberá que tem algumas opções nele
+	* opções de adicional de contrato
+		vc pode adicionar os adicionais de contrato a um contrato listado (contratos adicionais não aparecem no listar principal, só no listar adicional de contrato)
+		vc nesse momento ainda não pode adicionar serviços pq nenhum foi criado
 
-## Code of Conduct
+11° serviço
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+12° contrato (agora adicionando serviços)
+- mesmo esquema do adicional de contratos, tem uma opção para cadastrar e listar no listar dos contratos principal
+- dentro do visualizar adicional de contrato também tem o adicionar serviço, então vc também adiciona serviço a contratos adicionais, mas cada um em uma tela própria
+obs.: percebi que se vc tentar cadastrar de novo o mesmo serviço, ele ta duplicando vou arrumar ainda!
 
-## Security Vulnerabilities
+13° premissas
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+14° permissoes
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+15° paralizacoes
+- também é parecida com o contrato, na pagina de listar, na coluna opções, terão as colunas para voce selecionar
+- ai fica o fluxo: criar paralizacao, depois adicionar na paralizacao criada a permissao (que ja vai ter sido criada e feito os vinculos)
+- para fechar a paralizacao voce: fecha todas as premissas colocando a foto (pra acessar isso tem que clicar no listar permissão na tela de listar paralizacoes para abrir as premissas de acordo com a permissão)
+/\ to terminando a parte de subir imagem, ela ta funcionando certinho, só preciso deixar a tela bonita e no padrão
+/\ a parte de mostrar imagem eu descobri como fazer, só preciso montar a tela tmb, ta subindo ela puxando uma img fixa, por isso o btn ta bloqueado por enquanto pra n dar bo

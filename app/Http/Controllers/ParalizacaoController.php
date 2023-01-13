@@ -36,12 +36,10 @@ class ParalizacaoController extends Controller {
 
     public function FecharPremissa(Request $r) {
 
-        $dados = $r->all();
-
-        $paralizacoes = Paralizacao::all()->sortBy("par_id");
+        $premissa = Premissa::find($r->id);
 
         return view('paralizacao.fechar_premissa', [
-            'paralizacoes' => $paralizacoes
+            'premissa' => $premissa
         ]);
     }
 
