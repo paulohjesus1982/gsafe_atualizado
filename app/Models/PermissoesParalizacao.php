@@ -16,5 +16,6 @@ class PermissoesParalizacao extends Model {
         'ppar_id',
         'ppar_fk_par_id',
         'ppar_fk_per_id',
+        'ppar_status',
     ];
 }

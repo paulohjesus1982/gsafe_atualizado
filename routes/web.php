@@ -111,6 +111,11 @@ Route::group(['prefix' => '/paralizacao'], function () {
     Route::post('/salvar_permissao',            [ParalizacaoController::class, 'SalvarPermissao'])->name('paralizacao.salvar_permissao');
     Route::post('/atualizar',                   [ParalizacaoController::class, 'Atualizar'])->name('paralizacao.atualizar');
     Route::get('/mostrar',                      [ParalizacaoController::class, 'Mostrar'])->name('paralizacao.mostrar');
+    Route::get('/fechar_premissa',              [ParalizacaoController::class, 'FecharPremissa'])->name('paralizacao.fechar_premissa');
+    Route::post('/cadastrar_fechar_premissa',   [ParalizacaoController::class, 'CadastrarFechamentoPremissa']);
+    Route::get('/ver_imagem_premissa',          [ParalizacaoController::class, 'VerImagemPremissa'])->name('paralizacao.ver_imagem_premissa');
+    // Route::get('/ver_imagem_premissa',          [ParalizacaoController::class, 'BuscarImagemPremissa'])->name('paralizacao.ver_imagem_premissa');
+    // Route::post('/ver_imagem_premissa',         [ParalizacaoController::class, 'BuscarImagemPremissa']);
 });
 
 // });

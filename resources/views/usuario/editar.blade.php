@@ -103,9 +103,9 @@
                                 <label for="telefone">Telefone Contato</label>
                                 <input type="text" name="numero_contato" id="numero_contato" class="form-control" value="{{isset($usuario['usuario_dados']->udad_telefone_contato) ? $usuario['usuario_dados']->udad_telefone_contato : ''}}" placeholder="Número do telefone" title="Número de telefone">
                             </div>
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-6">
                                 <label for="telefone">Registro Profissão</label>
-                                <input type="text" name="registro_profissao" id="registro_profissao" class="form-contro" value="{{isset($usuario['usuario_dados']->udad_registro_profissao) ? $usuario['usuario_dados']->udad_registro_profissao : ''}}" placeholder="Registro Profissão" title="Registro Profissão">
+                                <input type="text" name="registro_profissao" id="registro_profissao" class="form-control" value="{{isset($usuario['usuario_dados']->udad_registro_profissao) ? $usuario['usuario_dados']->udad_registro_profissao : ''}}" placeholder="Registro Profissão" title="Registro Profissão">
                             </div>
                         </div>
                     </div>

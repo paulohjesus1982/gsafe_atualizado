@@ -25,12 +25,34 @@ class ParalizacaoController extends Controller {
         ]);
     }
 
+    public function VerImagemPremissa(Request $r) {
+
+        $paralizacoes = Paralizacao::all()->sortBy("par_id");
+
+        return view('paralizacao.ver_imagem_premissa', [
+            'paralizacoes' => $paralizacoes
+        ]);
+    }
+
+    public function FecharPremissa(Request $r) {
+
+        $dados = $r->all();
+
+        $paralizacoes = Paralizacao::all()->sortBy("par_id");
+
+        return view('paralizacao.fechar_premissa', [
+            'paralizacoes' => $paralizacoes
+        ]);
+    }
+
     public function ListarPermissao(Request $r) {
 
         $paralizacao = Paralizacao::find($r->id);
         $permissoes_paralizacao = $paralizacao->Permissoes;
         $per = new Permissao;
         $permissao = array();
+        $permissoes = array();
+        $premissas = array();
 
         foreach ($permissoes_paralizacao as $key => $permissoes_) {
             $permissao = $per->where('per_id', $permissoes_->ppar_fk_per_id)->get();
@@ -91,6 +113,29 @@ class ParalizacaoController extends Controller {
         $paralizacao['par_criado_em'] = 'NOW()';
 
         $result = Paralizacao::create($paralizacao);
+
+        return redirect()->route('paralizacao.listar');
+    }
+
+    public function CadastrarFechamentoPremissa(Request $request) {
+
+        $nova_paralizacao = $request->all();
+
+        // Handle File Upload
+        if ($request->hasFile('img_premissa')) {
+            // Get filename with the extension
+            $filenameWithExt = $request->file('img_premissa')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request->file('img_premissa')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+            // Upload Image
+            $path = $request->file('img_premissa')->storeAs('public/img_premissa', $fileNameToStore);
+        } else {
+            $fileNameToStore = 'noimage.png';
+        }
 
         return redirect()->route('paralizacao.listar');
     }

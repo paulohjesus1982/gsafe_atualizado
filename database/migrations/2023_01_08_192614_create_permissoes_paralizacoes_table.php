@@ -17,6 +17,7 @@ class CreatePermissoesParalizacoesTable extends Migration {
             $table->foreign('ppar_fk_par_id')->references('par_id')->on('paralizacoes');
             $table->bigInteger('ppar_fk_per_id');
             $table->foreign('ppar_fk_per_id')->references('per_id')->on('permissoes');
+            $table->text('ppar_status')->nullable();
         });
     }
 

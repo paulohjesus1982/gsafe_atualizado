@@ -107,7 +107,7 @@ class ContratoController extends Controller {
 
         $result = Contrato::create($contrato);
 
-        if ($result && $contrato_novo['id_contrato_original'] && $contrato_novo['nome_contrato_original']) {
+        if ($result && $contrato_novo['tipo_contrato'] != 1) {
             $id_adicional_contrato = $result->con_id;
             $adicional_contrato = array();
 
