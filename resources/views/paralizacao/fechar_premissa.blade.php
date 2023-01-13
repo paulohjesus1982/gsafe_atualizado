@@ -3,7 +3,7 @@
 @section('content-title', 'Listar Paralizações')
 
 @section('content')
-    <form action="/paralizacao/cadastrar_fechar_premissa" method="post" enctype="multipart/form-data">
+    <form action="/paralizacao/cadastrar_fechar_premissa/" method="post" enctype="multipart/form-data">
         <div class="card-body">
             <div class="row">
                 <div class="form-group col-md-12">
@@ -25,6 +25,7 @@
                 </div>
                 <div class="col-md-3"></div>
                 <div class="custom-file col-md-6">
+                    <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
                     <input type="file" class="custom-file-input" name="img_premissa" id="input_img">
                     <label class="custom-file-label" for="input_img_itens">Escolha o arquivo</label>
                 </div>

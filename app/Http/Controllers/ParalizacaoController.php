@@ -135,6 +135,7 @@ class ParalizacaoController extends Controller {
             $fileNameToStore = 'noimage.png';
         }
 
+
         return redirect()->route('paralizacao.listar');
     }
 
