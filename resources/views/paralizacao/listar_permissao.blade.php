@@ -8,13 +8,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h2> Listar Premissas da Paralização</h2>
+                    <h2> Listar Permissões e Premissas da Paralização</h2>
                 </div>
                 <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="/home">Home</a></li>
                     <li class="breadcrumb-item"><a href="/paralizacao/listar">Listar</a></li>
-                    <li class="breadcrumb-item active">Listar Premissas Paralização</li>
+                    <li class="breadcrumb-item active">Listar Permissões e Premissas Paralização</li>
                 </ol>
                 </div>
             </div>
@@ -64,7 +64,7 @@
                                     </div>
                                     <div class="form-group col-md-12">
                                         <h4 class="card-header text-black">
-                                            <b>Informações Premissas {{$permissao->per_id}}</b>
+                                            <b>Informações Premissa {{$permissao->per_id}}</b>
                                         </h4>
                                     </div>
                                     @foreach ($premissas[$permissao->per_id] as $premissa)
@@ -87,7 +87,7 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <a style="text-decoration: none;color:white;" href="/paralizacao/ver_imagem_premissa/{{$premissa->pre_id}}">
-                                                <button type="button" class="btn btn-danger btn-block" disabled><span class="fa fa-check"></span> Ver Foto Premissa</button>
+                                                <button type="button" class="btn btn-danger btn-block" ><span class="fa fa-check"></span> Ver Foto Premissa</button>
                                             </a>
                                         </div>
                                     @endforeach

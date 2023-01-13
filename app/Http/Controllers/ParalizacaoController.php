@@ -27,10 +27,10 @@ class ParalizacaoController extends Controller {
 
     public function VerImagemPremissa(Request $r) {
 
-        $paralizacoes = Paralizacao::all()->sortBy("par_id");
+        $premissa = Premissa::find($r->id);
 
         return view('paralizacao.ver_imagem_premissa', [
-            'paralizacoes' => $paralizacoes
+            'premissa' => $premissa
         ]);
     }
 
