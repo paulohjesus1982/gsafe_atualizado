@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Empresa;
 use App\Models\Equipe;
+use App\Models\PermissoesParalizacao;
 
 class Paralizacao extends Model {
     use HasFactory;
@@ -33,5 +34,9 @@ class Paralizacao extends Model {
 
     public function Equipes() {
         return $this->hasOne(Equipe::class, 'equ_id', 'par_fk_equ_id');
+    }
+
+    public function Permissoes() {
+        return $this->hasMany(PermissoesParalizacao::class, 'ppar_fk_par_id', 'par_id');
     }
 }

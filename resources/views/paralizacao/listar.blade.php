@@ -77,6 +77,22 @@
                                             </span>
                                         </span>
                                     </a>
+                                    | 
+                                    <a href="/paralizacao/cadastrar_permissao/{{$paralizacao->par_id}}" class="navi-link">
+                                        <span class="navi-text">
+                                            <span class="label label-xl label-inline label-light-primary">
+                                                Cadastrar Permissão
+                                            </span>
+                                        </span>
+                                    </a>
+                                    | 
+                                    <a href="/paralizacao/listar_permissao/{{$paralizacao->par_id}}" class="navi-link">
+                                        <span class="navi-text">
+                                            <span class="label label-xl label-inline label-light-primary">
+                                                Listar Permissão
+                                            </span>
+                                        </span>
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach

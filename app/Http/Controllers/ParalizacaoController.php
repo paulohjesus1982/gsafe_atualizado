@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Paralizacao;
 use App\Models\Permissao;
+use App\Models\PermissoesPremissa;
+use App\Models\Premissa;
+use App\Models\PermissoesParalizacao;
 use App\Models\Empresa;
 use App\Models\Equipe;
 use Illuminate\Support\File;
@@ -22,6 +25,35 @@ class ParalizacaoController extends Controller {
         ]);
     }
 
+    public function ListarPermissao(Request $r) {
+
+        $paralizacao = Paralizacao::find($r->id);
+        $permissoes_paralizacao = $paralizacao->Permissoes;
+        $per = new Permissao;
+        $permissao = array();
+
+        foreach ($permissoes_paralizacao as $key => $permissoes_) {
+            $permissao = $per->where('per_id', $permissoes_->ppar_fk_per_id)->get();
+            $permissoes[$key] = $permissao[0];
+        }
+
+        foreach ($permissoes as $key => $permissao) {
+            $j = 0;
+            $permissao_premissas = PermissoesPremissa::where('ppre_fk_per_id', $permissao->per_id)->get();
+            foreach ($permissao_premissas as $key => $premissa) {
+                $premissa_busca = Premissa::where('pre_id', $premissa->ppre_fk_pre_id)->get();
+                $premissas[$premissa->ppre_fk_per_id][$j] = $premissa_busca[0];
+                $j++;
+            }
+        }
+
+        return view('paralizacao.listar_permissao', [
+            'paralizacao' => $paralizacao,
+            'permissoes' => $permissoes,
+            'premissas' => $premissas,
+        ]);
+    }
+
     public function Cadastrar(Request $r) {
 
         $empresa = Empresa::all()->sortBy("emp_id");
@@ -30,6 +62,19 @@ class ParalizacaoController extends Controller {
         return view('paralizacao.cadastrar', [
             'empresas' => $empresa,
             'equipes' => $equipe,
+        ]);
+    }
+
+    public function CadastrarPermissao(Request $r) {
+
+        $id = $r->id;
+
+        $paralizacao = Paralizacao::find($id);
+        $permissoes = Permissao::all();
+
+        return view('paralizacao.cadastrar_permissao', [
+            'paralizacao' => $paralizacao,
+            'permissoes' => $permissoes,
         ]);
     }
 
@@ -46,6 +91,22 @@ class ParalizacaoController extends Controller {
         $paralizacao['par_criado_em'] = 'NOW()';
 
         $result = Paralizacao::create($paralizacao);
+
+        return redirect()->route('paralizacao.listar');
+    }
+
+    public function SalvarPermissao(Request $request) {
+
+        $paralizacao = $request->all();
+
+        $par_id = $paralizacao['par_id'];
+
+        foreach ($paralizacao['permissoes'] as $key => $permissao) {
+            $permissoes_paralizacao['ppar_fk_par_id'] = $par_id;
+            $permissoes_paralizacao['ppar_fk_per_id'] = $permissao;
+
+            $result = PermissoesParalizacao::create($permissoes_paralizacao);
+        }
 
         return redirect()->route('paralizacao.listar');
     }

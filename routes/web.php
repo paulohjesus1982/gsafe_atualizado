@@ -102,12 +102,15 @@ Route::group(['prefix' => '/contrato'], function () {
 
 // Paralizacao
 Route::group(['prefix' => '/paralizacao'], function () {
-    Route::get('/listar',       [ParalizacaoController::class, 'Listar'])->name('paralizacao.listar');
-    Route::get('/cadastrar',    [ParalizacaoController::class, 'Cadastrar']);
-    Route::get('/editar/{id}',  [ParalizacaoController::class, 'Editar'])->name('paralizacao.editar');
-    Route::post('/salvar',      [ParalizacaoController::class, 'Salvar'])->name('paralizacao.salvar');
-    Route::post('/atualizar',   [ParalizacaoController::class, 'Atualizar'])->name('paralizacao.atualizar');
-    Route::get('/mostrar',      [ParalizacaoController::class, 'Mostrar'])->name('paralizacao.mostrar');
+    Route::get('/listar',                       [ParalizacaoController::class, 'Listar'])->name('paralizacao.listar');
+    Route::get('/listar_permissao/{id}',        [ParalizacaoController::class, 'ListarPermissao'])->name('paralizacao.listar_permissao');
+    Route::get('/cadastrar',                    [ParalizacaoController::class, 'Cadastrar']);
+    Route::get('/cadastrar_permissao/{id}',     [ParalizacaoController::class, 'CadastrarPermissao']);
+    Route::get('/editar/{id}',                  [ParalizacaoController::class, 'Editar'])->name('paralizacao.editar');
+    Route::post('/salvar',                      [ParalizacaoController::class, 'Salvar'])->name('paralizacao.salvar');
+    Route::post('/salvar_permissao',            [ParalizacaoController::class, 'SalvarPermissao'])->name('paralizacao.salvar_permissao');
+    Route::post('/atualizar',                   [ParalizacaoController::class, 'Atualizar'])->name('paralizacao.atualizar');
+    Route::get('/mostrar',                      [ParalizacaoController::class, 'Mostrar'])->name('paralizacao.mostrar');
 });
 
 // });
