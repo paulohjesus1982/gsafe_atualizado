@@ -66,9 +66,16 @@
                                 <td>{{$paralizacao->par_id}}</td>
                                 <td>{{$paralizacao->par_pet}}</td>
                                 <td>{{$paralizacao->par_art}}</td>
-                                <td>{{$paralizacao->par_fk_emp_id}}</td>
-                                <td>{{$paralizacao->par_enum_estado_paralizacao}}</td>
-                                <td>{{$paralizacao->par_fk_equ_id}}</td>
+                                <td>{{$par->AchaEmpresaNome($paralizacao->par_fk_emp_id)}}</td>
+                                <td>
+                                    @if ($paralizacao->par_enum_estado_paralizacao == 1)
+                                        Em andamento
+                                    @else
+                                        Liberação
+                                    @endif
+                                    {{-- {{$paralizacao->par_enum_estado_paralizacao}} --}}
+                                </td>
+                                <td>{{$par->AchaEquipeNome($paralizacao->par_fk_equ_id)}}</td>
                                 <td>
                                     <a href="/paralizacao/editar/{{$paralizacao->par_id}}" class="navi-link">
                                         <span class="navi-text">

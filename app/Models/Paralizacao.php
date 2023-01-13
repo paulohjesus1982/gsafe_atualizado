@@ -39,4 +39,16 @@ class Paralizacao extends Model {
     public function Permissoes() {
         return $this->hasMany(PermissoesParalizacao::class, 'ppar_fk_par_id', 'par_id');
     }
+
+    public function AchaEmpresaNome($emp_id) {
+        $empresa = Empresa::find($emp_id);
+
+        return $empresa->emp_nome;
+    }
+
+    public function AchaEquipeNome($equ_id) {
+        $equipe = Equipe::find($equ_id);
+
+        return $equipe->equ_nome;
+    }
 }

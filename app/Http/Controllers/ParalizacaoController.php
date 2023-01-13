@@ -21,8 +21,11 @@ class ParalizacaoController extends Controller {
 
         $paralizacoes = Paralizacao::all()->sortBy("par_id");
 
+        $par = new Paralizacao();
+
         return view('paralizacao.listar', [
-            'paralizacoes' => $paralizacoes
+            'paralizacoes' => $paralizacoes,
+            'par' => $par,
         ]);
     }
 
