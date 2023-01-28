@@ -33,6 +33,10 @@
                                 <label for="cpf">Nome Serviço</label>
                                 <input type="text" name="nome_servico" class="form-control" autofocus/>
                             </div>
+                            <div class="form-group col-md-6">
+                                <label for="cpf">Área de Atuação</label>
+                                <input type="text" name="area_atuacao" class="form-control" autofocus/>
+                            </div>
                         </div>
                     </div>
                     </div>

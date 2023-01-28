@@ -69,6 +69,12 @@ class EquipeController extends Controller {
         ]);
     }
 
+    public function InativarUsuario(Request $request) {
+
+        // return view('equipes.invativar_usuario')->with([]);
+        return view('equipes.inativarUsuario');
+    }
+
     public function Atualizar(Request $request) {
         $atualizar_equipe = $request->all();
 

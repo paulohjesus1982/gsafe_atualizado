@@ -16,5 +16,6 @@ class EquipeMembro extends Model {
         'emem_id',
         'emem_fk_usu_id',
         'emem_fk_equ_id',
+        'emem_status_operador',
     ];
 }

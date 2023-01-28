@@ -56,7 +56,6 @@
                             <th>ART</th>
                             <th>Empresa</th>
                             <th>Status</th>
-                            <th>Equipe</th>
                             <th>Opções</th>
                         </tr>
                     </thead>
@@ -75,7 +74,6 @@
                                     @endif
                                     {{-- {{$paralizacao->par_enum_estado_paralizacao}} --}}
                                 </td>
-                                <td>{{$par->AchaEquipeNome($paralizacao->par_fk_equ_id)}}</td>
                                 <td>
                                     <a href="/paralizacao/editar/{{$paralizacao->par_id}}" class="navi-link">
                                         <span class="navi-text">

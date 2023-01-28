@@ -17,5 +17,6 @@ class ParalizacoesPremissa extends Model {
         'ppre_fk_par_id',
         'ppre_fk_pre_id',
         'ppre_caminho_anexo',
+        'ppre_status',
     ];
 }

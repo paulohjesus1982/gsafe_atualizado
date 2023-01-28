@@ -33,24 +33,6 @@
               <div class="card-body">
                   <div class="row">
                       <div class="form-group col-md-6">
-                          <label for="par_justificativa">Justificativa</label>
-                          <input type="text" name="par_justificativa" id="par_justificativa" class="form-control {{$errors->has('par_justificativa') ? 'is-invalid' : ''}}" placeholder="Justificativa da Paralização" value="{{old('par_justificativa')}}"/>
-                          @if($errors->has('par_justificativa'))
-                              <div class="invalid-feedback">
-                                  {{$errors->first('par_justificativa')}}
-                              </div>
-                          @endif
-                      </div>
-                      <div class="form-group col-md-6">
-                          <label for="par_observacao">Observacao</label>
-                          <input type="text" name="par_observacao" id="par_observacao" class="form-control {{$errors->has('par_observacao') ? 'is-invalid' : ''}}" placeholder="Observação da Paralização" value="{{old('par_observacao')}}"/>
-                          @if($errors->has('par_observacao'))
-                              <div class="invalid-feedback">
-                                  {{$errors->first('par_observacao')}}
-                              </div>
-                          @endif
-                      </div>
-                      <div class="form-group col-md-6">
                           <label for="par_art">ART</label>
                           <input type="text" name="par_art" id="par_art" class="form-control {{$errors->has('par_art') ? 'is-invalid' : ''}}" placeholder="PAR" value="{{old('par_art')}}"/>
                           @if($errors->has('par_art'))
@@ -83,16 +65,7 @@
                                   <option value="{{$empresa->emp_id}}">{{$empresa->emp_nome}}</option>
                               @endforeach
                           </select>
-                      </div>
-                      <div class="form-group col-md-6">
-                          <label for="par_fk_equ_id">Equipe</label>
-                          <select class="custom-select" name="par_fk_equ_id">
-                              @foreach ( $equipes as $equipe )
-                                  <option value="{{$equipe->equ_id}}">{{$equipe->equ_nome}}</option>
-                              @endforeach
-                          </select>
-                      </div>
-                            
+                      </div>                            
                   </div>
               </div>
           </div>

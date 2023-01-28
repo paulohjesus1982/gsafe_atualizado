@@ -33,14 +33,6 @@
                          <input type="text" name="par_id" class="form-control" value="{{$paralizacao->par_id}}" readonly/>
                      </div>
                       <div class="form-group col-md-6">
-                          <label for="par_justificativa">Justificativa</label>
-                          <input type="text" name="par_justificativa" id="par_justificativa" class="form-control" placeholder="Justificativa da Paralização" value="{{$paralizacao->par_justificativa}}"/>
-                      </div>
-                      <div class="form-group col-md-6">
-                          <label for="par_observacao">Observacao</label>
-                          <input type="text" name="par_observacao" id="par_observacao" class="form-control" placeholder="Observação da Paralização" value="{{$paralizacao->par_observacao}}"/>
-                      </div>
-                      <div class="form-group col-md-6">
                           <label for="par_art">ART</label>
                           <input type="text" name="par_art" id="par_art" class="form-control" placeholder="PAR" value="{{$paralizacao->par_art}}"/>
                       </div>
@@ -80,18 +72,6 @@
                                 @endif
                                 <option <?php echo $selected_empresa; ?> value="{{$empresa->emp_id}}">{{$empresa->emp_nome}}</option>
                                 <?php $selected_empresa = "" ?>
-                              @endforeach
-                          </select>
-                      </div>
-                      <div class="form-group col-md-6">
-                          <label for="par_fk_equ_id">Equipe</label>
-                          <select class="custom-select" name="par_fk_equ_id">
-                              @foreach ( $equipes as $equipe )
-                                @if($equipe->eequ_id == $paralizacao['equipes']->equ_id)
-                                    <?php $selected_equipe = "selected"; ?>
-                                @endif
-                                <option <?php echo $selected_equipe; ?> value="{{$equipe->equ_id}}">{{$equipe->equ_nome}}</option>
-                                <?php $selected_equipe = "" ?>
                               @endforeach
                           </select>
                       </div>

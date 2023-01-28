@@ -17,11 +17,8 @@ class Paralizacao extends Model {
 
     protected $fillable = [
         'par_id',
-        'par_justificativa',
-        'par_observacao',
         'par_enum_estado_paralizacao',
         'par_fk_emp_id',
-        'par_fk_equ_id',
         'par_art',
         'par_pet',
         'par_criado_em',
@@ -32,9 +29,6 @@ class Paralizacao extends Model {
         return $this->hasOne(Empresa::class, 'emp_id', 'par_fk_emp_id');
     }
 
-    public function Equipes() {
-        return $this->hasOne(Equipe::class, 'equ_id', 'par_fk_equ_id');
-    }
 
     public function Permissoes() {
         return $this->hasMany(PermissoesParalizacao::class, 'ppar_fk_par_id', 'par_id');

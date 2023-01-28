@@ -54,6 +54,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Nome</th>
+                            <th>Área de Atuação</th>
                             <th>Opções</th>
                         </tr>
                     </thead>
@@ -62,6 +63,7 @@
                         <tr>
                             <td id='equipe_{{$servico->ser_id}}'>{{$servico->ser_id}}</td>
                             <td>{{$servico->ser_nome}}</td>
+                            <td>{{$servico->ser_area_atuacao}}</td>
                             <td>
                                 <a href="/servicos/editar/{{$servico->ser_id}}" class="navi-link">
                                     <span class="navi-text">

@@ -30,13 +30,17 @@
                     </h5>
                     <div class="card-body">
                             <div class="row">
-                                <div class="form-group col-md-6" >
+                                <div class="form-group col-md-4" >
                                     <label for="codigo_permissao">Código</label>
                                     <input type="text" name="codigo_servico" class="form-control" value="{{$servico->ser_id}}" readonly/>
                                 </div>
-                                <div class="form-group col-md-6" >
+                                <div class="form-group col-md-4" >
                                     <label for="nome_permissao">Nome</label>
                                     <input type="text" name="nome_servico" class="form-control" value="{{$servico->ser_nome}}" />
+                                </div>
+                                <div class="form-group col-md-4" >
+                                    <label for="nome_permissao">Área de Atuação</label>
+                                    <input type="text" name="area_atuacao" class="form-control" value="{{$servico->ser_area_atuacao}}" />
                                 </div>
                             </div>
                     </div>

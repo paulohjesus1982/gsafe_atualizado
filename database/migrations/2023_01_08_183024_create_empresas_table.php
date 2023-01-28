@@ -20,7 +20,7 @@ class CreateEmpresasTable extends Migration {
             $table->string('emp_email', 255);
             $table->timestamp('emp_criado_em');
             $table->timestamp('emp_atualizado_em')->nullable();
-            $table->integer('emp_enum_tipo_empresa');
+            $table->integer('emp_enum_tipo_empresa'); //empresa prestadora de serviço ou matriz (matriz quem recebe o serviço e prestadora de serviço é quem executa)
             $table->bigInteger('emp_fk_usu_id_atualizou')->nullable();
             $table->foreign('emp_fk_usu_id_atualizou')->references('usu_id')->on('usuarios');
         });

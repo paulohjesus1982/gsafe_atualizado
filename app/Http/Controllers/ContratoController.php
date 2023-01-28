@@ -46,7 +46,8 @@ class ContratoController extends Controller {
 
     public function Cadastrar(Request $r) {
 
-        $empresa = Empresa::all()->sortBy("emp_id");
+        // $empresa = Empresa::all()->sortBy("emp_id");
+        $empresa = Empresa::where('emp_enum_tipo_empresa', 1)->get();
 
         return view('contrato.cadastrar', [
             'empresas' => $empresa,

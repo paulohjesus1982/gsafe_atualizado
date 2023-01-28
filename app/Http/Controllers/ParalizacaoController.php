@@ -86,12 +86,11 @@ class ParalizacaoController extends Controller {
 
     public function Cadastrar(Request $r) {
 
-        $empresa = Empresa::all()->sortBy("emp_id");
-        $equipe = Equipe::all()->sortBy("equ_id");
+        // $empresa = Empresa::all()->sortBy("emp_id");
+        $empresa = Empresa::where('emp_enum_tipo_empresa', 2)->get();
 
         return view('paralizacao.cadastrar', [
             'empresas' => $empresa,
-            'equipes' => $equipe,
         ]);
     }
 
@@ -111,11 +110,8 @@ class ParalizacaoController extends Controller {
     public function Salvar(Request $request) {
 
         $nova_paralizacao = $request->all();
-        $paralizacao['par_justificativa'] = $nova_paralizacao['par_justificativa'];
-        $paralizacao['par_observacao'] = $nova_paralizacao['par_observacao'];
         $paralizacao['par_enum_estado_paralizacao'] = $nova_paralizacao['par_enum_estado_paralizacao'];
         $paralizacao['par_fk_emp_id'] = $nova_paralizacao['par_fk_emp_id'];
-        $paralizacao['par_fk_equ_id'] = $nova_paralizacao['par_fk_equ_id'];
         $paralizacao['par_art'] = $nova_paralizacao['par_art'];
         $paralizacao['par_pet'] = $nova_paralizacao['par_pet'];
         $paralizacao['par_criado_em'] = 'NOW()';
@@ -182,11 +178,9 @@ class ParalizacaoController extends Controller {
         $id = $request->id;
 
         $paralizacao = Paralizacao::find($id);
-        $paralizacao['empresas'] = $paralizacao->Empresas;
-        $paralizacao['equipes'] = $paralizacao->Equipes;
 
-        $empresa = Empresa::all()->sortBy("emp_id");
-        $equipe = Equipe::all()->sortBy("equ_id");
+        // $empresa = Empresa::all()->sortBy("emp_id");
+        $empresa = Empresa::where('emp_enum_tipo_empresa', 2)->get();
 
         $estados_paralizacao = [
             1 => 'Em Andamento',
@@ -196,10 +190,8 @@ class ParalizacaoController extends Controller {
         return view('paralizacao.editar')->with([
             'paralizacao' => $paralizacao,
             'empresas' => $empresa,
-            'equipes' => $equipe,
             'estados_paralizacao' => $estados_paralizacao,
             'selected_empresa' => '',
-            'selected_equipe' => '',
             'selected_estado_paralizacao' => '',
             'title' => 'Editar Paralizacao'
         ]);
@@ -210,14 +202,10 @@ class ParalizacaoController extends Controller {
         $atualizar_paralizacao = $request->all();
 
         $paralizacao = Paralizacao::find($atualizar_paralizacao['par_id']);
-        $paralizacao['par_justificativa'] = $atualizar_paralizacao['par_justificativa'];
-        $paralizacao['par_observacao'] = $atualizar_paralizacao['par_observacao'];
         $paralizacao['par_enum_estado_paralizacao'] = $atualizar_paralizacao['par_enum_estado_paralizacao'];
         $paralizacao['par_fk_emp_id'] = $atualizar_paralizacao['par_fk_emp_id'];
         $paralizacao['par_art'] = $atualizar_paralizacao['par_art'];
         $paralizacao['par_pet'] = $atualizar_paralizacao['par_pet'];
-        $paralizacao['par_fk_emp_id'] = $atualizar_paralizacao['par_fk_emp_id'];
-        $paralizacao['par_fk_equ_id'] = $atualizar_paralizacao['par_fk_equ_id'];
         $paralizacao['par_atualizado_em'] = 'NOW()';
 
         $result = $paralizacao->save();

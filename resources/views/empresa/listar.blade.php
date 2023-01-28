@@ -54,6 +54,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Nome</th>
+                            <th>Tipo Empresa</th>
                             <th>CNPJ</th>
                             <th>Opções</th>
                         </tr>
@@ -63,6 +64,13 @@
                         <tr>
                             <td id='equipe_{{$empresa->emp_id}}'>{{$empresa->emp_id}}</td>
                             <td>{{$empresa->emp_nome}}</td>
+                            <td> 
+                                @if($empresa->emp_enum_tipo_empresa == 1)
+                                   Matriz
+                                @else
+                                   Prestadora de Serviço
+                                @endif  
+                            </td>
                             <td>{{$emp->TratarCnpj2($empresa->emp_cnpj)}}</td>
                             <td>
                                 <a href="/empresa/editar/{{$empresa->emp_id}}" class="navi-link">

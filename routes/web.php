@@ -15,13 +15,13 @@ use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\HomeController;
 
 //Login
-Route::get('/', [LoginController::class, 'index'])->name('login');
-Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::get('/',           [LoginController::class, 'index'])->name('login');
+Route::get('/login',      [LoginController::class, 'index'])->name('login');
 Route::get('/autenticar', [LoginController::class, 'index'])->name('autenticar');
-Route::post('/login', [LoginController::class, 'autenticar'])->name('autenticar');
-Route::get('/deslogar', [LoginController::class, 'deslogar'])->name('deslogar');
+Route::post('/login',     [LoginController::class, 'autenticar'])->name('autenticar');
+Route::get('/deslogar',   [LoginController::class, 'deslogar'])->name('deslogar');
 
-Route::get('/registrar', [RegisterController::class, 'index'])->name('registrar');
+Route::get('/registrar',  [RegisterController::class, 'index'])->name('registrar');
 Route::post('/registrar', [RegisterController::class, 'autenticar'])->name('registrar');
 
 // Auth::routes();
@@ -41,11 +41,12 @@ Route::group(['prefix' => '/usuario'], function () {
 
 // Equipe
 Route::group(['prefix' => '/equipe'], function () {
-    Route::get('/listar',      [EquipeController::class, 'Listar'])->name('equipes.listar');
-    Route::get('/cadastrar',   [EquipeController::class, 'Cadastrar']);
-    Route::get('/editar/{id}', [EquipeController::class, 'Editar'])->name('equipes.editar');
-    Route::post('/salvar',     [EquipeController::class, 'Salvar'])->name('equipes.salvar');
-    Route::post('/atualizar',  [EquipeController::class, 'Atualizar'])->name('equipes.atualizar');
+    Route::get('/listar',                [EquipeController::class, 'Listar'])->name('equipes.listar');
+    Route::get('/cadastrar',             [EquipeController::class, 'Cadastrar']);
+    Route::get('/editar/{id}',           [EquipeController::class, 'Editar'])->name('equipes.editar');
+    Route::get('/inativarUsuario/{id}',  [EquipeController::class, 'InativarUsuario'])->name('equipes.inativarUsuario');
+    Route::post('/salvar',               [EquipeController::class, 'Salvar'])->name('equipes.salvar');
+    Route::post('/atualizar',            [EquipeController::class, 'Atualizar'])->name('equipes.atualizar');
 });
 
 // Permissao
@@ -103,18 +104,18 @@ Route::group(['prefix' => '/contrato'], function () {
 
 // Paralizacao
 Route::group(['prefix' => '/paralizacao'], function () {
-    Route::get('/listar',                       [ParalizacaoController::class, 'Listar'])->name('paralizacao.listar');
-    Route::get('/listar_permissao/{id}',        [ParalizacaoController::class, 'ListarPermissao'])->name('paralizacao.listar_permissao');
-    Route::get('/cadastrar',                    [ParalizacaoController::class, 'Cadastrar']);
-    Route::get('/cadastrar_permissao/{id}',     [ParalizacaoController::class, 'CadastrarPermissao']);
-    Route::get('/editar/{id}',                  [ParalizacaoController::class, 'Editar'])->name('paralizacao.editar');
-    Route::post('/salvar',                      [ParalizacaoController::class, 'Salvar'])->name('paralizacao.salvar');
-    Route::post('/salvar_permissao',            [ParalizacaoController::class, 'SalvarPermissao'])->name('paralizacao.salvar_permissao');
-    Route::post('/atualizar',                   [ParalizacaoController::class, 'Atualizar'])->name('paralizacao.atualizar');
-    Route::get('/mostrar',                      [ParalizacaoController::class, 'Mostrar'])->name('paralizacao.mostrar');
-    Route::get('/fechar_premissa/{id_par}/{id_per}/{id_pre}',              [ParalizacaoController::class, 'FecharPremissa'])->name('paralizacao.fechar_premissa');
-    Route::post('/cadastrar_fechar_premissa',   [ParalizacaoController::class, 'CadastrarFechamentoPremissa']);
-    Route::get('/ver_imagem_premissa/{id_par}/{id_per}/{id_pre}',          [ParalizacaoController::class, 'VerImagemPremissa'])->name('paralizacao.ver_imagem_premissa');
+    Route::get('/listar',                                         [ParalizacaoController::class, 'Listar'])->name('paralizacao.listar');
+    Route::get('/listar_permissao/{id}',                          [ParalizacaoController::class, 'ListarPermissao'])->name('paralizacao.listar_permissao');
+    Route::get('/cadastrar',                                      [ParalizacaoController::class, 'Cadastrar']);
+    Route::get('/cadastrar_permissao/{id}',                       [ParalizacaoController::class, 'CadastrarPermissao']);
+    Route::get('/editar/{id}',                                    [ParalizacaoController::class, 'Editar'])->name('paralizacao.editar');
+    Route::post('/salvar',                                        [ParalizacaoController::class, 'Salvar'])->name('paralizacao.salvar');
+    Route::post('/salvar_permissao',                              [ParalizacaoController::class, 'SalvarPermissao'])->name('paralizacao.salvar_permissao');
+    Route::post('/atualizar',                                     [ParalizacaoController::class, 'Atualizar'])->name('paralizacao.atualizar');
+    Route::get('/mostrar',                                        [ParalizacaoController::class, 'Mostrar'])->name('paralizacao.mostrar');
+    Route::get('/fechar_premissa/{id_par}/{id_per}/{id_pre}',     [ParalizacaoController::class, 'FecharPremissa'])->name('paralizacao.fechar_premissa');
+    Route::post('/cadastrar_fechar_premissa',                     [ParalizacaoController::class, 'CadastrarFechamentoPremissa']);
+    Route::get('/ver_imagem_premissa/{id_par}/{id_per}/{id_pre}', [ParalizacaoController::class, 'VerImagemPremissa'])->name('paralizacao.ver_imagem_premissa');
 });
 
 // });

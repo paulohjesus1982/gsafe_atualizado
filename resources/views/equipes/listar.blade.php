@@ -72,6 +72,14 @@
                                             </span>
                                         </span>
                                     </a>
+                                    | 
+                                    <a href="/equipe/inativarUsuario/{{$equipe->equ_id}}" class="navi-link">
+                                        <span class="navi-text">
+                                            <span class="label label-xl label-inline label-light-primary">
+                                                Inativar Usuário
+                                            </span>
+                                        </span>
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach

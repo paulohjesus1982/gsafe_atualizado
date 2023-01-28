@@ -13,15 +13,15 @@ class CreateParalizacoesTable extends Migration {
     public function up() {
         Schema::create('paralizacoes', function (Blueprint $table) {
             $table->id('par_id');
-            $table->text('par_justificativa');
-            $table->text('par_observacao');
+            // $table->text('par_justificativa');
+            // $table->text('par_observacao');
             $table->integer('par_enum_estado_paralizacao');
 
             $table->bigInteger('par_fk_emp_id');
             $table->foreign('par_fk_emp_id')->references('emp_id')->on('empresas');
 
-            $table->bigInteger('par_fk_equ_id');
-            $table->foreign('par_fk_equ_id')->references('equ_id')->on('equipes');
+            // $table->bigInteger('par_fk_equ_id')->nullable();
+            // $table->foreign('par_fk_equ_id')->references('equ_id')->on('equipes');
 
             $table->integer('par_art')->nullable();
             $table->integer('par_pet')->nullable();

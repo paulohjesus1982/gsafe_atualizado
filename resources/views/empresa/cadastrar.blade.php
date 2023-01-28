@@ -57,7 +57,7 @@
                                 <select class="custom-select" name="tipo_empresa">
                                     <option value="0">-- SELECIONE --</option>
                                     <option value="1">Matriz</option>
-                                    <option value="2">Parceira</option>
+                                    <option value="2">Prestadora de Serviço</option>
                                 </select>
                             </div>
                         </div>

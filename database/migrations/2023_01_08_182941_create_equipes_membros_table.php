@@ -17,6 +17,7 @@ class CreateEquipesMembrosTable extends Migration {
             $table->foreign('emem_fk_usu_id')->references('usu_id')->on('usuarios');
             $table->bigInteger('emem_fk_equ_id');
             $table->foreign('emem_fk_equ_id')->references('equ_id')->on('equipes');
+            $table->text('emem_status_operador')->default(1); //esse status é para dizer se o usuario está ativo nessa equipe ou não
         });
     }
 

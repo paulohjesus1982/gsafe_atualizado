@@ -30,6 +30,7 @@ class ServicoController extends Controller {
 
         $result = Servico::create([
             'ser_nome' => $request->input('nome_servico'),
+            'ser_area_atuacao' => $request->input('area_atuacao'),
             'ser_criado_em' => 'NOW()',
         ]);
 
@@ -53,6 +54,7 @@ class ServicoController extends Controller {
         $servico = Servico::find($atualizar_servico['codigo_servico']);
 
         $servico['ser_nome'] = $atualizar_servico['nome_servico'];
+        $servico['ser_area_atuacao'] = $atualizar_servico['area_atuacao'];
         $servico['ser_atualizado_em'] = 'NOW()';
         $result = $servico->save();
 
