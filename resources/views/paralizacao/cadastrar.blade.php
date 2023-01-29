@@ -7,6 +7,41 @@
 @endsection
 
 @section('content')
+    <script type="text/javascript">
+        function mostraPremissas(){
+            var valor_permissao = $("#permissoes").val();
+            $.ajax({
+            'processing': true,
+            'serverSide': false,
+                type: "GET",
+                data: {valor_permissao : $("#permissoes").val()},
+                url: "/premissa/listar/" + valor_permissao,
+                success: function(s) {
+                    var retorno = $(s);
+
+                    if (retorno.length === 0) { 
+                        $('#select_premissas').empty();
+                        $('#div_premissas').attr("hidden", "hidden");
+                        console.log("a");
+                    }else{
+                        console.log("B");
+                        $('#select_premissas').empty();
+    
+                        $('#div_premissas').removeAttr('hidden');
+    
+                        $.each(retorno, function(r, retorno) {
+                            $('#select_premissas').append($('<option>', {
+                                value: retorno.pre_id,
+                                text: retorno.pre_nome
+                            }));
+                        });
+                    }
+
+                }
+            });
+        }
+    </script>
+
   <form action="{{route('paralizacao.salvar')}}" method="post">
     {{ csrf_field()}}
     <div class="container-fluid">
@@ -53,9 +88,8 @@
                       <div class="form-group col-md-6">
                           <label for="par_enum_estado_paralizacao">Estado Paralização</label>
                           <select class="custom-select" name="par_enum_estado_paralizacao">
-                              <option value="0">-- SELECIONE --</option>
-                              <option value="1">Em andamento</option>
-                              <option value="2">Liberação</option>
+                              <option value="0">Em andamento</option>
+                              <option value="1">Liberação</option>
                           </select>
                       </div>
                       <div class="form-group col-md-6">
@@ -65,7 +99,41 @@
                                   <option value="{{$empresa->emp_id}}">{{$empresa->emp_nome}}</option>
                               @endforeach
                           </select>
-                      </div>                            
+                      </div>
+                      <div class="form-group col-md-12">
+                        <h4 class="card-header text-black">
+                            <b>Serviços</b>
+                        </h4>
+                      </div>
+                        <div class="form-group col-md-12">
+                            <select name="servicos[]" id="servicos" class="custom-select">
+                                @foreach ( $servicos as $servico )
+                                    <option value="{{$servico->ser_id}}">{{$servico->ser_nome}}</option>
+                                @endforeach
+                            </select>
+                        </div> 
+
+                        <div class="form-group col-md-12">
+                            <h4 class="card-header text-black">
+                                <b>Permissões</b>
+                            </h4>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <select type="select" name="permissoes[]" id="permissoes" class="custom-select" onchange="mostraPremissas()">
+                                <option value="0">-- SELECIONE --</option>
+                                @foreach ( $permissoes as $permissao )
+                                    <option value="{{$permissao->per_id}}">{{$permissao->per_nome}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-md-12">
+                          <div class="form-group" hidden id="div_premissas">
+                            <label for="nome">Premissas</label>
+                            <select multiple type="select" name="premissas[]" id="select_premissas" class="custom-select" >
+                            </select>
+                          </div>
+                        </div>
                   </div>
               </div>
           </div>

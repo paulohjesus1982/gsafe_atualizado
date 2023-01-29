@@ -73,10 +73,26 @@
                                         </span>
                                     </a>
                                     | 
+                                    <a href="/equipe/listarMembros/{{$equipe->equ_id}}" class="navi-link">
+                                        <span class="navi-text">
+                                            <span class="label label-xl label-inline label-light-primary">
+                                                Listar Membros
+                                            </span>
+                                        </span>
+                                    </a>
+                                    | 
                                     <a href="/equipe/inativarUsuario/{{$equipe->equ_id}}" class="navi-link">
                                         <span class="navi-text">
                                             <span class="label label-xl label-inline label-light-primary">
                                                 Inativar Usuário
+                                            </span>
+                                        </span>
+                                    </a>
+                                    | 
+                                    <a href="/equipe/ativarUsuario/{{$equipe->equ_id}}" class="navi-link">
+                                        <span class="navi-text">
+                                            <span class="label label-xl label-inline label-light-primary">
+                                                Ativar Usuário
                                             </span>
                                         </span>
                                     </a>

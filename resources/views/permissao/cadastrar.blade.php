@@ -40,7 +40,7 @@
                             </div>
 
                             <div class="form-group col-md-12">
-                                <label for="nome">Membros</label>
+                                <label for="nome">Premissas</label>
                                 <select multiple type="select" name="premissas[]" id="premissas" class="custom-select">
                                     @foreach ( $premissas as $premissa )
                                         <option value="{{$premissa->pre_id}}">{{$premissa->pre_nome}}</option>

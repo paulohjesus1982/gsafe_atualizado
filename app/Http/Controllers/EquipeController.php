@@ -23,6 +23,19 @@ class EquipeController extends Controller {
         ]);
     }
 
+    public function ListarMembros(Request $r) {
+
+        $equipe = Equipe::find($r->id);
+        $usuarios = $equipe->Membros;
+        $equipe_membros = EquipeMembro::where('emem_fk_equ_id', $r->id)->get();
+
+        return view('equipes.listarMembros', [
+            'equipe' => $equipe,
+            'usuarios' => $usuarios,
+            'equipe_membros' => $equipe_membros,
+        ]);
+    }
+
     public function Cadastrar(Request $r) {
 
         $usuarios = Usuario::all();
@@ -69,12 +82,6 @@ class EquipeController extends Controller {
         ]);
     }
 
-    public function InativarUsuario(Request $request) {
-
-        // return view('equipes.invativar_usuario')->with([]);
-        return view('equipes.inativarUsuario');
-    }
-
     public function Atualizar(Request $request) {
         $atualizar_equipe = $request->all();
 
@@ -106,10 +113,6 @@ class EquipeController extends Controller {
                         ['emem_fk_usu_id', '=', $membro],
                     ])->get();
                     if (!isset($equipe_membro_atual[0])) {
-                        // echo '<pre>';
-                        // print_r($membro);
-                        // echo '</pre>';
-
                         $equipe_membro = array();
 
                         $equipe_membro['emem_fk_usu_id'] = $membro;
@@ -121,5 +124,75 @@ class EquipeController extends Controller {
             }
         }
         return redirect()->route('equipes.listar');
+    }
+
+    public function InativarUsuario(Request $request) {
+
+        $equ_id = $request->id;
+        $equipe = Equipe::find($equ_id);
+        $membros_equipe = $equipe->Membros;
+        $todos_usuarios = Usuario::all();
+        $selected = '';
+
+        return view('equipes.inativarUsuario')->with([
+            'equipe' => $equipe,
+            'membros' => $membros_equipe,
+            'todos_usuarios' => $todos_usuarios,
+            'selected' => $selected,
+        ]);
+    }
+
+    public function AtualizarParaInativo(Request $request) {
+
+        $dados_inativar = $request->all();
+
+        foreach ($dados_inativar['membros'] as $key => $membro) {
+            $equipe_membros = EquipeMembro::where('emem_fk_usu_id', $membro)->where('emem_fk_equ_id', $dados_inativar['codigo_equipe'])->get();
+            $equipe_membros[0]->emem_status_operador = 0;
+            $equipe_membros[0]->save();
+        }
+
+        $equipes = Equipe::all()->sortBy("equ_id");
+        $membros = Usuario::all();
+
+        return view('equipes.listar', [
+            'equipes' => $equipes,
+            'membros' => $membros
+        ]);
+    }
+
+    public function AtivarUsuario(Request $request) {
+
+        $equ_id = $request->id;
+        $equipe = Equipe::find($equ_id);
+        $membros_equipe = $equipe->Membros;
+        $todos_usuarios = Usuario::all();
+        $selected = '';
+
+        return view('equipes.ativarUsuario')->with([
+            'equipe' => $equipe,
+            'membros' => $membros_equipe,
+            'todos_usuarios' => $todos_usuarios,
+            'selected' => $selected,
+        ]);
+    }
+
+    public function AtualizarParaAtivo(Request $request) {
+
+        $dados_inativar = $request->all();
+
+        foreach ($dados_inativar['membros'] as $key => $membro) {
+            $equipe_membros = EquipeMembro::where('emem_fk_usu_id', $membro)->where('emem_fk_equ_id', $dados_inativar['codigo_equipe'])->get();
+            $equipe_membros[0]->emem_status_operador = 1;
+            $equipe_membros[0]->save();
+        }
+
+        $equipes = Equipe::all()->sortBy("equ_id");
+        $membros = Usuario::all();
+
+        return view('equipes.listar', [
+            'equipes' => $equipes,
+            'membros' => $membros
+        ]);
     }
 }

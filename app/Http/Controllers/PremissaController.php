@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Premissa;
+use App\Models\PermissoesPremissa;
 
 class PremissaController extends Controller {
     public function __construct() {
@@ -19,9 +20,19 @@ class PremissaController extends Controller {
     }
 
     public function ListarUm(Request $request) {
-
         $id = $request->id;
-        $premissas = Premissa::where("pre_fk_per_id", $id)->get();
+        $premissas = array();
+
+        if ($id == 0) {
+            return $premissas;
+        }
+
+        $permissoes_premissa = PermissoesPremissa::where("ppre_fk_per_id", $id)->get();
+        $i = 0;
+        foreach ($permissoes_premissa as $key => $ppre) {
+            $premissas[$i] = $ppre->Premissas[0];
+            $i++;
+        }
 
         return $premissas;
     }

@@ -21,6 +21,12 @@ class Equipe extends Model {
     ];
 
     public function Membros() {
-        return $this->belongsToMany(Usuario::class, 'equipes_membros', 'emem_fk_equ_id', 'emem_fk_usu_id');
+        return $this->belongsToMany(Usuario::class, 'equipes_membros', 'emem_fk_equ_id', 'emem_fk_usu_id')->orderByPivot('emem_fk_usu_id');
+    }
+
+    public function AchaUsuarioNome($usu_id) {
+        $usuario = Usuario::find($usu_id);
+
+        return $usuario->usu_nome;
     }
 }

@@ -45,8 +45,12 @@ Route::group(['prefix' => '/equipe'], function () {
     Route::get('/cadastrar',             [EquipeController::class, 'Cadastrar']);
     Route::get('/editar/{id}',           [EquipeController::class, 'Editar'])->name('equipes.editar');
     Route::get('/inativarUsuario/{id}',  [EquipeController::class, 'InativarUsuario'])->name('equipes.inativarUsuario');
+    Route::get('/ativarUsuario/{id}',    [EquipeController::class, 'AtivarUsuario'])->name('equipes.ativarUsuario');
     Route::post('/salvar',               [EquipeController::class, 'Salvar'])->name('equipes.salvar');
     Route::post('/atualizar',            [EquipeController::class, 'Atualizar'])->name('equipes.atualizar');
+    Route::post('/atualizarParaInativo', [EquipeController::class, 'AtualizarParaInativo'])->name('equipes.atualizarParaInativo');
+    Route::post('/atualizarParaAnativo', [EquipeController::class, 'AtualizarParaAtivo'])->name('equipes.atualizarParaAtivo');
+    Route::get('/listarMembros/{id}',    [EquipeController::class, 'ListarMembros'])->name('equipes.listarMembros');
 });
 
 // Permissao

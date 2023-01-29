@@ -10,7 +10,7 @@ use App\Models\Premissa;
 use App\Models\PermissoesParalizacao;
 use App\Models\ParalizacoesPremissa;
 use App\Models\Empresa;
-use App\Models\Equipe;
+use App\Models\Servico;
 use Illuminate\Support\File;
 
 class ParalizacaoController extends Controller {
@@ -88,9 +88,13 @@ class ParalizacaoController extends Controller {
 
         // $empresa = Empresa::all()->sortBy("emp_id");
         $empresa = Empresa::where('emp_enum_tipo_empresa', 2)->get();
+        $servicos = Servico::all();
+        $permissoes = Permissao::all();
 
         return view('paralizacao.cadastrar', [
             'empresas' => $empresa,
+            'servicos' => $servicos,
+            'permissoes' => $permissoes,
         ]);
     }
 
@@ -110,6 +114,12 @@ class ParalizacaoController extends Controller {
     public function Salvar(Request $request) {
 
         $nova_paralizacao = $request->all();
+
+        echo '<pre>';
+        print_r($nova_paralizacao);
+        echo '</pre>';
+        die();
+
         $paralizacao['par_enum_estado_paralizacao'] = $nova_paralizacao['par_enum_estado_paralizacao'];
         $paralizacao['par_fk_emp_id'] = $nova_paralizacao['par_fk_emp_id'];
         $paralizacao['par_art'] = $nova_paralizacao['par_art'];
@@ -117,6 +127,8 @@ class ParalizacaoController extends Controller {
         $paralizacao['par_criado_em'] = 'NOW()';
 
         $result = Paralizacao::create($paralizacao);
+
+        $servico = '';
 
         return redirect()->route('paralizacao.listar');
     }

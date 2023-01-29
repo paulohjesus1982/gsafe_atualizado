@@ -3,18 +3,18 @@
 @section('content-title', 'Listar Equipe')
 
 @section('content')
-<form action="{{route('equipes.atualizarParaInativo')}}" method="post">
+<form action="{{route('equipes.atualizarParaAtivo')}}" method="post">
     {{ csrf_field()}}
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h2> Inativar Usuário(s) da Equipe</h2>
+                <h2> Ativar Usuário(s) da Equipe</h2>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="/home">Home</a></li>
                     <li class="breadcrumb-item"><a href="/equipe/listar">Listar</a></li>
-                    <li class="breadcrumb-item active">Inativar Usuário da Equipe</li>
+                    <li class="breadcrumb-item active">Ativar Usuário da Equipe</li>
                 </ol>
             </div>
         </div>
@@ -54,7 +54,7 @@
     </div>    
     <div class="row">
         <div class="col-6">
-            <button type="submit" class="btn btn-info btn-block"><span class="fa fa-check"></span> Inativar</button>
+            <button type="submit" class="btn btn-info btn-block"><span class="fa fa-check"></span> Ativar</button>
         </div>
         <div class="col-6">
             <a style="text-decoration: none;color:white;" href="/equipe/listar">
