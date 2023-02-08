@@ -3,12 +3,60 @@
 @section('content-title', 'Editar Paralização')
 
 @section('content')
+<script src="https://kit.fontawesome.com/27e7fcbbbe.js" crossorigin="anonymous"></script> 
+<script type="text/javascript">
+    function mostraPremissas(){
+        var premissas = {!! json_encode($premissas) !!};
+        var valor_permissao = '';
+        valor_permissao = $("#permissoes").val();
+
+        $.ajax({
+        'processing': true,
+        'serverSide': false,
+            type: "GET",
+            url: "/premissa/listar/" + valor_permissao,
+            success: function(s) {
+                var retorno = $(s);
+
+                if (retorno.length === 0) { 
+                    $('#select_premissas').empty();
+                    $('#div_premissas').attr("hidden", "hidden");
+                }else{
+                    $('#select_premissas').empty();
+
+                    $('#div_premissas').removeAttr('hidden');
+                    var selected = '';
+                    $.each(retorno, function(r, retorno) {
+                        Object.keys(premissas).forEach(key => {
+                            if(key == retorno.per_id){
+                                if (premissas[key].pre_id == retorno.pre_id) {
+                                    selected = 'selected';
+                                }
+                            }
+                        });
+                        // premissas.forEach(element => {
+                            
+                        //     if (element.pre_id == retorno.pre_id) {
+                        //         selected = 'selected';
+                        //     }
+                        // });
+
+                        var premissa_permissao = retorno.pre_id +"_"+ retorno.per_id ;
+
+                        $('#select_premissas').append($("<option " + selected + " value='" + premissa_permissao +"'> " + retorno.pre_nome +"</option>"));
+                        selected = '';
+                    });
+                }
+            }
+        });
+    }
+</script>
 <form action="{{route('paralizacao.atualizar')}}" method="post">
     {{ csrf_field()}}
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h2> Editar Empresas</h2>
+                <h2> Editar Paralização</h2>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -24,7 +72,7 @@
       <div class="col-md-12">
           <div class="card card-primary">
               <h5 class="card-header text-black">
-                  <b>Informações Paralizações</b>
+                  <b>Informações Paralização</b>
               </h5>
               <div class="card-body">
                   <div class="row">
@@ -34,11 +82,15 @@
                      </div>
                       <div class="form-group col-md-6">
                           <label for="par_art">ART</label>
-                          <input type="text" name="par_art" id="par_art" class="form-control" placeholder="PAR" value="{{$paralizacao->par_art}}"/>
+                          <input type="text" name="par_art" id="par_art" class="form-control" placeholder="PAR" value="{{$paralizacao->par_art}}" readonly/>
                       </div>
                       <div class="form-group col-md-6">
                           <label for="par_pet">PET</label>
-                          <input type="text" name="par_pet" id="par_pet" class="form-control" placeholder="PET" value="{{$paralizacao->par_pet}}"/>
+                          <input type="text" name="par_pet" id="par_pet" class="form-control" placeholder="PET" value="{{$paralizacao->par_pet}}" readonly/>
+                      </div>
+                      <div class="form-group col-md-6">
+                          <label for="par_fk_emp_id">Empresa</label>
+                          <input type="text" name="par_fk_emp_id" id="par_fk_emp_id" class="form-control" placeholder="Empresa" value="{{$par->AchaEmpresaNome($paralizacao->par_fk_emp_id)}}" readonly/>
                       </div>
                       <div class="form-group col-md-6">
                           <label for="par_enum_estado_paralizacao">Estado Paralização</label>
@@ -63,20 +115,71 @@
                               @endforeach
                           </select>
                       </div>
-                      <div class="form-group col-md-6">
-                          <label for="par_fk_emp_id">Empresa</label>
-                          <select class="custom-select" name="par_fk_emp_id">
-                              @foreach ( $empresas as $empresa )
-                                @if($empresa->emp_id == $paralizacao['empresas']->emp_id)
-                                    <?php $selected_empresa = "selected"; ?>
-                                @endif
-                                <option <?php echo $selected_empresa; ?> value="{{$empresa->emp_id}}">{{$empresa->emp_nome}}</option>
-                                <?php $selected_empresa = "" ?>
-                              @endforeach
-                          </select>
+
+                      <div class="form-group col-md-12">
+                        <h4 class="card-header text-black">
+                            <b>Serviço</b>
+                        </h4>
                       </div>
-                            
+                      <div class="form-group col-md-4">
+                          <label for="ser_id">Id Serviço</label>
+                          <input type="text" name="ser_id" id="ser_id" class="form-control" placeholder="Serviço" value="{{$servico->ser_id}}" readonly/>
+                      </div>
+                      <div class="form-group col-md-4">
+                          <label for="ser_id">Serviço</label>
+                          <input type="text" name="ser_nome" id="ser_nome" class="form-control" placeholder="Id Serviço" value="{{$servico->ser_nome}}" readonly/>
+                      </div>
+                      <div class="form-group col-md-4">
+                          <label for="ser_id">Área atuação</label>
+                          <input type="text" name="ser_area_atuacao" id="ser_area_atuacao" class="form-control" placeholder="Area atuação Serviço" value="{{$servico->ser_area_atuacao}}" readonly/>
+                      </div>
+
+                      <div class="form-group col-md-12">
+                        <h4 class="card-header text-black">
+                            <b>Permissões</b>
+                        </h4>
+                      </div>
+                      <div class="form-group col-md-12">
+                        <select multiple type="select" name="permissoes[]" id="permissoes" class="custom-select pegarValor" onchange="mostraPremissas()">
+                            <?php $selected = ""; ?>
+                            @foreach ( $todas_permissoes as $permissao )
+                                @foreach ( $permissoes as $per )
+                                    @if($per->per_id == $permissao->per_id)
+                                        <?php $selected = "selected"; ?>
+                                    @endif
+                                @endforeach
+                                <option <?php echo $selected; ?> value="{{$permissao->per_id}}">{{$permissao->per_nome}}</option>
+                                <?php $selected = ""; ?>
+                            @endforeach
+                        </select>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group" id="div_premissas">
+                            <h4 class="card-header text-black">
+                                <b>Premissas</b>
+                            </h4>
+                            <select multiple type="select" name="premissas[]" id="select_premissas" class="custom-select" >
+                                <?php $selected = ""; $chave = ""; ?>
+                                
+                                @foreach ( $todas_premissas as $premissa)
+                                    @foreach ( $premissas as $key => $premissa_ )
+                                        @foreach ( $premissa_ as $pre )
+                                            @if($pre->pre_id == $premissa->pre_id)
+                                                <?php $selected = "selected"; $chave = $key; ?>
+                                            @endif                                                        
+                                        @endforeach
+                                    @endforeach
+                                    
+                                    <option <?php echo $selected; ?> value="{{$premissa->pre_id}}_{{$chave}}">{{$premissa->pre_nome}}</option>
+                                    <?php $selected = ""; $chave = "";  ?>
+                                @endforeach
+                            </select>
+                        </div>
+                      </div>
+                      
+
                   </div>
+
               </div>
           </div>
       </div>

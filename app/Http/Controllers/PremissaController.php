@@ -27,10 +27,13 @@ class PremissaController extends Controller {
             return $premissas;
         }
 
-        $permissoes_premissa = PermissoesPremissa::where("ppre_fk_per_id", $id)->get();
+        $id_explodido = explode(',', $id);
+
+        $permissoes_premissa = PermissoesPremissa::whereIn("ppre_fk_per_id", $id_explodido)->get();
         $i = 0;
         foreach ($permissoes_premissa as $key => $ppre) {
             $premissas[$i] = $ppre->Premissas[0];
+            $premissas[$i]['per_id'] = $ppre->ppre_fk_per_id;
             $i++;
         }
 

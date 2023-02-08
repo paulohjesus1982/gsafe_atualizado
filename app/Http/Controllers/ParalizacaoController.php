@@ -11,6 +11,7 @@ use App\Models\PermissoesParalizacao;
 use App\Models\ParalizacoesPremissa;
 use App\Models\Empresa;
 use App\Models\Servico;
+use App\Models\ServicoParalizacaoPermissaoPremissa;
 use Illuminate\Support\File;
 
 class ParalizacaoController extends Controller {
@@ -62,6 +63,9 @@ class ParalizacaoController extends Controller {
         $permissoes = array();
         $premissas = array();
 
+        $servico_paralizacao_permissao_premissa = ServicoParalizacaoPermissaoPremissa::where("spppre_fk_par_id", $paralizacao->par_id)->get();
+        $servico = Servico::find($servico_paralizacao_permissao_premissa[0]->spppre_fk_ser_id);
+
         foreach ($permissoes_paralizacao as $key => $permissoes_) {
             $permissao = $per->where('per_id', $permissoes_->ppar_fk_per_id)->get();
             $permissoes[$key] = $permissao[0];
@@ -72,8 +76,13 @@ class ParalizacaoController extends Controller {
             $permissao_premissas = PermissoesPremissa::where('ppre_fk_per_id', $permissao->per_id)->get();
             foreach ($permissao_premissas as $key => $premissa) {
                 $premissa_busca = Premissa::where('pre_id', $premissa->ppre_fk_pre_id)->get();
-                $premissas[$premissa->ppre_fk_per_id][$j] = $premissa_busca[0];
-                $j++;
+
+                $verifica_se_pertence = ServicoParalizacaoPermissaoPremissa::where("spppre_fk_par_id", $paralizacao->par_id)->where("spppre_fk_pre_id", $premissa_busca[0]->pre_id)->where("spppre_fk_per_id", $permissao->per_id)->get();
+
+                if (count($verifica_se_pertence) > 0) {
+                    $premissas[$premissa->ppre_fk_per_id][$j] = $premissa_busca[0];
+                    $j++;
+                }
             }
         }
 
@@ -81,12 +90,36 @@ class ParalizacaoController extends Controller {
             'paralizacao' => $paralizacao,
             'permissoes' => $permissoes,
             'premissas' => $premissas,
+            'servico' => $servico,
         ]);
+    }
+
+    public function ListarPermissaoPremissa(Request $r) {
+
+        $paralizacao = Paralizacao::find($r->id);
+        $permissoes_paralizacao = $paralizacao->Permissoes;
+        $per = new Permissao;
+
+        $permissao = $per->where('per_id', $permissoes_paralizacao->ppar_fk_per_id)->get();
+
+        $permissao_premissas = PermissoesPremissa::where('ppre_fk_per_id', $permissao[0]->per_id)->get();
+
+        $j = 0;
+        foreach ($permissao_premissas as $key => $premissa) {
+            $premissa_busca = Premissa::where('pre_id', $premissa->ppre_fk_pre_id)->get();
+            $premissas[$j] = $premissa_busca[0];
+            $j++;
+        }
+
+        return [
+            'paralizacao' => $paralizacao,
+            'permissao' => $permissao[0],
+            'premissas' => $premissas,
+        ];
     }
 
     public function Cadastrar(Request $r) {
 
-        // $empresa = Empresa::all()->sortBy("emp_id");
         $empresa = Empresa::where('emp_enum_tipo_empresa', 2)->get();
         $servicos = Servico::all();
         $permissoes = Permissao::all();
@@ -115,10 +148,6 @@ class ParalizacaoController extends Controller {
 
         $nova_paralizacao = $request->all();
 
-        echo '<pre>';
-        print_r($nova_paralizacao);
-        echo '</pre>';
-        die();
 
         $paralizacao['par_enum_estado_paralizacao'] = $nova_paralizacao['par_enum_estado_paralizacao'];
         $paralizacao['par_fk_emp_id'] = $nova_paralizacao['par_fk_emp_id'];
@@ -128,7 +157,36 @@ class ParalizacaoController extends Controller {
 
         $result = Paralizacao::create($paralizacao);
 
-        $servico = '';
+        if (count($nova_paralizacao['premissas']) > 0) {
+
+            foreach ($nova_paralizacao['premissas'] as $key => $premissa) {
+
+                $premissa_permissao = explode("_", $premissa);
+
+                $servico_paralizacao_permissao_premissa['spppre_fk_par_id'] = $result->par_id;
+                $servico_paralizacao_permissao_premissa['spppre_fk_ser_id'] = $nova_paralizacao['servico'];
+                $servico_paralizacao_permissao_premissa['spppre_fk_pre_id'] = $premissa_permissao[0];
+                $servico_paralizacao_permissao_premissa['spppre_fk_per_id'] = $premissa_permissao[1];
+
+                $result2 = ServicoParalizacaoPermissaoPremissa::create($servico_paralizacao_permissao_premissa);
+
+                $verifica_duplicidade_permissoes_paralizacao = PermissoesParalizacao::where("ppar_fk_par_id", $result->par_id)->where("ppar_fk_per_id", $premissa_permissao[1])->get();
+
+                if (count($verifica_duplicidade_permissoes_paralizacao) == 0) {
+                    $permissoes_paralizacao['ppar_fk_par_id'] = $result->par_id;
+                    $permissoes_paralizacao['ppar_fk_per_id'] = $premissa_permissao[1];
+                    $result3 = PermissoesParalizacao::create($permissoes_paralizacao);
+                }
+
+                $verifica_duplicidade_premissas_paralizacao = ParalizacoesPremissa::where("ppre_fk_par_id", $result->par_id)->where("ppre_fk_pre_id", $premissa_permissao[0])->get();
+
+                if (count($verifica_duplicidade_premissas_paralizacao) == 0) {
+                    $paralizacoes_premissas['ppre_fk_par_id'] = $result->par_id;
+                    $paralizacoes_premissas['ppre_fk_pre_id'] = $premissa_permissao[0];
+                    $result4 = ParalizacoesPremissa::create($paralizacoes_premissas);
+                }
+            }
+        }
 
         return redirect()->route('paralizacao.listar');
     }
@@ -155,11 +213,33 @@ class ParalizacaoController extends Controller {
             if ($path) {
                 $paralizacoes_premissas = array();
 
-                $paralizacoes_premissas['ppre_fk_par_id'] = $dados['id_par'];
-                $paralizacoes_premissas['ppre_fk_pre_id'] = $dados['id_pre'];
-                $paralizacoes_premissas['ppre_caminho_anexo'] = "storage/img_premissa/" . $fileNameToStore;
+                $encontra_paralizacoes_premissas = new ParalizacoesPremissa();
+                $encontra_paralizacoes_premissas = ParalizacoesPremissa::where("ppre_fk_par_id", $dados['id_par'])->where("ppre_fk_pre_id", $dados['id_pre'])->get();
 
-                $result = ParalizacoesPremissa::create($paralizacoes_premissas);
+                if (count($encontra_paralizacoes_premissas) > 0) {
+                    $encontra_paralizacoes_premissas[0]['ppre_caminho_anexo'] = "storage/img_premissa/" . $fileNameToStore;
+                    $encontra_paralizacoes_premissas[0]['ppre_status'] = 0;
+
+                    $result = $encontra_paralizacoes_premissas[0]->save();
+                } else {
+                    $paralizacoes_premissas['ppre_fk_par_id'] = $dados['id_par'];
+                    $paralizacoes_premissas['ppre_fk_pre_id'] = $dados['id_pre'];
+                    $paralizacoes_premissas['ppre_caminho_anexo'] = "storage/img_premissa/" . $fileNameToStore;
+                    $paralizacoes_premissas['ppre_status'] = 0;
+
+
+                    $result = ParalizacoesPremissa::create($paralizacoes_premissas);
+                }
+
+                $consulta_todas_paralizacoes_premissa = ParalizacoesPremissa::where("ppre_fk_par_id", $dados['id_par'])->where("ppre_status", 1)->get();
+
+                if (count($consulta_todas_paralizacoes_premissa) == 0) {
+                    $paralizacao_fecha = Paralizacao::find($dados['id_par']);
+
+                    $paralizacao_fecha['par_enum_estado_paralizacao'] = 1;
+
+                    $paralizacao_fecha->save();
+                }
             }
         } else {
             $fileNameToStore = 'noimage.png';
@@ -190,9 +270,23 @@ class ParalizacaoController extends Controller {
         $id = $request->id;
 
         $paralizacao = Paralizacao::find($id);
+        $par = new Paralizacao();
+        $todas_permissoes = Permissao::all();
+        $todas_premissas = Premissa::all();
 
-        // $empresa = Empresa::all()->sortBy("emp_id");
-        $empresa = Empresa::where('emp_enum_tipo_empresa', 2)->get();
+        $servico_paralizacao_permissao_premissa = ServicoParalizacaoPermissaoPremissa::where("spppre_fk_par_id", $paralizacao->par_id)->get();
+        $servico = Servico::find($servico_paralizacao_permissao_premissa[0]->spppre_fk_ser_id);
+
+        $i = $j = 0;
+        foreach ($servico_paralizacao_permissao_premissa as $key => $spppre) {
+            $j = 0;
+            $permissao = Permissao::find($spppre->spppre_fk_per_id);
+            $premissa = Premissa::find($spppre->spppre_fk_pre_id);
+            $permissoes[$i] = $permissao;
+            $j++;
+            $premissas[$spppre->spppre_fk_per_id][$i] = $premissa;
+            $i++;
+        }
 
         $estados_paralizacao = [
             1 => 'Em Andamento',
@@ -201,9 +295,13 @@ class ParalizacaoController extends Controller {
 
         return view('paralizacao.editar')->with([
             'paralizacao' => $paralizacao,
-            'empresas' => $empresa,
+            'par' => $par,
+            'servico' => $servico,
             'estados_paralizacao' => $estados_paralizacao,
-            'selected_empresa' => '',
+            'todas_permissoes' => $todas_permissoes,
+            'todas_premissas' => $todas_premissas,
+            'permissoes' => $permissoes,
+            'premissas' => $premissas,
             'selected_estado_paralizacao' => '',
             'title' => 'Editar Paralizacao'
         ]);
@@ -213,14 +311,58 @@ class ParalizacaoController extends Controller {
 
         $atualizar_paralizacao = $request->all();
 
+        //se vier um 3_ na premissas[] é devido ao fato de ter selecionado uma opção que montou inicialmente na tela e que não era selecionada (pode ocorrer)
+        //então para resolver esse bo eu só procuro a permissao vinculada a essa premissa, e pego o id dela TÃ DÃ
+
         $paralizacao = Paralizacao::find($atualizar_paralizacao['par_id']);
         $paralizacao['par_enum_estado_paralizacao'] = $atualizar_paralizacao['par_enum_estado_paralizacao'];
-        $paralizacao['par_fk_emp_id'] = $atualizar_paralizacao['par_fk_emp_id'];
         $paralizacao['par_art'] = $atualizar_paralizacao['par_art'];
         $paralizacao['par_pet'] = $atualizar_paralizacao['par_pet'];
         $paralizacao['par_atualizado_em'] = 'NOW()';
 
         $result = $paralizacao->save();
+
+        if (count($atualizar_paralizacao['premissas']) > 0) {
+
+            // $deleted = EquipeMembro::where('emem_id', $emem_id)->delete();
+            $deleted_1 = ServicoParalizacaoPermissaoPremissa::where("spppre_fk_par_id", $atualizar_paralizacao['par_id'])->delete();
+            $deleted_2 = PermissoesParalizacao::where("ppar_fk_par_id", $atualizar_paralizacao['par_id'])->delete();
+            $deleted_3 = ParalizacoesPremissa::where("ppre_fk_par_id", $atualizar_paralizacao['par_id'])->delete();
+
+            foreach ($atualizar_paralizacao['premissas'] as $key => $premissa) {
+
+                $premissa_permissao = explode("_", $premissa);
+
+                $servico_paralizacao_permissao_premissa['spppre_fk_par_id'] = $atualizar_paralizacao['par_id'];
+                $servico_paralizacao_permissao_premissa['spppre_fk_ser_id'] = $atualizar_paralizacao['ser_id'];
+                $servico_paralizacao_permissao_premissa['spppre_fk_pre_id'] = $premissa_permissao[0];
+                if ($premissa_permissao[1] == '') {
+                    //acha a premissa de acordo com a permissao
+                    $permissao_premissa_find = PermissoesPremissa::where("ppre_fk_pre_id", $premissa_permissao[0])->get();
+
+                    $premissa_permissao[1] = $permissao_premissa_find[0]->ppre_fk_per_id;
+                }
+                $servico_paralizacao_permissao_premissa['spppre_fk_per_id'] = $premissa_permissao[1];
+
+                $result2 = ServicoParalizacaoPermissaoPremissa::create($servico_paralizacao_permissao_premissa);
+
+                $verifica_duplicidade_permissoes_paralizacao = PermissoesParalizacao::where("ppar_fk_par_id", $atualizar_paralizacao['par_id'])->where("ppar_fk_per_id", $premissa_permissao[1])->get();
+
+                if (count($verifica_duplicidade_permissoes_paralizacao) == 0) {
+                    $permissoes_paralizacao['ppar_fk_par_id'] = $atualizar_paralizacao['par_id'];
+                    $permissoes_paralizacao['ppar_fk_per_id'] = $premissa_permissao[1];
+                    $result3 = PermissoesParalizacao::create($permissoes_paralizacao);
+                }
+
+                $verifica_duplicidade_premissas_paralizacao = ParalizacoesPremissa::where("ppre_fk_par_id", $atualizar_paralizacao['par_id'])->where("ppre_fk_pre_id", $premissa_permissao[0])->get();
+
+                if (count($verifica_duplicidade_premissas_paralizacao) == 0) {
+                    $paralizacoes_premissas['ppre_fk_par_id'] = $atualizar_paralizacao['par_id'];
+                    $paralizacoes_premissas['ppre_fk_pre_id'] = $premissa_permissao[0];
+                    $result4 = ParalizacoesPremissa::create($paralizacoes_premissas);
+                }
+            }
+        }
 
         if ($result) {
             return redirect()->route('paralizacao.listar');

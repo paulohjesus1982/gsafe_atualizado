@@ -68,8 +68,8 @@
                         <div class="col-sm-2">
                           <label for="exampleSelectBorder">Status da Paralização</label>
                             <select class="custom-select" name="par_enum_estado_paralizacao">
-                                <option value='1'>Em andamento</option>
-                                <option value='2'>Liberação</option>
+                                <option value='0'>Em andamento</option>
+                                <option value='1'>Liberação</option>
                             </select>
                         </div>
                       </div>

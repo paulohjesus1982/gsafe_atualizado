@@ -17,10 +17,68 @@
 
 @section('content')
 {{ csrf_field()}}
+{{-- essa desgraça aqui em baixa que faz o fontawesome funcionar --}}
+<script src="https://kit.fontawesome.com/27e7fcbbbe.js" crossorigin="anonymous"></script> 
+
+<script type="text/javascript">
+
+    function MostrarDadosParalizacao(id){
+        var par_id = id;        
+
+        $.ajax({
+            'processing': true,
+            'serverSide': false,
+            type: "GET",
+            data: {par_id : par_id},
+            url: "/paralizacao/listar_permissao/" + par_id,
+            success: function(dados) {
+                var retorno = $(dados);
+
+                $('#div_dados_paralizacao').empty();
+                $('#div_premissas').removeAttr('hidden');
+
+                //criar a tabela
+                var Tabela = document.createElement("table");
+                var Cabecalho = document.createElement("thead");
+                var Corpo = document.createElement("tbody");
+
+
+
+
+                
+                Tabela.appendChild(Cabecalho);
+                Tabela.appendChild(Corpo);
+                //adicionar a tabela na div
+                document.getElementById("div_dados_paralizacao").appendChild(Tabela);
+
+                $.each(retorno[0], function(r, retorno) {
+                    if(r == 'permissao'){
+                        console.log('b');
+                    } else if(r == 'premissas'){
+                        console.log('c');
+                    }
+                    // $('#select_premissas').append($('<option>', {
+                    //     value: retorno.pre_id,
+                    //     text: retorno.pre_nome
+                    // }));
+                });
+                document.getElementById("ver_mais_"+id).setAttribute("onclick", "FecharDadosParalizacao("+id+")");
+            }
+        });
+    }
+
+    function FecharDadosParalizacao(id){ 
+        document.getElementById('ver_mais_'+id).setAttribute("onclick", "MostrarDadosParalizacao("+id+")");
+        $('#div_dados_paralizacao').empty();
+        $('#div_premissas').attr('hidden','hidden');
+    }
+
+</script>
+
 <div class="container-fluid">
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h2> Listar Empresas</h2>
+            <h2> Listar Paralizações</h2>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -67,7 +125,7 @@
                                 <td>{{$paralizacao->par_art}}</td>
                                 <td>{{$par->AchaEmpresaNome($paralizacao->par_fk_emp_id)}}</td>
                                 <td>
-                                    @if ($paralizacao->par_enum_estado_paralizacao == 1)
+                                    @if ($paralizacao->par_enum_estado_paralizacao == 0)
                                         Em andamento
                                     @else
                                         Liberação
@@ -83,23 +141,25 @@
                                         </span>
                                     </a>
                                     | 
-                                    <a href="/paralizacao/cadastrar_permissao/{{$paralizacao->par_id}}" class="navi-link">
-                                        <span class="navi-text">
-                                            <span class="label label-xl label-inline label-light-primary">
-                                                Cadastrar Permissão
-                                            </span>
-                                        </span>
-                                    </a>
-                                    | 
                                     <a href="/paralizacao/listar_permissao/{{$paralizacao->par_id}}" class="navi-link">
                                         <span class="navi-text">
                                             <span class="label label-xl label-inline label-light-primary">
-                                                Listar Permissão
+                                                Detalhes
                                             </span>
                                         </span>
                                     </a>
+                                    {{-- | 
+                                    <button type="button" class="btn btn-outline-primary" onclick="MostrarDadosParalizacao({{$paralizacao->par_id}})" id="ver_mais_{{$paralizacao->par_id}}" value="{{$paralizacao->par_id}}">
+                                        <i class="fa-solid fa-circle-plus"></i> 
+                                    </button> 
+                                    --}}
                                 </td>
                             </tr>
+                            {{-- <div class="col-md-12">
+                                <div class="form-group" hidden id="div_dados_paralizacao">
+                                    
+                                </div>
+                            </div> --}}
                         @endforeach
                     </tbody>
                 </table>

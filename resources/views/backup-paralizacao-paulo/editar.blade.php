@@ -58,31 +58,25 @@
                                     <label for="par_fk_emp_id">Empresa</label>
                                     <select class="custom-select" name="par_fk_emp_id">
                                         @foreach ( $empresas as $empresa )
-                                        <option value="{{$empresa->emp_id}}">{{$empresa->emp_nome}}<option>
+                                            <option value="{{$empresa->emp_id}}">{{$empresa->emp_nome}}<option>
                                         @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="par_fk_per_id">Permissão</label>
-                                        <select class="custom-select" name="par_fk_per_id">
-                                            @foreach ( $permissoes as $permissao )
-                                                 <option value="{{$permissao->per_id}}">{{$permissao->per_nome}}<option>    
-                                             @endforeach
-                                            </select>
-                                        </div>
-                                        
-                                        <div class="form-group col-md-6">
-                                            <label for="par_enum_estado_paralizacao">Estado</label>
-                                            <select class="custom-select" name="par_enum_estado_paralizacao">
-                                        <option value='1'>Em andamento</option>
-                                        <option value='2'>Liberação</option>
                                     </select>
                                 </div>
-                                
-                                {{-- <div class="form-group col-md-6">
-                                    <label for="par_caminho_anexo">Arquivo</label>
-                                    <input type="file" name="par_caminho_anexo" class="form-control" value="" autofocus/>
-                                </div> --}}
+                                <div class="form-group col-md-6">
+                                    <label for="par_fk_per_id">Permissão</label>
+                                    <select class="custom-select" name="par_fk_per_id">
+                                        @foreach ( $permissoes as $permissao )
+                                            <option value="{{$permissao->per_id}}">{{$permissao->per_nome}}<option>    
+                                        @endforeach
+                                    </select>
+                                </div>  
+                                <div class="form-group col-md-6">
+                                    <label for="par_enum_estado_paralizacao">Estado</label>
+                                    <select class="custom-select" name="par_enum_estado_paralizacao">
+                                        <option value='0'>Em andamento</option>
+                                        <option value='1'>Liberação</option>
+                                    </select>
+                                </div>
                             </div>
                     </div>
                 </div>
