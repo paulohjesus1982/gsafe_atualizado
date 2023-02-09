@@ -43,7 +43,7 @@
         }
     </script>
 
-  <form action="{{route('paralizacao.salvar')}}" method="post">
+  <form action="{{route('paralizacao.salvar')}}" method="post" enctype="multipart/form-data">
     {{ csrf_field()}}
     <div class="container-fluid">
         <div class="row mb-2">
@@ -68,7 +68,7 @@
               </h5>
               <div class="card-body">
                   <div class="row">
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-md-3">
                           <label for="par_art">ART</label>
                           <input type="text" name="par_art" id="par_art" class="form-control {{$errors->has('par_art') ? 'is-invalid' : ''}}" placeholder="PAR" value="{{old('par_art')}}"/>
                           @if($errors->has('par_art'))
@@ -77,7 +77,17 @@
                               </div>
                           @endif
                       </div>
-                      <div class="form-group col-md-6">
+
+                      <div class="form-group col-md-3">
+                        <label for="img_art_nome">ART anexo</label>
+                        <div class="custom-file col-md-12">
+                           <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
+                           <input type="file" class="custom-file-input" name="img_art" id="input_img">
+                           <label class="custom-file-label" for="input_img_itens">ART anexo</label>
+                        </div>
+                      </div>
+
+                      <div class="form-group col-md-3">
                           <label for="par_pet">PET</label>
                           <input type="text" name="par_pet" id="par_pet" class="form-control {{$errors->has('par_pet') ? 'is-invalid' : ''}}" placeholder="PET" value="{{old('par_pet')}}"/>
                           @if($errors->has('par_pet'))
@@ -86,6 +96,16 @@
                               </div>
                           @endif
                       </div>
+
+                      <div class="form-group col-md-3">
+                        <label for="img_pet_nome">PET anexo</label>
+                        <div class="custom-file col-md-12">
+                           <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
+                           <input type="file" class="custom-file-input" name="img_pet" id="input_img">
+                           <label class="custom-file-label" for="input_img_itens">PET anexo</label>
+                        </div>
+                      </div>
+
                       <div class="form-group col-md-6">
                           <label for="par_enum_estado_paralizacao">Estado Paralização</label>
                           <select class="custom-select" name="par_enum_estado_paralizacao">

@@ -30,6 +30,10 @@ class ParalizacaoController extends Controller {
         ]);
     }
 
+    public function Mostrar(Request $r) {
+        return view('paralizacao.mostrar');
+    }
+
     public function VerImagemPremissa(Request $r) {
 
         $premissa = Premissa::find($r->id_pre);
@@ -62,6 +66,7 @@ class ParalizacaoController extends Controller {
         $permissao = array();
         $permissoes = array();
         $premissas = array();
+        $par = new Paralizacao();
 
         $servico_paralizacao_permissao_premissa = ServicoParalizacaoPermissaoPremissa::where("spppre_fk_par_id", $paralizacao->par_id)->get();
         $servico = Servico::find($servico_paralizacao_permissao_premissa[0]->spppre_fk_ser_id);
@@ -87,6 +92,7 @@ class ParalizacaoController extends Controller {
         }
 
         return view('paralizacao.listar_permissao', [
+            'par' => $par,
             'paralizacao' => $paralizacao,
             'permissoes' => $permissoes,
             'premissas' => $premissas,
@@ -148,11 +154,12 @@ class ParalizacaoController extends Controller {
 
         $nova_paralizacao = $request->all();
 
-
         $paralizacao['par_enum_estado_paralizacao'] = $nova_paralizacao['par_enum_estado_paralizacao'];
         $paralizacao['par_fk_emp_id'] = $nova_paralizacao['par_fk_emp_id'];
         $paralizacao['par_art'] = $nova_paralizacao['par_art'];
+        $paralizacao['par_art_img'] = $this->CadastrarImgART($request);
         $paralizacao['par_pet'] = $nova_paralizacao['par_pet'];
+        $paralizacao['par_pet_img'] = $this->CadastrarImgPET($request);
         $paralizacao['par_criado_em'] = 'NOW()';
 
         $result = Paralizacao::create($paralizacao);
@@ -219,6 +226,7 @@ class ParalizacaoController extends Controller {
                 if (count($encontra_paralizacoes_premissas) > 0) {
                     $encontra_paralizacoes_premissas[0]['ppre_caminho_anexo'] = "storage/img_premissa/" . $fileNameToStore;
                     $encontra_paralizacoes_premissas[0]['ppre_status'] = 0;
+                    $encontra_paralizacoes_premissas[0]['ppre_finalizado_em'] = 'NOW()';
 
                     $result = $encontra_paralizacoes_premissas[0]->save();
                 } else {
@@ -226,7 +234,6 @@ class ParalizacaoController extends Controller {
                     $paralizacoes_premissas['ppre_fk_pre_id'] = $dados['id_pre'];
                     $paralizacoes_premissas['ppre_caminho_anexo'] = "storage/img_premissa/" . $fileNameToStore;
                     $paralizacoes_premissas['ppre_status'] = 0;
-
 
                     $result = ParalizacoesPremissa::create($paralizacoes_premissas);
                 }
@@ -247,6 +254,56 @@ class ParalizacaoController extends Controller {
 
 
         return redirect()->route('paralizacao.listar');
+    }
+
+    public function CadastrarImgART(Request $request) {
+
+        // Handle File Upload
+        if ($request->hasFile('img_art')) {
+            // Get filename with the extension
+            $filenameWithExt = $request->file('img_art')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request->file('img_art')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+            // Upload Image
+            $path = $request->file('img_art')->storeAs('public/img_art', $fileNameToStore);
+        } else {
+            $fileNameToStore = 'noimage.png';
+        }
+
+        if ($fileNameToStore == "noimage.png") {
+            return null;
+        } else {
+            return "storage/img_art/" . $fileNameToStore;
+        }
+    }
+
+    public function CadastrarImgPET(Request $request) {
+
+        // Handle File Upload
+        if ($request->hasFile('img_pet')) {
+            // Get filename with the extension
+            $filenameWithExt = $request->file('img_pet')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request->file('img_pet')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+            // Upload Image
+            $path = $request->file('img_pet')->storeAs('public/img_pet', $fileNameToStore);
+        } else {
+            $fileNameToStore = 'noimage.png';
+        }
+
+        if ($fileNameToStore == "noimage.png") {
+            return null;
+        } else {
+            return "storage/img_pet/" . $fileNameToStore;
+        }
     }
 
     public function SalvarPermissao(Request $request) {
@@ -317,7 +374,9 @@ class ParalizacaoController extends Controller {
         $paralizacao = Paralizacao::find($atualizar_paralizacao['par_id']);
         $paralizacao['par_enum_estado_paralizacao'] = $atualizar_paralizacao['par_enum_estado_paralizacao'];
         $paralizacao['par_art'] = $atualizar_paralizacao['par_art'];
+        $paralizacao['par_art_img'] = $this->CadastrarImgART($request);
         $paralizacao['par_pet'] = $atualizar_paralizacao['par_pet'];
+        $paralizacao['par_pet_img'] = $this->CadastrarImgPET($request);
         $paralizacao['par_atualizado_em'] = 'NOW()';
 
         $result = $paralizacao->save();
@@ -369,10 +428,5 @@ class ParalizacaoController extends Controller {
         } else {
             return redirect()->route('paralizacao.listar');
         }
-    }
-
-    public function Mostrar(Request $request) {
-
-        return view('paralizacao.mostrar');
     }
 }

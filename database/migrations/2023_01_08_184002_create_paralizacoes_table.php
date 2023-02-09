@@ -24,7 +24,10 @@ class CreateParalizacoesTable extends Migration {
             // $table->foreign('par_fk_equ_id')->references('equ_id')->on('equipes');
 
             $table->integer('par_art')->nullable();
+            $table->text('par_art_img')->nullable();
+
             $table->integer('par_pet')->nullable();
+            $table->text('par_pet_img')->nullable();
 
             $table->timestamp('par_criado_em');
             $table->timestamp('par_atualizado_em')->nullable();

@@ -118,8 +118,12 @@ Route::group(['prefix' => '/paralizacao'], function () {
     Route::post('/atualizar',                                     [ParalizacaoController::class, 'Atualizar'])->name('paralizacao.atualizar');
     Route::get('/mostrar',                                        [ParalizacaoController::class, 'Mostrar'])->name('paralizacao.mostrar');
     Route::get('/fechar_premissa/{id_par}/{id_per}/{id_pre}',     [ParalizacaoController::class, 'FecharPremissa'])->name('paralizacao.fechar_premissa');
-    Route::post('/cadastrar_fechar_premissa',                     [ParalizacaoController::class, 'CadastrarFechamentoPremissa']);
+    Route::post('/cadastrar_fechar_premissa',                     [ParalizacaoController::class, 'CadastrarFechamentoPremissa'])->name('paralizacao.cadastrar_fechar_premissa');
     Route::get('/ver_imagem_premissa/{id_par}/{id_per}/{id_pre}', [ParalizacaoController::class, 'VerImagemPremissa'])->name('paralizacao.ver_imagem_premissa');
 });
 
 // });
+
+Route::group(['prefix' => '/backup-paralizacao-paulo'], function () {
+    Route::get('/mostrar', [ParalizacaoController::class, 'Mostrar'])->name('paralizacao.mostrar');
+});

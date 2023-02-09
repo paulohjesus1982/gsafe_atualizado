@@ -19,6 +19,7 @@ class CreateParalizacoesPremissasTable extends Migration {
             $table->foreign('ppre_fk_pre_id')->references('pre_id')->on('premissas');
             $table->text('ppre_caminho_anexo')->nullable();
             $table->integer('ppre_status')->default(1);
+            $table->timestamp('ppre_finalizado_em')->nullable();
         });
     }
 

@@ -51,7 +51,7 @@
         });
     }
 </script>
-<form action="{{route('paralizacao.atualizar')}}" method="post">
+<form action="{{route('paralizacao.atualizar')}}" method="post" enctype="multipart/form-data">
     {{ csrf_field()}}
     <div class="container-fluid">
         <div class="row mb-2">
@@ -72,21 +72,34 @@
       <div class="col-md-12">
           <div class="card card-primary">
               <h5 class="card-header text-black">
-                  <b>Informações Paralização</b>
+                  <b>Informações Paralização {{$paralizacao->par_id}}</b>
               </h5>
               <div class="card-body">
                   <div class="row">
-                     <div class="form-group col-md-6" >
-                         <label for="par_id">Código</label>
-                         <input type="text" name="par_id" class="form-control" value="{{$paralizacao->par_id}}" readonly/>
-                     </div>
+                    <input type="hidden" name="par_id" class="form-control" value="{{$paralizacao->par_id}}"/>
                       <div class="form-group col-md-6">
                           <label for="par_art">ART</label>
                           <input type="text" name="par_art" id="par_art" class="form-control" placeholder="PAR" value="{{$paralizacao->par_art}}" readonly/>
                       </div>
                       <div class="form-group col-md-6">
+                        <label for="img_art_nome">ART anexo</label>
+                        <div class="custom-file col-md-12">
+                           <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
+                           <input type="file" class="custom-file-input" name="img_art" id="input_img" value="{{$paralizacao->par_art_img}}">
+                           <label class="custom-file-label" for="input_img_itens">ART anexo</label>
+                        </div>
+                      </div>
+                      <div class="form-group col-md-6">
                           <label for="par_pet">PET</label>
                           <input type="text" name="par_pet" id="par_pet" class="form-control" placeholder="PET" value="{{$paralizacao->par_pet}}" readonly/>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="img_pet_nome">PET anexo</label>
+                        <div class="custom-file col-md-12">
+                           <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
+                           <input type="file" class="custom-file-input" name="img_pet" id="input_img" value="{{$paralizacao->par_pet_img}}">
+                           <label class="custom-file-label" for="input_img_itens">PET anexo</label>
+                        </div>
                       </div>
                       <div class="form-group col-md-6">
                           <label for="par_fk_emp_id">Empresa</label>
