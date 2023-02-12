@@ -12,6 +12,7 @@ use App\Models\Empresa;
 use App\Models\Servico;
 use App\Models\ServicoParalizacaoPermissaoPremissa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
@@ -32,6 +33,7 @@ class HomeController extends Controller
      */
     public function index(Request $r)
     {
+        dd(Session::get('usu_nome'));
         $total_paralizacoes = Paralizacao::count();
         $resultados = ParalizacoesPremissa::select('ppre_fk_par_id')
                 ->where('ppre_status', 1)

@@ -84,6 +84,8 @@ class LoginController extends Controller {
     }
 
     public function deslogar() {
+
+        Session::forget(['usu_nome', 'usu_email', 'usu_tipo_usuario']);
         Auth::logout();
         return redirect()->route('login');
     }
