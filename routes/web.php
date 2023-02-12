@@ -30,6 +30,7 @@ Route::post('/registrar', [RegisterController::class, 'autenticar'])->name('regi
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 // Route::post('/home', [HomeController::class, 'index'])->name('home');
 
+Route::middleware(['AcessoAdmin'])->group(function () {
 // Usuario
 Route::group(['prefix' => '/usuario'], function () {
     Route::get('/listar',      [UsuarioController::class, 'Listar'])->name('usuario.listar');
@@ -105,6 +106,7 @@ Route::group(['prefix' => '/contrato'], function () {
     Route::post('/salvar_contrato_servicos', [ContratoController::class, 'SalvarContratoServicos'])->name('contrato.salvar_contrato_servicos');
 });
 
+});
 
 // Paralizacao
 Route::group(['prefix' => '/paralizacao'], function () {
@@ -126,4 +128,8 @@ Route::group(['prefix' => '/paralizacao'], function () {
 
 Route::group(['prefix' => '/backup-paralizacao-paulo'], function () {
     Route::get('/mostrar', [ParalizacaoController::class, 'Mostrar'])->name('paralizacao.mostrar');
+});
+
+Route::get('/acesso_negado', function(){
+    return view('auth.acesso_negado');
 });

@@ -8,6 +8,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller {
     /*
@@ -67,6 +68,15 @@ class LoginController extends Controller {
 
         $usuario = $usuario->where('usu_email', $usu_email)->where('usu_senha', $usu_senha)->get()->first();
         if (isset($usuario->usu_nome)) {
+
+            // session_start();
+            $usuario_logado = array(
+                'usu_nome' => $usuario->usu_nome,
+                'usu_email' => $usuario->usu_email,
+                'usu_tipo_usuario' => $usuario->usu_tipo_usuario
+                );
+            Session::put($usuario_logado);
+
             return redirect()->route('home');
         } else {
             return redirect()->route('login', ['erro' => true]);
