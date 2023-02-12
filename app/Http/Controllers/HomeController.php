@@ -33,7 +33,6 @@ class HomeController extends Controller
      */
     public function index(Request $r)
     {
-        dd(Session::get('usu_nome'));
         $total_paralizacoes = Paralizacao::count();
         $resultados = ParalizacoesPremissa::select('ppre_fk_par_id')
                 ->where('ppre_status', 1)
