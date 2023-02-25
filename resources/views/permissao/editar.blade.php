@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="form-group col-md-6" >
                                     <label for="premissas">Premissas</label>
-                                    <select class="custom-select" name="premissas[]" multiple="multiple">
+                                    <select id="premissas" class="custom-select" name="premissas[]" multiple="multiple">
                                         @foreach ( $todas_premissas as $premissas_ )
                                             @foreach ( $premissas as $premissa_ )
                                                 @foreach ( $premissa_ as $premissa )
@@ -74,3 +74,12 @@
         </div>
     </form>
 @endsection
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> 
+<script>
+
+    $(document).ready(function(){
+        $('#premissas').select2();
+
+    });
+</script>

@@ -3,6 +3,7 @@
 @section('content-title', 'Cadastrar Equipe')
 
 @section('content')
+
     <form action="{{route('equipes.salvar')}}" method="post">
         {{ csrf_field()}}
 
@@ -40,16 +41,16 @@
                                 @endif
                             </div>
 
-                            <div class="form-group col-md-12">
+                            <div class="col-md-12">
                                 <label for="nome">Membros</label>
-                                <select multiple type="select" name="membros_equipe[]" id="select_membros" class="custom-select">
+                                <select multiple name="membros_equipe[]" id="select_membros" class="form-control" >
                                     @foreach ( $membros as $membro )
                                         <option value="{{$membro->usu_id}}">{{$membro->usu_nome}}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
-                    </div>
+                    </div>            
                 </div>
             </div>
         </div>
@@ -64,5 +65,16 @@
             </div>
         </div>
     </form>
-@endsection
+    @endsection
 
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> 
+    <script>
+
+        $(document).ready(function(){
+            $('#select_membros').select2({
+                placeholder: 'Selecione os membros'
+            });
+    
+        });
+    </script>

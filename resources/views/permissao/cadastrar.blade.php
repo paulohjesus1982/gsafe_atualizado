@@ -41,7 +41,7 @@
 
                             <div class="form-group col-md-12">
                                 <label for="nome">Premissas</label>
-                                <select multiple type="select" name="premissas[]" id="premissas" class="custom-select">
+                                <select multiple name="premissas[]" id="premissas" class="custom-select">
                                     @foreach ( $premissas as $premissa )
                                         <option value="{{$premissa->pre_id}}">{{$premissa->pre_nome}}</option>
                                     @endforeach
@@ -64,3 +64,14 @@
         </div>
     </form>
 @endsection
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> 
+<script>
+
+    $(document).ready(function(){
+        $('#premissas').select2({
+            placeholder: 'Selecione as premissas'
+        });
+
+    });
+</script>
