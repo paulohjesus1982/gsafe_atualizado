@@ -36,6 +36,30 @@ class EmpresaController extends Controller {
         $empresa['emp_enum_tipo_empresa'] = $request->input('tipo_empresa');
         $empresa['emp_criado_em'] = 'NOW()';
 
+        $regras = [
+            'nome_empresa' => 'required',
+            'razao_social_empresa' => 'required',
+            'cpnj_empresa' => ['required', 'min:14', 'max:14','numeric'],
+            'contato_empresa' => ['required', 'numeric'],
+            'email_empresa' => 'required',
+            'tipo_empresa' => 'required'
+        ];
+
+        $feedback = [
+            'nome_empresa.required' => 'O campo nome é obrigatório.',
+            'razao_social_empresa.required' => 'O campo razão social é obrigatório.',
+            'cpnj_empresa.required' => 'O campo cnpj é obrigatório.',
+            'contato_empresa.required' => 'O campo contrato é obrigatório.',
+            'email_empresa.required' => 'O campo email é obrigatório.',
+            'tipo_empresa.required' => 'O campo tipo empresa é obrigatório.',
+            'cpnj_empresa.min' => 'O campo cnpj precisa ter no minímo 14 digitos',
+            'cpnj_empresa.max' => 'O campo cnpj precisa ter no máximo 14 digitos',
+            'cpnj_empresa.numeric' => 'O campo cnpj aceita somente números',
+            'contato_empresa.numeric' => 'O campo contato aceita somente números',
+        ];
+
+        $request->validate($regras, $feedback);
+
         $result = Empresa::create($empresa);
 
         return redirect()->route('empresa.listar');

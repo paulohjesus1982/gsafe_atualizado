@@ -21,6 +21,32 @@
             </div>
         </div>
 
+        @if ($errors->any())
+        <div class="row" id="card-validacao">
+            <div class="col-md-12">
+                <div class="card card-danger">
+                    <div class="card-header">
+                        <h5 class="card-title text-white">
+                            <b>Erros de validação</b>
+                        </h5>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                          </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{$error}}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+
         <div class="row">
             <div class="col-md-12">
                 <div class="card card-primary">
@@ -31,26 +57,26 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="nome_empresa">Nome Empresa</label>
-                                <input type="text" name="nome_empresa" class="form-control" autofocus/>
+                                <input type="text" name="nome_empresa" class="form-control clique-validacao" value="{{old('nome_empresa')}}" autofocus/>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="razao_social_empresa">Razão Social</label>
-                                <input type="text" name="razao_social_empresa" class="form-control" autofocus/>
+                                <input type="text" name="razao_social_empresa" class="form-control clique-validacao" value="{{old('razao_social_empresa')}}" autofocus/>
                             </div>
 
                             <div class="form-group col-md-6">
                                 <label for="contato_empresa">CNPJ Empresa</label>
-                                <input type="text" name="cpnj_empresa" class="form-control" autofocus/>
+                                <input type="text" name="cpnj_empresa" class="form-control clique-validacao" value="{{old('cpnj_empresa')}}" autofocus/>
                             </div>
 
                             <div class="form-group col-md-6">
                                 <label for="contato_empresa">Número Contato</label>
-                                <input type="phone" name="contato_empresa" class="form-control" autofocus/>
+                                <input type="phone" name="contato_empresa" class="form-control clique-validacao" value="{{old('contato_empresa')}}" autofocus/>
                             </div>
 
                             <div class="form-group col-md-6">
                                 <label for="contato_empresa">Email Contrato</label>
-                                <input type="email" name="email_empresa" class="form-control" autofocus/>
+                                <input type="email" name="email_empresa" class="form-control clique-validacao" value="{{old('email_empresa')}}" autofocus/>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="contato_empresa">Tipo Empresa</label>
