@@ -41,9 +41,9 @@
                                 @endif
                             </div>
 
+                            <label for="nome">Membros</label>
                             <div class="col-md-12">
-                                <label for="nome">Membros</label>
-                                <select multiple name="membros_equipe[]" id="select_membros" class="form-control" >
+                                <select name="membros_equipe[]" id="select_membros" class="form-control select_membros" multiple="multiple" aria-hidden="true" placeholder="Selecione os membros">
                                     @foreach ( $membros as $membro )
                                         <option value="{{$membro->usu_id}}">{{$membro->usu_nome}}</option>
                                     @endforeach
@@ -72,9 +72,11 @@
     <script>
 
         $(document).ready(function(){
-            $('#select_membros').select2({
-                placeholder: 'Selecione os membros'
+            $('.select_membros').select2({
+                theme: 'classic',
+                tags: true
             });
-    
+            $(".select2-search, .select2-focusser").remove();
+            
         });
     </script>
