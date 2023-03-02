@@ -41,4 +41,18 @@ class Empresa extends Model {
             return substr($cnpj, 0, 2) . '.' . substr($cnpj, 2, 3) . '.' . substr($cnpj, 5, 3) . '/' . substr($cnpj, 8, 4) . '-' . substr($cnpj, 12, 2);
         }
     }
+
+    function soNumerosFone($fone) {
+        return str_replace(['.', '/', '-', '(', ')', ' '], '', $fone);
+    }
+
+    function numeros2Fone($fone) {
+        
+        if (strlen($fone) == 10) {
+            return "(" . substr($fone, 0, 2) . ')' . " " . substr($fone, 3, 4) . '-' . substr($fone, 6, 7);
+        }elseif(strlen($fone) == 11){
+        //Celular 55 999513228   
+            return "(" . substr($fone, 0, 2) . ')' . " " . substr($fone, 3, 6) . '-' . substr($fone, 7, 10);
+        }
+    }
 }

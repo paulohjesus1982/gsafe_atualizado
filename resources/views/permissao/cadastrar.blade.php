@@ -41,7 +41,7 @@
 
                             <div class="form-group col-md-12">
                                 <label for="nome">Premissas</label>
-                                <select multiple name="premissas[]" id="premissas" class="custom-select">
+                                <select name="premissas[]" id="premissas" class="form-control select_membros" multiple="multiple" aria-hidden="true" placeholder="Selecione as premissas">
                                     @foreach ( $premissas as $premissa )
                                         <option value="{{$premissa->pre_id}}">{{$premissa->pre_nome}}</option>
                                     @endforeach
@@ -69,9 +69,11 @@
 <script>
 
     $(document).ready(function(){
-        $('#premissas').select2({
-            placeholder: 'Selecione as premissas'
+            $('#premissas').select2({
+                theme: 'classic',
+                tags: true
+            });
+            $(".select2-search, .select2-focusser").remove();
+            
         });
-
-    });
 </script>

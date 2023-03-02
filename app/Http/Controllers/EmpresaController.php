@@ -31,15 +31,18 @@ class EmpresaController extends Controller {
         $empresa['emp_nome'] = $request->input('nome_empresa');
         $empresa['emp_cnpj'] = $emp->TratarCnpj($request->input('cpnj_empresa'));
         $empresa['emp_razao_social'] = $request->input('razao_social_empresa');
-        $empresa['emp_contato'] = $request->input('contato_empresa');
+        $empresa['emp_contato'] = $emp->soNumerosFone($request->input('contato_empresa'));
         $empresa['emp_email'] = $request->input('email_empresa');
         $empresa['emp_enum_tipo_empresa'] = $request->input('tipo_empresa');
         $empresa['emp_criado_em'] = 'NOW()';
 
+        $request['cpnj_empresa'] = $empresa['emp_cnpj'];
+        $request['contato_empresa'] = $empresa['emp_contato'];
+
         $regras = [
             'nome_empresa' => 'required',
             'razao_social_empresa' => 'required',
-            'cpnj_empresa' => ['required', 'min:14', 'max:14','numeric'],
+            'cpnj_empresa' => ['required', 'digits:14'],
             'contato_empresa' => ['required', 'numeric'],
             'email_empresa' => 'required',
             'tipo_empresa' => 'required'
@@ -52,8 +55,7 @@ class EmpresaController extends Controller {
             'contato_empresa.required' => 'O campo contrato é obrigatório.',
             'email_empresa.required' => 'O campo email é obrigatório.',
             'tipo_empresa.required' => 'O campo tipo empresa é obrigatório.',
-            'cpnj_empresa.min' => 'O campo cnpj precisa ter no minímo 14 digitos',
-            'cpnj_empresa.max' => 'O campo cnpj precisa ter no máximo 14 digitos',
+            'cpnj_empresa.digits' => 'O campo cnpj deverá conter 14 digitos',
             'cpnj_empresa.numeric' => 'O campo cnpj aceita somente números',
             'contato_empresa.numeric' => 'O campo contato aceita somente números',
         ];

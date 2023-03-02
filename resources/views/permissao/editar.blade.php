@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="form-group col-md-6" >
                                     <label for="premissas">Premissas</label>
-                                    <select id="premissas" class="custom-select" name="premissas[]" multiple="multiple">
+                                    <select name="premissas[]" id="premissas" class="form-control select_membros" multiple="multiple" aria-hidden="true" placeholder="Selecione as premissas">
                                         @foreach ( $todas_premissas as $premissas_ )
                                             @foreach ( $premissas as $premissa_ )
                                                 @foreach ( $premissa_ as $premissa )
@@ -78,8 +78,12 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> 
 <script>
 
-    $(document).ready(function(){
-        $('#premissas').select2();
-
-    });
+$(document).ready(function(){
+            $('#premissas').select2({
+                theme: 'classic',
+                tags: true
+            });
+            $(".select2-search, .select2-focusser").remove();
+            
+        });
 </script>

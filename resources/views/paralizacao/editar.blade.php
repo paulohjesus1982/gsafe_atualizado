@@ -153,7 +153,7 @@
                         </h4>
                       </div>
                       <div class="form-group col-md-12">
-                        <select multiple type="select" name="permissoes[]" id="permissoes" class="custom-select pegarValor" onchange="mostraPremissas()">
+                        <select name="permissoes[]" id="permissoes" class="form-control permissoes" multiple="multiple" aria-hidden="true" placeholder="Selecione as permissões" onchange="mostraPremissas()">
                             <?php $selected = ""; ?>
                             @foreach ( $todas_permissoes as $permissao )
                                 @foreach ( $permissoes as $per )
@@ -171,7 +171,7 @@
                             <h4 class="card-header text-black">
                                 <b>Premissas</b>
                             </h4>
-                            <select multiple type="select" name="premissas[]" id="select_premissas" class="custom-select" >
+                            <select name="premissas[]" id="premissas" class="form-control select_premissas" multiple="multiple" aria-hidden="true" placeholder="Selecione as premissas">
                                 <?php $selected = ""; $chave = ""; ?>
                                 
                                 @foreach ( $todas_premissas as $premissa)
@@ -220,4 +220,16 @@
         $('#permissoes').select2();
 
     });
+    $(document).ready(function(){
+            $('.select_premissas').select2({
+                theme: 'classic',
+                tags: true
+            });
+            $('.permissoes').select2({
+                theme: 'classic',
+                tags: true
+            });
+            $(".select2-search, .select2-focusser").remove();
+            
+        });
 </script>

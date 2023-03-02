@@ -29,6 +29,11 @@
                         $('#select_premissas').empty();
     
                         $('#div_premissas').removeAttr('hidden');
+
+                        $('.select_premissas').select2({
+                            theme: 'classic',
+                            tags: true
+                        });
     
                         $.each(retorno, function(r, retorno) {
                             console.log(retorno);
@@ -127,7 +132,7 @@
                         </h4>
                       </div>
                       <div class="form-group col-md-12">
-                        <select name="servico" id="servico" class="custom-select">
+                        <select name="servico" id="servico" class="form-control servico" multiple="multiple" aria-hidden="true" placeholder="Selecionas serviços">
                             @foreach ( $servicos as $servico )
                                 <option value="{{$servico->ser_id}}">{{$servico->ser_nome}}</option>
                             @endforeach
@@ -139,7 +144,7 @@
                         </h4>
                       </div>
                       <div class="form-group col-md-12">
-                        <select multiple type="select" name="permissoes[]" id="permissoes" class="custom-select pegarValor" onchange="mostraPremissas()">
+                        <select name="permissoes[]" id="permissoes" class="form-control permissoes pegarValor" multiple="multiple" aria-hidden="true" placeholder="Selecionar permissões" onchange="mostraPremissas()">
                             @foreach ( $permissoes as $permissao )
                                 <option value="{{$permissao->per_id}}">{{$permissao->per_nome}}</option>
                             @endforeach
@@ -148,7 +153,7 @@
                       <div class="col-md-12">
                         <div class="form-group" hidden id="div_premissas">
                             <label for="nome">Premissas</label>
-                            <select multiple type="select" name="premissas[]" id="select_premissas" class="custom-select" >
+                            <select name="premissas[]" id="select_premissas" class="form-control select_premissas" multiple="multiple" aria-hidden="true" placeholder="Selecionar premissas">
                             </select>
                         </div>
                       </div>
@@ -169,3 +174,20 @@
     </div>
   </form>
 @endsection
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> 
+<script>
+
+            //Transforma o select da premissas dentro a função mostrarPremissas. Pq aqui transforma assim que o dom fica pronto.
+            $(document).ready(function(){
+            $('.permissoes').select2({
+                theme: 'classic',
+                tags: true
+            });
+            $('.servico').select2({
+                theme: 'classic',
+                tags: true
+            });
+            $(".select2-search, .select2-focusser").remove();          
+        });
+</script>

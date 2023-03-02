@@ -13,6 +13,7 @@ use App\Models\Servico;
 use App\Models\ServicoParalizacaoPermissaoPremissa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -39,6 +40,15 @@ class HomeController extends Controller
                 ->groupBy('ppre_fk_par_id', 'ppre_fk_pre_id', 'ppre_id')
                 ->orderBy('ppre_id')
                 ->get()->toArray();
+                
+        $resultados_paralizacoes_diarias = $results = DB::table('paralizacoes_premissas as pp')
+        ->select('pp.ppre_fk_par_id', 'p2.par_art', 'p2.par_pet', 'p.pre_nome', 'e.emp_nome', 'pp.ppre_status')
+        ->join('premissas as p', 'p.pre_id', '=', 'pp.ppre_fk_pre_id')
+        ->join('paralizacoes as p2', 'p2.par_id', '=', 'pp.ppre_fk_par_id')
+        ->join('permissoes_premissas as pp2', 'pp2.ppre_fk_pre_id', '=', 'pp.ppre_fk_pre_id')
+        ->leftJoin('permissoes as p3', 'p3.per_id', '=', 'pp.ppre_fk_pre_id')
+        ->join('empresas as e', 'e.emp_id', '=', 'p2.par_fk_emp_id')
+        ->get();
 
         $array_paralizacoes_abertas = array();
         foreach($resultados as $paralizacoes){
@@ -51,13 +61,19 @@ class HomeController extends Controller
             }
         }
         $paralizacoes_abertas = count($array_paralizacoes_abertas);
-        $porcentagem_fechadas = (($total_paralizacoes - $paralizacoes_abertas) / $total_paralizacoes) * 100;
+
+        if($total_paralizacoes > 0){
+            $porcentagem_fechadas = (($total_paralizacoes - $paralizacoes_abertas) / $total_paralizacoes) * 100;
+        }else{
+            $porcentagem_fechadas = 0;
+        }
         
         return view('home', [
             'total_paralizacoes' => $total_paralizacoes,
             'porcentagem_fechados' => round($porcentagem_fechadas, 0),
             'abertas' => $paralizacoes_abertas,
-            'premissas_abertas' => count($resultados)
+            'premissas_abertas' => count($resultados),
+            'paralizacoes_diarias' => $resultados_paralizacoes_diarias
         ]);
     }
 }

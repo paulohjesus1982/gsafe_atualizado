@@ -164,16 +164,13 @@
           </div>
     </div>
 </div>
+
+<!-- Paralizacoes diária -->
 <div class="row">
-    <!-- Left col -->
-    <div class="col-md-8">
-
-
-
-      <!-- TABLE: LATEST ORDERS -->
+    <div class="col-md-12">
       <div class="card card-primary">
         <div class="card-header border-transparent">
-          <h3 class="card-title">Paralizações do Dia</h3>
+          <h3 class="card-title">Resumo Paralizações</h3>
 
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -190,50 +187,21 @@
             <table class="table m-0">
               <thead>
               <tr>
-                <th>ID</th>
-                <th>T. Permissão</th>
+                <th>ART / PET</th>
+                <th>Premissa</th>
                 <th>Empresa</th>
                 <th>Status</th>
-                <th>Profissional</th>
               </tr>
               </thead>
               <tbody>
-              <tr>
-                <td><a href="pages/examples/invoice.html">PT-9842</a></td>
-                <td>Trabalho a Quente</td>
-                <td>Empresa A</td>
-                <td><span class="badge badge-success">Liberado</span></td>
-                <td>
-                  <div class="sparkbar" data-color="#00a65a" data-height="20">Barbara / Jorge</div>
-                </td>
-              </tr>
-              <tr>
-                <td><a href="pages/examples/invoice.html">PT-7429</a></td>
-                <td>Trabalho em Altura</td>
-                <td>Empresa B</td>
-                <td><span class="badge badge-danger">Paralizado</span></td>
-                <td>
-                  <div class="sparkbar" data-color="#f56954" data-height="20">Marlon</div>
-                </td>
-              </tr>
-              <tr>
-                <td><a href="pages/examples/invoice.html">PT-7429</a></td>
-                <td>Trabalho em Altura</td>
-                <td>Empresa B</td>
-                <td><span class="badge badge-danger">Paralizado</span></td>
-                <td>
-                  <div class="sparkbar" data-color="#f56954" data-height="20">José</div>
-                </td>
-              </tr>
-              <tr>
-                <td><a href="pages/examples/invoice.html">PT-9842</a></td>
-                <td>Trabalho em Altura</td>
-                <td>Empresa A</td>
-                <td><span class="badge badge-success">Liberado</span></td>
-                <td>
-                  <div class="sparkbar" data-color="#00a65a" data-height="20">Pedro</div>
-                </td>
-              </tr>
+                @foreach ($paralizacoes_diarias as $paralizacao)                    
+                <tr>
+                  <td><a href="/paralizacao/listar_permissao/{{$paralizacao->ppre_fk_par_id}}">{{$paralizacao->par_art}}/{{$paralizacao->par_pet}}</a></td>
+                  <td>{{$paralizacao->pre_nome}}</td>
+                  <td>{{$paralizacao->emp_nome}}</td>
+                  <td><span class="badge badge-{{$paralizacao->ppre_status == 1 ? 'danger' : 'success'}}">{{$paralizacao->ppre_status == 1 ? 'Paralizado' : 'Liberado'}}</span></td>
+                </tr>
+                @endforeach
               </tbody>
             </table>
           </div>
@@ -241,8 +209,8 @@
         </div>
         <!-- /.card-body -->
         <div class="card-footer clearfix">
-          <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Nova Paralização</a>
-          <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">Ver todas </a>
+          <a href="/paralizacao/cadastrar" class="btn btn-sm btn-info float-left">Nova Paralização</a>
+          <a href="/paralizacao/listar" class="btn btn-sm btn-secondary float-right">Ver todas </a>
         </div>
         <!-- /.card-footer -->
       </div>
@@ -250,7 +218,7 @@
     </div>
     <!-- /.col -->
 
-    <div class="col-md-4">
+    {{-- <div class="col-md-4">
       <!-- Info Boxes Style 2 -->
 
       <!-- /.info-box -->
@@ -334,7 +302,7 @@
       <!-- PRODUCT LIST -->
 
       <!-- /.card -->
-    </div>
+    </div> --}}
     <!-- /.col -->
   </div>
 @stop

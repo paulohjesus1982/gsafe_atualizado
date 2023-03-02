@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="contato_empresa">Número Contato</label>
-                                    <input type="phone" name="contato_empresa" class="form-control" value="{{$empresa->emp_contato}}" autofocus/>
+                                    <input type="phone" name="contato_empresa" class="form-control" value="{{$empresaFuncao->numeros2Fone($empresa->emp_contato)}}" autofocus/>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="contato_empresa">Email Contrato</label>

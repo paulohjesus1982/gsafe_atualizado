@@ -36,7 +36,7 @@
                         </div>
                         <div class="form-group col-md-6" >
                             <label for="nome_equipe">Membros Equipe</label>
-                            <select id='membros' class="custom-select" name="membros[]" multiple="multiple">
+                            <select name="membros_equipe[]" id="select_membros" class="form-control select_membros" multiple="multiple" aria-hidden="true" placeholder="Selecione os membros">
                                 @foreach ( $todos_usuarios as $usuario )
                                     @foreach ( $membros as $membro )
                                         @if($usuario->usu_id == $membro->usu_id )
@@ -70,8 +70,11 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> 
 <script>
 
-    $(document).ready(function(){
-        $('#membros').select2();
-
-    });
+$(document).ready(function(){
+            $('.select_membros').select2({
+                theme: 'classic',
+                tags: true
+            });
+            $(".select2-search, .select2-focusser").remove();
+        });
 </script>

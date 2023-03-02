@@ -43,7 +43,7 @@
 
                             <div class="form-group col-md-12">
                                 <label for="nome">Serviços</label>
-                                <select multiple type="select" name="contrato_servicos[]" id="contrato_servicos" class="custom-select">
+                                <select name="contrato_servicos[]" id="contrato_servicos" class="form-control contrato_servicos" multiple="multiple" aria-hidden="true" placeholder="Selecionar serviços">
                                     @foreach ( $servicos as $servico )
                                         <option value="{{$servico->ser_id}}">{{$servico->ser_nome}}</option>
                                     @endforeach
@@ -66,3 +66,15 @@
         </div>
     </form>
 @endsection
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> 
+<script>
+            $(document).ready(function(){
+            $('.contrato_servicos').select2({
+                theme: 'classic',
+                tags: true
+            });
+            $(".select2-search, .select2-focusser").remove();
+            
+        });
+</script>
