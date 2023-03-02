@@ -68,99 +68,112 @@
   <div class="row">
     <div class="col-12">
         <div class="row">
-            <div class="col-md-12">
-              <div class="card card-primary">
-                <div class="card-header">
-                  <h5 class="card-title">Comparativo Atividades</h5>
+          <div class="col-md-8">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h5 class="card-title">Comparativo Atividades</h5>
 
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                      <i class="fas fa-minus"></i>
-                    </button>
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
-                        <i class="fas fa-wrench"></i>
-                      </button>
-                      <div class="dropdown-menu dropdown-menu-right" role="menu">
-                        <a href="#" class="dropdown-item">Action</a>
-                        <a href="#" class="dropdown-item">Another action</a>
-                        <a href="#" class="dropdown-item">Something else here</a>
-                        <a class="dropdown-divider"></a>
-                        <a href="#" class="dropdown-item">Separated link</a>
-                      </div>
-                    </div>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                      <i class="fas fa-times"></i>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
+                      <i class="fas fa-wrench"></i>
                     </button>
                   </div>
                 </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-md-8">
-                      <p class="text-center">
-                        <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
-                      </p>
-
-                      <div class="chart">
-                        <!-- Sales Chart Canvas -->
-                        <canvas id="salesChart" height="180" style="height: 180px;"></canvas>
-                      </div>
-                      <!-- /.chart-responsive -->
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-md-4">
-                      <p class="text-center">
-                        <strong>Acompanhamento</strong>
-                      </p>
-
-                      <div class="progress-group">
-                        Trabalho a Quente
-                        <span class="float-right"><b>160</b>/200</span>
-                        <div class="progress progress-sm">
-                          <div class="progress-bar bg-danger" style="width: 80%"></div>
-                        </div>
-                      </div>
-                      <!-- /.progress-group -->
-
-                      <div class="progress-group">
-                        Trabalho em Altura
-                        <span class="float-right"><b>310</b>/400</span>
-                        <div class="progress progress-sm">
-                          <div class="progress-bar bg-success" style="width: 75%"></div>
-                        </div>
-                      </div>
-
-                      <!-- /.progress-group -->
-                      <div class="progress-group">
-                        <span class="progress-text">Serviços em Equipamentos com Fonte Radiotiva Fixa</span>
-                        <span class="float-right"><b>480</b>/800</span>
-                        <div class="progress progress-sm">
-                          <div class="progress-bar bg-warning"  style="width: 60%"></div>
-                        </div>
-                      </div>
-
-                      <!-- /.progress-group -->
-                      <div class="progress-group">
-                        Elevação de Cargas
-                        <span class="float-right"><b>250</b>/500</span>
-                        <div class="progress progress-sm">
-                          <div class="progress-bar bg-primary" style="width: 50%"></div>
-                        </div>
-                      </div>
-                      <!-- /.progress-group -->
-                    </div>
-                    <!-- /.col -->
-                  </div>
-                  <!-- /.row -->
-                </div>
-                <!-- ./card-body -->
-
-                <!-- /.card-footer -->
               </div>
-              <!-- /.card -->
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <p class="text-center">
+                      <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
+                    </p>
+
+                    <div class="chart">
+                      <!-- Sales Chart Canvas -->
+                      <canvas id="salesChart" height="165" ></canvas>
+                    </div>
+                    <!-- /.chart-responsive -->
+                  </div>
+                  <!-- /.col -->
+                </div>
+                <!-- /.row -->
+              </div>
+              <!-- ./card-body -->
+
+              <!-- /.card-footer -->
             </div>
-            <!-- /.col -->
+            <!-- /.card -->
+          </div>
+          <div class="col-md-4">
+            <div class="card card-primary" >
+              <div class="card-header">
+                <h5 class="card-title">Ranking Permissões</h5>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
+                      <i class="fas fa-wrench"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <p class="text-center">
+                      <strong>Acompanhamento</strong>
+                    </p>
+                    <?php 
+                      $i = 0;
+
+                      $array_cor = [
+                        0 => 'danger',
+                        1 => 'success',
+                        2 => 'warning',
+                        3 => 'primary',
+                      ];
+                    ?>
+                    @foreach ($ranking_permissoes as $permissao_paralizacao)
+                    <?php
+                    if($total_permissoes_paralizacoes > 0 ){
+                      $porcentagem  = $permissao_paralizacao->quantidade / $total_permissoes_paralizacoes * 100;
+                    }
+                    ?>
+                    <div class="progress-group">
+                      {{$permissao_paralizacao->per_nome}}
+                      <span class="float-right"><b>{{$permissao_paralizacao->quantidade}}</b>/{{$total_permissoes_paralizacoes}}</span>
+                      <div class="progress progress-sm">
+                        <div class="progress-bar bg-{{$array_cor[$i]}}" style="width: {{$porcentagem}}%"></div>
+                      </div>
+                    </div>
+                    <?php
+                      $i++;
+                      if ($i == 4) {
+                        $i = 0;
+                      }
+                    ?>
+                    @endforeach
+                    <!-- /.progress-group -->
+                  </div>
+                  <!-- /.col -->
+                </div>
+                <!-- /.row -->
+              </div>
+              <!-- ./card-body -->
+
+              <!-- /.card-footer -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
           </div>
     </div>
 </div>

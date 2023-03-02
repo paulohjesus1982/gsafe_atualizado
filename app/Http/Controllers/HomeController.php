@@ -35,6 +35,7 @@ class HomeController extends Controller
     public function index(Request $r)
     {
         $total_paralizacoes = Paralizacao::count();
+        $total_permissoes_paralizacoes = PermissoesParalizacao::count();
         $resultados = ParalizacoesPremissa::select('ppre_fk_par_id')
                 ->where('ppre_status', 1)
                 ->groupBy('ppre_fk_par_id', 'ppre_fk_pre_id', 'ppre_id')
@@ -48,6 +49,14 @@ class HomeController extends Controller
         ->join('permissoes_premissas as pp2', 'pp2.ppre_fk_pre_id', '=', 'pp.ppre_fk_pre_id')
         ->leftJoin('permissoes as p3', 'p3.per_id', '=', 'pp.ppre_fk_pre_id')
         ->join('empresas as e', 'e.emp_id', '=', 'p2.par_fk_emp_id')
+        ->get();
+
+
+        $resultados_ranking_permissoes = $results = DB::table('permissoes_paralizacoes as pp')
+        ->join('permissoes as p', 'p.per_id', '=', 'pp.ppar_fk_per_id')
+        ->select('p.per_nome', DB::raw('count(pp.ppar_fk_per_id) as quantidade'))
+        ->groupBy('p.per_nome')
+        ->orderByDesc('quantidade')
         ->get();
 
         $array_paralizacoes_abertas = array();
@@ -73,7 +82,9 @@ class HomeController extends Controller
             'porcentagem_fechados' => round($porcentagem_fechadas, 0),
             'abertas' => $paralizacoes_abertas,
             'premissas_abertas' => count($resultados),
-            'paralizacoes_diarias' => $resultados_paralizacoes_diarias
+            'paralizacoes_diarias' => $resultados_paralizacoes_diarias,
+            'ranking_permissoes' => $resultados_ranking_permissoes,
+            'total_permissoes_paralizacoes' => $total_permissoes_paralizacoes
         ]);
     }
 }
