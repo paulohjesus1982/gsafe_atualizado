@@ -89,7 +89,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <p class="text-center">
-                      <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
+                      <strong>Em breve</strong>
                     </p>
 
                     <div class="chart">
