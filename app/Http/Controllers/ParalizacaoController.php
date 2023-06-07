@@ -257,7 +257,8 @@ class ParalizacaoController extends Controller {
         }
 
 
-        return redirect()->route('paralizacao.listar');
+        // return redirect()->route('paralizacao.listar');
+        return redirect()->route('paralizacao.listar_permissao', $dados['id_par']);
     }
 
     public function CadastrarImgART(Request $request) {
