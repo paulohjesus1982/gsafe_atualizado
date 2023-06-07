@@ -128,7 +128,7 @@
                                     @if ($paralizacao->par_enum_estado_paralizacao == 0)
                                         Em andamento
                                     @else
-                                        Liberação
+                                        Liberado
                                     @endif
                                     {{-- {{$paralizacao->par_enum_estado_paralizacao}} --}}
                                 </td>

@@ -114,8 +114,8 @@
                       <div class="form-group col-md-6">
                           <label for="par_enum_estado_paralizacao">Estado Paralização</label>
                           <select class="custom-select" name="par_enum_estado_paralizacao">
-                              <option value="0">Em andamento</option>
-                              <option value="1">Liberação</option>
+                              <option value="0">Paralizado</option>
+                              <option value="1">Liberado</option>
                           </select>
                       </div>
                       <div class="form-group col-md-6">
