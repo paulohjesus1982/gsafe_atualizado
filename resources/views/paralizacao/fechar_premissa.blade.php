@@ -3,7 +3,7 @@
 @section('content-title', 'Listar Paralizações')
 
 @section('content')
-    <form action="/paralizacao/cadastrar_fechar_premissa/" method="post" enctype="multipart/form-data">
+    <form action="/paralizacao/cadastrar_fechar_premissa" method="post" enctype="multipart/form-data">
         <div class="card-body">
             <div class="row">
                 <div class="form-group col-md-12">
