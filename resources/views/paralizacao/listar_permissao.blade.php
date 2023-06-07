@@ -196,7 +196,7 @@
                                             </span>
                                             <span class="description">{{$premissa->pre_nome}} - aberto {{$paralizacao->par_criado_em}} -
                                                 @if($par->AchaDataFinalizacaoParalizacaoPremissas($paralizacao->par_id, $premissa->pre_id) == '')
-                                                    Em Andamento
+                                                    Paralizado
                                                 @else
                                                     Fechado em {{$par->AchaDataFinalizacaoParalizacaoPremissas($paralizacao->par_id, $premissa->pre_id)}}
                                                 @endif

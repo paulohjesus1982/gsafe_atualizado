@@ -126,7 +126,7 @@
                                 <td>{{$par->AchaEmpresaNome($paralizacao->par_fk_emp_id)}}</td>
                                 <td>
                                     @if ($paralizacao->par_enum_estado_paralizacao == 0)
-                                        Em andamento
+                                        Paralizado
                                     @else
                                         Liberado
                                     @endif
