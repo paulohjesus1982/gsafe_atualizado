@@ -38,7 +38,7 @@
                                 <input type="text" name="par_justificativa" id="par_art" class="form-control" value="{{$paralizacao->par_art}}" disabled/>
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="par_pet">PET</label>
+                                <label for="par_pet">PT</label>
                                 <input type="text" name="par_pet" id="par_pet" class="form-control" value="{{$paralizacao->par_pet}}" disabled/>
                             </div>
                         </div>
@@ -170,8 +170,8 @@
                         <div class="col-12 col-sm-6">
                             <div class="info-box bg-light">
                                 <div class="info-box-content">
-                                    <span class="info-box-text text-center text-muted">Código PET</span>
-                                    <span class="info-box-number text-center text-muted mb-0">pet - {{$paralizacao->par_pet}}</span>
+                                    <span class="info-box-text text-center text-muted">Código PT</span>
+                                    <span class="info-box-number text-center text-muted mb-0">pt - {{$paralizacao->par_pet}}</span>
                                 </div>
                             </div>
                         </div>
@@ -261,11 +261,11 @@
                                 $anexo = $paralizacao->par_pet_img;
                             ?>
                             <li>
-                                <a href="{{asset($anexo)}}" class="btn-link text-secondary"><i class="far fa-fw fa-file-word"></i> pet - {{$paralizacao->par_pet}}</a>
+                                <a href="{{asset($anexo)}}" class="btn-link text-secondary"><i class="far fa-fw fa-file-word"></i> pt - {{$paralizacao->par_pet}}</a>
                             </li>
                         @else
                             <li>
-                                Sem anexos de PET.
+                                Sem anexos de PT.
                             </li>
                         @endif
                     </ul>
