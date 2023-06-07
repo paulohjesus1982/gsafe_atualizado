@@ -143,7 +143,7 @@
                                 <option <?php echo $selected_estado_paralizacao; ?> value="{{$chave}}">
                                     {{-- justificando a gambiarra abaixo: não sei pq o laravel não aceita eu mandar caracteres com acento da controller pra view, tenho que procurar mais sobre --}}
                                     @if( $estado_par == "Liberacao")
-                                        Liberado
+                                        Liberação
                                     @else
                                         {{$estado_par}}
                                     @endif
