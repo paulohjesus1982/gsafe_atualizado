@@ -77,48 +77,54 @@
               <div class="card-body">
                   <div class="row">
                     <input type="hidden" name="par_id" class="form-control" value="{{$paralizacao->par_id}}"/>
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-md-4">
                           <label for="par_art">ART</label>
                           <input type="text" name="par_art" id="par_art" class="form-control" placeholder="PAR" value="{{$paralizacao->par_art}}" readonly/>
                       </div>
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-md-4">
                         <label for="img_art_nome">ART anexo</label>
                         <div class="custom-file col-md-12">
                            <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
                            <input type="hidden" name="img_art_antigo" id="img_art_antigo" value="{{$paralizacao->par_art_img}}">
-                           <input type="file" class="custom-file-input" name="img_art" id="input_img" value="{{$paralizacao->par_art_img}}">
-                           <label class="custom-file-label" for="input_img_itens">
-                                @if( is_null($paralizacao->par_pet_img) )
-                                    ART anexo
-                                @else
-                                    <?php 
-                                        $pedaco_art = explode("/", $paralizacao->par_art_img);
-                                    ?>
-                                    {{ $pedaco_art[2] }}
-                                @endif
-                           </label>
+                           <input type="file" class="" name="img_art" id="input_img" value="{{$paralizacao->par_art_img}}">
                         </div>
                       </div>
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-md-4">
+                        <label class="">Arquivo ART</label>
+                        <div class="form-group col-md-12">
+                            @if( is_null($paralizacao->par_art_img) )
+                                -
+                            @else
+                                <?php 
+                                    $pedaco_art = explode("/", $paralizacao->par_art_img);
+                                ?>
+                                {{ $pedaco_art[2] ?? "-" }}
+                            @endif
+                        </div>
+                      </div>
+                      <div class="form-group col-md-4">
                           <label for="par_pet">PT</label>
                           <input type="text" name="par_pet" id="par_pet" class="form-control" placeholder="PT" value="{{$paralizacao->par_pet}}" readonly/>
                       </div>
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-md-4">
                         <label for="img_pet_nome">PT anexo</label>
                         <div class="custom-file col-md-12">
                            <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
                            <input type="hidden" name="img_pet_antigo" id="img_pet_antigo" value="{{$paralizacao->par_pet_img}}">
-                           <input type="file" class="custom-file-input" name="img_pet" id="input_img" value="{{$paralizacao->par_pet_img}}">
-                           <label class="custom-file-label" for="input_img_itens"> 
-                                @if( is_null($paralizacao->par_pet_img) )
-                                    PT anexo
-                                @else
-                                    <?php 
-                                        $pedaco_pt = explode("/", $paralizacao->par_pet_img);
-                                    ?>
-                                    {{ $pedaco_pt[2] }}
-                                @endif
-                            </label>
+                           <input type="file" name="img_pet" id="input_img" value="{{$paralizacao->par_pet_img}}">
+                        </div>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label class="">Arquivo PT</label>
+                        <div class="custom-file col-md-12">
+                            @if( is_null($paralizacao->par_pet_img) )
+                                -
+                            @else
+                                <?php 
+                                    $pedaco_pet = explode("/", $paralizacao->par_pet_img);
+                                ?>
+                                {{ $pedaco_pet[2] ?? "-" }}
+                            @endif
                         </div>
                       </div>
                       <div class="form-group col-md-6">

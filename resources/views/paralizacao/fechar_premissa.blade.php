@@ -23,20 +23,17 @@
                     <label for="pre_descricao">Descrição</label>
                     <input type="text" name="pre_descricao" id="pre_descricao" class="form-control" value="{{$premissa->pre_descricao}}" disabled/>
                 </div>
-                <div class="col-md-3"></div>
-                <div class="custom-file col-md-6">
+                <div class="col-md-4"></div>
+                <div class="custom-file col-md-5">
                     <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
-                    <input type="file" class="custom-file-input" name="img_premissa" id="img_premissa" />
-                    <label class="custom-file-label" for="input_img_itens">
-                        Escolha o arquivo 
-                    </label>
+                    <input type="file" class="" name="img_premissa" id="img_premissa" />
                     <input type="hidden" name="id_par" id="id_par" value="{{$par_id}}">
                     <input type="hidden" name="id_per" id="id_per" value="{{$per_id}}">
                     <input type="hidden" name="id_pre" id="id_pre" value="{{$pre_id}}">
                 </div>
                 <div class="col-md-3"></div>
-                <div class="col-md-3"></div>
-                <div class="col-md-6">
+                <div class="col-md-4"></div>
+                <div class="col-md-2">
                     <button type="submit" class="btn btn-primary btn-block">Enviar</button>
                 </div>
                 <div class="col-md-3"></div>

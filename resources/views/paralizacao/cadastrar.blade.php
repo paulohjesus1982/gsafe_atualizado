@@ -87,8 +87,8 @@
                         <label for="img_art_nome">ART anexo</label>
                         <div class="custom-file col-md-12">
                            <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
-                           <input type="file" class="custom-file-input" name="img_art" id="input_img">
-                           <label class="custom-file-label" for="input_img_itens">ART anexo</label>
+                           <input type="file" class="" name="img_art" id="input_img">
+                           <!-- <label class="custom-file-label" for="input_img_itens">ART anexo</label> -->
                         </div>
                       </div>
 
@@ -106,8 +106,8 @@
                         <label for="img_pet_nome">PT anexo</label>
                         <div class="custom-file col-md-12">
                            <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
-                           <input type="file" class="custom-file-input" name="img_pet" id="input_img">
-                           <label class="custom-file-label" for="input_img_itens">PT anexo</label>
+                           <input type="file" class="" name="img_pet" id="input_img">
+                           <!-- <label class="custom-file-label" for="input_img_itens">PT anexo</label> -->
                         </div>
                       </div>
 
