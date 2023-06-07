@@ -356,7 +356,7 @@ class ParalizacaoController extends Controller {
         }
 
         $estados_paralizacao = [
-            1 => 'Em Andamento',
+            1 => 'Paralizado',
             2 => 'Liberacao'
         ];
 
