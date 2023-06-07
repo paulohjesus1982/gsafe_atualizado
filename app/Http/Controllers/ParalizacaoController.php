@@ -55,6 +55,7 @@ class ParalizacaoController extends Controller {
             'par_id' => $r->id_par,
             'per_id' => $r->id_per,
             'pre_id' => $r->id_pre,
+            'request' => $r,
         ]);
     }
 
@@ -126,7 +127,7 @@ class ParalizacaoController extends Controller {
 
     public function Cadastrar(Request $r) {
 
-        $empresa = Empresa::where('emp_enum_tipo_empresa', 2)->get();
+        $empresa = Empresa::all();
         $servicos = Servico::all();
         $permissoes = Permissao::all();
 
@@ -157,9 +158,9 @@ class ParalizacaoController extends Controller {
         $paralizacao['par_enum_estado_paralizacao'] = $nova_paralizacao['par_enum_estado_paralizacao'];
         $paralizacao['par_fk_emp_id'] = $nova_paralizacao['par_fk_emp_id'];
         $paralizacao['par_art'] = $nova_paralizacao['par_art'];
-        $paralizacao['par_art_img'] = $this->CadastrarImgART($request);
+        $paralizacao['par_art_img'] = $request->hasFile('img_art') ? $this->CadastrarImgART($request) : '';
         $paralizacao['par_pet'] = $nova_paralizacao['par_pet'];
-        $paralizacao['par_pet_img'] = $this->CadastrarImgPET($request);
+        $paralizacao['par_pet_img'] = $request->hasFile('img_pet') ? $this->CadastrarImgPET($request) : '';
         $paralizacao['par_criado_em'] = 'NOW()';
 
         $result = Paralizacao::create($paralizacao);
@@ -203,7 +204,10 @@ class ParalizacaoController extends Controller {
         $dados = $request->all();
         // $premissa = Premissa::find($dados['id_pre']);
         //url_arquivo = storage/img_premissa/nomearquivo.extensao
-
+        // echo "<pre>";
+        // print_r($dados);
+        // echo "</pre>";
+        // die();
         // Handle File Upload
         if ($request->hasFile('img_premissa')) {
             // Get filename with the extension
@@ -331,6 +335,11 @@ class ParalizacaoController extends Controller {
         $todas_permissoes = Permissao::all();
         $todas_premissas = Premissa::all();
 
+        // echo '<pre>';
+        // print_r($paralizacao);
+        // echo '</pre>';
+        // die();
+
         $servico_paralizacao_permissao_premissa = ServicoParalizacaoPermissaoPremissa::where("spppre_fk_par_id", $paralizacao->par_id)->get();
         $servico = Servico::find($servico_paralizacao_permissao_premissa[0]->spppre_fk_ser_id);
 
@@ -368,15 +377,19 @@ class ParalizacaoController extends Controller {
 
         $atualizar_paralizacao = $request->all();
 
-        //se vier um 3_ na premissas[] é devido ao fato de ter selecionado uma opção que montou inicialmente na tela e que não era selecionada (pode ocorrer)
-        //então para resolver esse bo eu só procuro a permissao vinculada a essa premissa, e pego o id dela TÃ DÃ
+        // echo '<pre>';
+        // print_r($atualizar_paralizacao);
+        // echo '</pre>';
+        // die();
+        //se vier um 3_ na premissas[] ï¿½ devido ao fato de ter selecionado uma opï¿½ï¿½o que montou inicialmente na tela e que nï¿½o era selecionada (pode ocorrer)
+        //entï¿½o para resolver esse bo eu sï¿½ procuro a permissao vinculada a essa premissa, e pego o id dela Tï¿½ Dï¿½
 
         $paralizacao = Paralizacao::find($atualizar_paralizacao['par_id']);
         $paralizacao['par_enum_estado_paralizacao'] = $atualizar_paralizacao['par_enum_estado_paralizacao'];
         $paralizacao['par_art'] = $atualizar_paralizacao['par_art'];
-        $paralizacao['par_art_img'] = $this->CadastrarImgART($request);
+        $paralizacao['par_art_img'] = $request->hasFile('img_art') ?  $this->CadastrarImgART($request) : $atualizar_paralizacao['img_art_antigo'];
         $paralizacao['par_pet'] = $atualizar_paralizacao['par_pet'];
-        $paralizacao['par_pet_img'] = $this->CadastrarImgPET($request);
+        $paralizacao['par_pet_img'] = $request->hasFile('img_pet') ? $this->CadastrarImgPET($request) : $atualizar_paralizacao['img_art_antigo'];
         $paralizacao['par_atualizado_em'] = 'NOW()';
 
         $result = $paralizacao->save();

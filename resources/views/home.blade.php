@@ -200,7 +200,7 @@
             <table class="table m-0">
               <thead>
               <tr>
-                <th>ART / PET</th>
+                <th>ART / PT</th>
                 <th>Premissa</th>
                 <th>Empresa</th>
                 <th>Status</th>

@@ -85,20 +85,40 @@
                         <label for="img_art_nome">ART anexo</label>
                         <div class="custom-file col-md-12">
                            <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
+                           <input type="hidden" name="img_art_antigo" id="img_art_antigo" value="{{$paralizacao->par_art_img}}">
                            <input type="file" class="custom-file-input" name="img_art" id="input_img" value="{{$paralizacao->par_art_img}}">
-                           <label class="custom-file-label" for="input_img_itens">ART anexo</label>
+                           <label class="custom-file-label" for="input_img_itens">
+                                @if( is_null($paralizacao->par_pet_img) )
+                                    ART anexo
+                                @else
+                                    <?php 
+                                        $pedaco_art = explode("/", $paralizacao->par_art_img);
+                                    ?>
+                                    {{ $pedaco_art[2] }}
+                                @endif
+                           </label>
                         </div>
                       </div>
                       <div class="form-group col-md-6">
-                          <label for="par_pet">PET</label>
-                          <input type="text" name="par_pet" id="par_pet" class="form-control" placeholder="PET" value="{{$paralizacao->par_pet}}" readonly/>
+                          <label for="par_pet">PT</label>
+                          <input type="text" name="par_pet" id="par_pet" class="form-control" placeholder="PT" value="{{$paralizacao->par_pet}}" readonly/>
                       </div>
                       <div class="form-group col-md-6">
-                        <label for="img_pet_nome">PET anexo</label>
+                        <label for="img_pet_nome">PT anexo</label>
                         <div class="custom-file col-md-12">
                            <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
+                           <input type="hidden" name="img_pet_antigo" id="img_pet_antigo" value="{{$paralizacao->par_pet_img}}">
                            <input type="file" class="custom-file-input" name="img_pet" id="input_img" value="{{$paralizacao->par_pet_img}}">
-                           <label class="custom-file-label" for="input_img_itens">PET anexo</label>
+                           <label class="custom-file-label" for="input_img_itens"> 
+                                @if( is_null($paralizacao->par_pet_img) )
+                                    PT anexo
+                                @else
+                                    <?php 
+                                        $pedaco_pt = explode("/", $paralizacao->par_pet_img);
+                                    ?>
+                                    {{ $pedaco_pt[2] }}
+                                @endif
+                            </label>
                         </div>
                       </div>
                       <div class="form-group col-md-6">

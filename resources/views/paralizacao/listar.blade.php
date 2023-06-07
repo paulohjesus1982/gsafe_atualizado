@@ -110,7 +110,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>PET</th>
+                            <th>PT</th>
                             <th>ART</th>
                             <th>Empresa</th>
                             <th>Status</th>

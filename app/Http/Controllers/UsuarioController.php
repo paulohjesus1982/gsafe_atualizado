@@ -43,27 +43,43 @@ class UsuarioController extends Controller {
         if ($result) {
             $usu_id = $result->usu_id;
             $inserir_usuario_dados = array();
+            
+            if (
+                !empty($data['nome_completo']) && 
+                !empty($data['numero_endereco']) && 
+                !empty($data['endereco']) && 
+                !empty($data['bairro']) && 
+                !empty($data['cep']) && 
+                !empty($data['cidade']) && 
+                !empty($data['estado']) && 
+                !empty($data['numero_principal']) && 
+                !empty($data['numero_contato']) && 
+                !empty($data['registro_profissao']) 
+            ) {
+                $inserir_usuario_dados['udad_nome_completo'] = $data['nome_completo'];
+                $inserir_usuario_dados['udad_numero'] = $data['numero_endereco'];
+                $inserir_usuario_dados['udad_endereco'] = $data['endereco'];
+                $inserir_usuario_dados['udad_bairro'] = $data['bairro'];
+                $inserir_usuario_dados['udad_cep'] = $data['cep'];
+                $inserir_usuario_dados['udad_cidade'] = $data['cidade'];
+                $inserir_usuario_dados['udad_estado'] = $data['estado'];
+                $inserir_usuario_dados['udad_telefone_principal'] = $data['numero_principal'];
+                $inserir_usuario_dados['udad_telefone_contato'] = $data['numero_contato'];
+                $inserir_usuario_dados['udad_registro_profissao'] = $data['registro_profissao'];
+                $inserir_usuario_dados['udad_criado_em'] = 'NOW()';
+                $inserir_usuario_dados['udad_fk_usu_id'] = $usu_id;
 
-            $inserir_usuario_dados['udad_nome_completo'] = $data['nome_completo'];
-            $inserir_usuario_dados['udad_numero'] = $data['numero_endereco'];
-            $inserir_usuario_dados['udad_endereco'] = $data['endereco'];
-            $inserir_usuario_dados['udad_bairro'] = $data['bairro'];
-            $inserir_usuario_dados['udad_cep'] = $data['cep'];
-            $inserir_usuario_dados['udad_cidade'] = $data['cidade'];
-            $inserir_usuario_dados['udad_estado'] = $data['estado'];
-            $inserir_usuario_dados['udad_telefone_principal'] = $data['numero_principal'];
-            $inserir_usuario_dados['udad_telefone_contato'] = $data['numero_contato'];
-            $inserir_usuario_dados['udad_registro_profissao'] = $data['registro_profissao'];
-            $inserir_usuario_dados['udad_criado_em'] = 'NOW()';
-            $inserir_usuario_dados['udad_fk_usu_id'] = $usu_id;
+                $result2 = UsuariosDado::create($inserir_usuario_dados);
 
-            $result2 = UsuariosDado::create($inserir_usuario_dados);
-
-            if ($result2) {
-                return redirect('usuario/listar');
+                // if ($result2) {
+                    return redirect('usuario/listar');
+                // } else {
+                //     return redirect('usuario/cadastrar');
+                // }
             } else {
-                return redirect('usuario/cadastrar');
+                return redirect('usuario/listar');
             }
+            
         } else {
             return redirect('usuario/cadastrar');
         }
