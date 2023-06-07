@@ -126,9 +126,9 @@
                                 <td>{{$par->AchaEmpresaNome($paralizacao->par_fk_emp_id)}}</td>
                                 <td>
                                     @if ($paralizacao->par_enum_estado_paralizacao == 0)
-                                        <span class="badge badge-{{$paralizacao->ppre_status == 1 ? 'danger' : 'success'}}">Paralizado</span>
+                                        <span class="badge badge-{{$paralizacao->par_enum_estado_paralizacao == 1 ? 'danger' : 'success'}}">Paralizado</span>
                                     @else
-                                        <span class="badge badge-{{$paralizacao->ppre_status == 1 ? 'danger' : 'success'}}">Liberado</span>
+                                        <span class="badge badge-{{$paralizacao->par_enum_estado_paralizacao == 1 ? 'danger' : 'success'}}">Liberado</span>
                                     @endif
                                     {{-- {{$paralizacao->par_enum_estado_paralizacao}} --}}
                                 </td>
