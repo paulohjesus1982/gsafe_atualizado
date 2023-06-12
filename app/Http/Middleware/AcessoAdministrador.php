@@ -17,11 +17,12 @@ class AcessoAdministrador
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Session::get('usu_tipo_usuario') == 1){
+        // if(Session::get('usu_tipo_usuario') == 1){
 
-            return $next($request);
-        }else{
-            return response()->view('auth.acesso_negado');
-        }
+        //     return $next($request);
+        // }else{
+        //     return response()->view('auth.acesso_negado');
+        // }
+        return $next($request);
     }
 }

@@ -21,6 +21,7 @@
                 url: "/premissa/listar/" + valor_permissao,
                 success: function(s) {
                     var retorno = $(s);
+                    // console.log(retorno);
 
                     if (retorno.length === 0) { 
                         $('#select_premissas').empty();
@@ -36,7 +37,7 @@
                         });
     
                         $.each(retorno, function(r, retorno) {
-                            console.log(retorno);
+                            // console.log(retorno);
                             $('#select_premissas').append($('<option>', {
                                 value: retorno.pre_id +"_"+ retorno.per_id,
                                 text: retorno.pre_nome
