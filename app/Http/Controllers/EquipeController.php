@@ -93,11 +93,11 @@ class EquipeController extends Controller {
         $result = $equipe->save();
 
         if ($result) {
-            if (isset($atualizar_equipe['membros'])) {
+            if (isset($atualizar_equipe['membros_equipe'])) {
                 $array_coringa = array();
-                $array_coringa = $atualizar_equipe['membros'];
+                $array_coringa = $atualizar_equipe['membros_equipe'];
 
-                //remover o que não veio na equipe
+                //remover o que nï¿½o veio na equipe
                 $membros_equipe_atual = EquipeMembro::where('emem_fk_equ_id', $atualizar_equipe['codigo_equipe'])->get();
                 foreach ($membros_equipe_atual as $key => $membro_atual) {
                     $emem_id = $membro_atual->emem_id;
@@ -106,8 +106,8 @@ class EquipeController extends Controller {
                     }
                 }
 
-                //inserir o que veio na equipe e não existia antes
-                foreach ($atualizar_equipe['membros'] as $key => $membro) {
+                //inserir o que veio na equipe e nï¿½o existia antes
+                foreach ($atualizar_equipe['membros_equipe'] as $key => $membro) {
                     $equipe_membro_atual = EquipeMembro::where([
                         ['emem_fk_equ_id', '=', $atualizar_equipe['codigo_equipe']],
                         ['emem_fk_usu_id', '=', $membro],
