@@ -24,9 +24,12 @@ class ParalizacaoController extends Controller {
 
         $par = new Paralizacao();
 
+        $abertos = 0;
+
         return view('paralizacao.listar', [
             'paralizacoes' => $paralizacoes,
             'par' => $par,
+            'abertos' => $abertos,
         ]);
     }
 

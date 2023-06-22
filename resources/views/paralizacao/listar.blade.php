@@ -125,11 +125,29 @@
                                 <td>{{$paralizacao->par_art}}</td>
                                 <td>{{$par->AchaEmpresaNome($paralizacao->par_fk_emp_id)}}</td>
                                 <td>
-                                    @if ($paralizacao->par_enum_estado_paralizacao == 0)
+                                    <?php 
+                                        $abertos = 0;
+                                        $premissas_paralizacao = $par->PegaTodasPremissasParalizacao($paralizacao->par_id);
+                                        foreach($premissas_paralizacao as $key => $premissa_paralizacao){
+                                            if($premissa_paralizacao->ppre_status == 1){
+                                                $abertos++;
+                                            }
+                                            //echo '<pre>';
+                                            //print_r($premissa_paralizacao->ppre_status);
+                                            //echo '</pre>';
+                                        }
+                                    ?>
+                                    @if ($abertos == 0)
+                                        <span class="badge badge-success">Liberado</span>
+                                    @else 
+                                        <span class="badge badge-danger">Paralizado</span>
+                                    @endif
+
+                                    {{-- @if ($paralizacao->par_enum_estado_paralizacao == 0)
                                         <span class="badge badge-{{$paralizacao->par_enum_estado_paralizacao == 1 ? 'success' : 'danger'}}">Paralizado</span>
                                     @else
                                         <span class="badge badge-{{$paralizacao->par_enum_estado_paralizacao == 1 ? 'success' : 'danger'}}">Liberado</span>
-                                    @endif
+                                    @endif --}}
                                     {{-- {{$paralizacao->par_enum_estado_paralizacao}} --}}
                                 </td>
                                 <td>

@@ -65,4 +65,10 @@ class Paralizacao extends Model {
 
         return $paralizacao_premissa[0]->ppre_caminho_anexo;
     }
+
+    public function PegaTodasPremissasParalizacao($par_id) {
+        $paralizacao_premissa = ParalizacoesPremissa::where('ppre_fk_par_id', $par_id)->get();
+
+        return $paralizacao_premissa;
+    }
 }
