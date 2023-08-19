@@ -73,3 +73,20 @@ obs.: percebi que se vc tentar cadastrar de novo o mesmo serviço, ele ta duplic
 - para fechar a paralizacao voce: fecha todas as premissas colocando a foto (pra acessar isso tem que clicar no listar permissão na tela de listar paralizacoes para abrir as premissas de acordo com a permissão)
 /\ to terminando a parte de subir imagem, ela ta funcionando certinho, só preciso deixar a tela bonita e no padrão
 /\ a parte de mostrar imagem eu descobri como fazer, só preciso montar a tela tmb, ta subindo ela puxando uma img fixa, por isso o btn ta bloqueado por enquanto pra n dar bo
+
+
+---------------------------------
+
+se for usar o docker, faça:
+
+docker-compose build
+docker-compose up -d
+docker exec -it laravel app bash (para acessar o servidor do docker e usar comandos linux) -> eai rodar o php artisan migrate no servidor
+ou
+docker-compose exec app php artisan migrate
+docker-compose exec app php artisan serve
+
+
+docker-compose exec app php artisan serve --host=0.0.0.0 --port=8000 -> rodar o laravel
+docker-compose exec app php artisan migrate -> rodar as migrates do db
+
