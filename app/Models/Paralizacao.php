@@ -8,7 +8,8 @@ use App\Models\Empresa;
 use App\Models\Equipe;
 use App\Models\PermissoesParalizacao;
 
-class Paralizacao extends Model {
+class Paralizacao extends Model
+{
     use HasFactory;
 
     protected $primaryKey = 'par_id';
@@ -25,50 +26,85 @@ class Paralizacao extends Model {
         'par_atualizado_em',
         'par_art_img',
         'par_pet_img',
+        'par_criado_por',
+        'par_atualizado_por',
+        'par_dono_atual',
     ];
 
-    public function Empresas() {
+    public function Empresas()
+    {
         return $this->hasOne(Empresa::class, 'emp_id', 'par_fk_emp_id');
     }
 
 
-    public function Permissoes() {
+    public function Permissoes()
+    {
         return $this->hasMany(PermissoesParalizacao::class, 'ppar_fk_par_id', 'par_id');
     }
 
-    public function AchaEmpresaNome($emp_id) {
+    public function AchaEmpresaNome($emp_id)
+    {
         $empresa = Empresa::find($emp_id);
 
         return $empresa->emp_nome;
     }
 
-    public function AchaEmpresaCNPJ($emp_id) {
+    public function AchaEmpresaCNPJ($emp_id)
+    {
         $empresa = Empresa::find($emp_id);
 
         return $empresa->emp_cnpj;
     }
 
-    public function AchaEquipeNome($equ_id) {
+    public function AchaEquipeNome($equ_id)
+    {
         $equipe = Equipe::find($equ_id);
 
         return $equipe->equ_nome;
     }
 
-    public function AchaDataFinalizacaoParalizacaoPremissas($par_id, $pre_id) {
-        $paralizacao_premissa = ParalizacoesPremissa::where('ppre_fk_par_id', $par_id)->where('ppre_fk_pre_id', $pre_id)->get();
+    public function AchaDataFinalizacaoParalizacaoPremissas($par_id, $pre_id)
+    {
+        $paralizacao_premissa = ParalizacoesPremissa::where(
+            'ppre_fk_par_id',
+            $par_id
+        )->where(
+            'ppre_fk_pre_id',
+            $pre_id
+        )->get();
 
         return $paralizacao_premissa[0]->ppre_finalizado_em;
     }
 
-    public function AchaImagemFinalizacaoParalizacaoPremissas($par_id, $pre_id) {
-        $paralizacao_premissa = ParalizacoesPremissa::where('ppre_fk_par_id', $par_id)->where('ppre_fk_pre_id', $pre_id)->get();
+    public function AchaImagemFinalizacaoParalizacaoPremissas($par_id, $pre_id)
+    {
+        $paralizacao_premissa = ParalizacoesPremissa::where(
+            'ppre_fk_par_id',
+            $par_id
+        )->where('ppre_fk_pre_id', $pre_id)->get();
 
         return $paralizacao_premissa[0]->ppre_caminho_anexo;
     }
 
-    public function PegaTodasPremissasParalizacao($par_id) {
+    public function PegaTodasPremissasParalizacao($par_id)
+    {
         $paralizacao_premissa = ParalizacoesPremissa::where('ppre_fk_par_id', $par_id)->get();
 
         return $paralizacao_premissa;
+    }
+
+    public function createdByUser()
+    {
+        return $this->belongsTo(Usuario::class, 'par_criado_por');
+    }
+
+    public function updatedByUser()
+    {
+        return $this->belongsTo(Usuario::class, 'par_atualizado_por');
+    }
+
+    public function ownerUser()
+    {
+        return $this->belongsTo(Usuario::class, 'par_dono_atual');
     }
 }

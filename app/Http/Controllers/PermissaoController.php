@@ -7,11 +7,14 @@ use App\Models\Permissao;
 use App\Models\Premissa;
 use App\Models\PermissoesPremissa;
 
-class PermissaoController extends Controller {
-    public function __construct() {
+class PermissaoController extends Controller
+{
+    public function __construct()
+    {
     }
 
-    public function Listar(Request $r) {
+    public function Listar(Request $r)
+    {
 
         $permissoes = Permissao::all()->sortBy("per_id");;
 
@@ -20,13 +23,21 @@ class PermissaoController extends Controller {
         ]);
     }
 
-    public function Cadastrar(Request $r) {
+    public function DesvioListar(Request $r)
+    {
+
+        return view('desvio.listar');
+    }
+
+    public function Cadastrar(Request $r)
+    {
 
         $premissa = Premissa::all();
         return view('permissao.cadastrar', ['premissas' => $premissa]);
     }
 
-    public function Salvar(Request $request) {
+    public function Salvar(Request $request)
+    {
 
         $dados = $request->all();
 
@@ -49,7 +60,8 @@ class PermissaoController extends Controller {
         return redirect()->route('permissao.listar');
     }
 
-    public function Editar(Request $request) {
+    public function Editar(Request $request)
+    {
 
         $id = $request->id;
         $permissao = Permissao::find($id);
@@ -72,7 +84,8 @@ class PermissaoController extends Controller {
         ]);
     }
 
-    public function Atualizar(Request $request) {
+    public function Atualizar(Request $request)
+    {
 
         $atualizar_permissao = $request->all();
         $permissao = Permissao::find($atualizar_permissao['codigo_permissao']);
@@ -88,7 +101,7 @@ class PermissaoController extends Controller {
                 $array_coringa = array();
                 $array_coringa = $atualizar_permissao['premissas'];
 
-                //remover o que não veio na equipe
+                //remover o que nï¿½o veio na equipe
                 $premissas_da_permissao_atual = PermissoesPremissa::where('ppre_fk_per_id', $atualizar_permissao['codigo_permissao'])->get();
                 foreach ($premissas_da_permissao_atual as $key => $premissa_atual) {
                     $ppre_id = $premissa_atual->ppre_id;
@@ -97,7 +110,7 @@ class PermissaoController extends Controller {
                     }
                 }
 
-                //inserir o que veio na equipe e não existia antes
+                //inserir o que veio na equipe e nï¿½o existia antes
                 foreach ($atualizar_permissao['premissas'] as $key => $premissa) {
                     $premissas_da_permissao_atual = PermissoesPremissa::where([
                         ['ppre_fk_per_id', '=', $atualizar_permissao['codigo_permissao']],

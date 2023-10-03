@@ -4,13 +4,15 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateServicosParalizacoesPermissaoPremissasTable extends Migration {
+class CreateServicosParalizacoesPermissaoPremissasTable extends Migration
+{
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up() {
+    public function up()
+    {
         Schema::create('servicos_paralizacoes_permissao_premissas', function (Blueprint $table) {
             $table->id('spppre_id');
 
@@ -33,7 +35,8 @@ class CreateServicosParalizacoesPermissaoPremissasTable extends Migration {
      *
      * @return void
      */
-    public function down() {
+    public function down()
+    {
         Schema::dropIfExists('servicos_paralizacoes_permissao_premissas');
     }
 }

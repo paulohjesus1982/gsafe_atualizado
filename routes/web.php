@@ -13,6 +13,12 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\EquipeMembroHistoricoController;
+use App\Http\Controllers\GrupoDeDesvioController;
+use App\Http\Controllers\GrupoDeDescritivoController;
+use App\Http\Controllers\SetorController;
+use App\Http\Controllers\AreaController;
+use App\Http\Controllers\DesvioController;
 
 //Login
 Route::get('/',           [LoginController::class, 'index'])->name('login');
@@ -23,7 +29,7 @@ Route::get('/deslogar',   [LoginController::class, 'deslogar'])->name('deslogar'
 
 Route::get('/registrar',  [RegisterController::class, 'index'])->name('registrar');
 Route::post('/registrar', [RegisterController::class, 'autenticar'])->name('registrar');
-    
+
 Route::middleware(['VerificaSeEstouLogado'])->group(function () {
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -119,6 +125,54 @@ Route::middleware(['VerificaSeEstouLogado'])->group(function () {
         Route::get('/fechar_premissa/{id_par}/{id_per}/{id_pre}',     [ParalizacaoController::class, 'FecharPremissa'])->name('paralizacao.fechar_premissa');
         Route::post('/cadastrar_fechar_premissa',                     [ParalizacaoController::class, 'CadastrarFechamentoPremissa'])->name('paralizacao.cadastrar_fechar_premissa');
         Route::get('/ver_imagem_premissa/{id_par}/{id_per}/{id_pre}', [ParalizacaoController::class, 'VerImagemPremissa'])->name('paralizacao.ver_imagem_premissa');
+    });
+
+    // Equipes Membros Historico
+    Route::group(['prefix' => '/equipes_membros_historico'], function () {
+        Route::get(
+            '/listar',
+            [EquipeMembroHistoricoController::class, 'Listar']
+        )->name('equipes_membros_historico.listar');
+    });
+
+    // Grupos De Desvios
+    Route::group(['prefix' => '/grupos_de_desvios'], function () {
+        Route::get(
+            '/listar',
+            [GrupoDeDesvioController::class, 'Listar']
+        )->name('grupos_de_desvios.listar');
+    });
+
+    // Grupos De Descritivos
+    Route::group(['prefix' => '/grupos_de_descritivos'], function () {
+        Route::get(
+            '/listar',
+            [GrupoDeDescritivoController::class, 'Listar']
+        )->name('grupos_de_descritivos.listar');
+    });
+
+    // Setores
+    Route::group(['prefix' => '/setores'], function () {
+        Route::get(
+            '/listar',
+            [SetorController::class, 'Listar']
+        )->name('setores.listar');
+    });
+
+    // Areas
+    Route::group(['prefix' => '/areas'], function () {
+        Route::get(
+            '/listar',
+            [AreaController::class, 'Listar']
+        )->name('areas.listar');
+    });
+
+    // Desvios
+    Route::group(['prefix' => '/desvios'], function () {
+        Route::get(
+            '/listar',
+            [DesvioController::class, 'Listar']
+        )->name('desvios.listar');
     });
 });
 

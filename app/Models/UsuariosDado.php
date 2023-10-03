@@ -5,7 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UsuariosDado extends Model {
+class UsuariosDado extends Model
+{
     use HasFactory;
 
     protected $primaryKey = 'udad_id';
@@ -26,5 +27,11 @@ class UsuariosDado extends Model {
         'udad_criado_em',
         'udad_atualizado_em',
         'udad_fk_usu_id',
+        'udad_atualizado_por',
     ];
+
+    public function updatedBy()
+    {
+        return $this->belongsTo(Usuario::class, 'udad_atualizado_por');
+    }
 }

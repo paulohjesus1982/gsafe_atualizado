@@ -10,7 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
-class LoginController extends Controller {
+class LoginController extends Controller
+{
     /*
     |--------------------------------------------------------------------------
     | Login Controller
@@ -36,11 +37,13 @@ class LoginController extends Controller {
      *
      * @return void
      */
-    public function __construct() {
+    public function __construct()
+    {
         //
     }
 
-    public function index(Request $r) {
+    public function index(Request $r)
+    {
 
         $msg_erro = '';
         $r->get('erro') ? $msg_erro = "Usuário não encontrado." : '';
@@ -48,7 +51,8 @@ class LoginController extends Controller {
         return view('auth/login', ['erro' => $msg_erro]);
     }
 
-    public function autenticar(Request $r) {
+    public function autenticar(Request $r)
+    {
         $regras = [
             'email' => 'required',
             'password' => 'required'
@@ -68,22 +72,22 @@ class LoginController extends Controller {
 
         $usuario = $usuario->where('usu_email', $usu_email)->where('usu_senha', $usu_senha)->get()->first();
         if (isset($usuario->usu_nome)) {
-
+            // faz uma busca de equipes_membros atraves do usu_id e adiciona na session tmb
             // session_start();
             $usuario_logado = array(
                 'usu_nome' => $usuario->usu_nome,
                 'usu_email' => $usuario->usu_email,
                 'usu_tipo_usuario' => $usuario->usu_tipo_usuario
-                );
+            );
             Session::put($usuario_logado);
-
             return redirect()->route('home');
         } else {
             return redirect()->route('login', ['erro' => true]);
         }
     }
 
-    public function deslogar() {
+    public function deslogar()
+    {
 
         Session::forget(['usu_nome', 'usu_email', 'usu_tipo_usuario']);
         Auth::logout();
